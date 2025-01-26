@@ -301,7 +301,7 @@ function hideTooltip() {
 
 function showGifWithAnimation(event, project) {
     // Ensure the GIF source is dynamically set based on the provided path
-    const gifSource = `assets/${project.projectName.toLowerCase().replaceAll(" ", "-")}/gif.gif`;
+    const gifSource = `assets/${project.projectName.toLowerCase().replaceAll(" ", "-")}/loop.mp4`;
     console.log(gifSource);
     // Create the container for the GIF (circle with radius animation)
     const circleContainer = d3.select("body")
@@ -320,12 +320,17 @@ function showGifWithAnimation(event, project) {
         .style("pointer-events", "none");
 
     // Add the GIF element inside the circular container
-    const gifElement = circleContainer.append("img")
-        .attr("src", gifSource)
-        .attr("alt", "Project GIF")
-        .style("width", "auto")
-        .style("height", "300px") // Adjust the size of the GIF
-        .style("opacity", 1); // Start hidden for animation
+    const gifElement =circleContainer.append("video")
+    .attr("src", gifSource) // Replace gifSource with the path to your MP4
+    .attr("alt", "Project Video") // Optional, for accessibility
+    .attr("autoplay", true) // Autoplay the video
+    .attr("loop", true) // Loop the video
+    .attr("muted", true) // Mute the video (optional but recommended for autoplay)
+    .attr("playsinline", true) // Ensure it works on mobile browsers
+    .style("width", "auto")
+    .style("height", "300px") // Adjust the size of the video
+    .style("opacity", 1); // Adjust opacity if needed
+
 
   
 
