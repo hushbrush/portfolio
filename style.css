@@ -1,0 +1,371 @@
+#space
+{ margin-bottom: 50px;
+    margin-top: 50px;
+   
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  
+
+}
+
+#headerSection {
+    background-color: #ffffff; /* Black background */
+    padding: 5px 0; /* Adds spacing inside the header */
+    color:rgb(0, 0, 0)
+   
+}
+
+#headerSection .container {
+    display: flex;
+    justify-content: flex-end; /* Align navigation to the right */
+    align-items: center;
+    max-width: 1200px; /* Optional: Constrain width */
+    margin: 0 0; /* Center the header horizontally */
+}
+
+#headerSection .nav {
+    list-style: none; /* Remove bullet points */
+    display: flex;
+    gap: 10px; /* Space between items */
+    margin: 0; 
+    padding: 0; /* Remove default padding */
+
+}
+
+#headerSection .nav-item .nav-link {
+  
+    font-size: 16px; /* Adjust text size */
+    font-weight: 500; /* Medium font weight */
+    color: #000000; /* Black text color */
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+#headerSection .nav-item .nav-link:hover {
+
+    text-decoration: underline; /* Optional: Add underline */
+    border: #000;
+}
+
+
+
+
+.menu ul {
+    list-style-type: none;
+    margin: 10px 0;
+}
+
+.menu li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+/* Project section styles */
+#landingPageSection {
+    background-color: #000000;
+    height: 300px;
+    padding: 40px 20px;
+    margin-top: 0px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+/* Project section styles */
+#projectsSection {
+    background-color: #fff;
+    padding: 40px 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+/* About & Contact section styles */
+#aboutSection{
+    padding: 40px 20px;
+    background-color: #000;
+    color: #fff;
+    text-align: left;
+    border-radius: 10px;
+}
+
+#aboutSection h1,
+#aboutSection h2,
+#aboutSection h3,
+#aboutSection h4,
+#aboutSection h5,
+#aboutSection h6 {
+    text-align: left;
+}
+
+#aboutSection h5 {
+    padding-top: 5px;
+    width: 70%;
+}
+#aboutSection h4 {
+    padding-bottom: 10px;
+   
+}
+#contactSection {
+    text-align: center;
+    background-color: #ffffff;
+    color:rgb(0, 0, 0);
+    padding: 40px 20px;
+    margin-top: 20px;
+}
+#contactSection a {
+    text-align: center;
+    text-decoration: none;
+    background-color: #000000;
+    color:rgb(255, 255, 255);
+    padding: 15px 30px;
+    border-radius: 5px;;
+    margin-top: 0px;
+}
+#contactSection a:hover {
+    text-decoration: underline;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+    
+
+/* Footer section styles */
+#footerSection {
+    background-color: #000000 !important; 
+    color: #ffffff !important; 
+    font-size: 16px;
+    text-align: left;
+    padding: 15px 20px; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    z-index: 10; 
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+footer p {
+    margin: 0; /* Removes default margins for <p> */
+    font-family: Arial, sans-serif; /* Consistent font style */
+    font-weight: 400; /* Normal weight */
+}
+
+
+/* Spacing class */
+.space {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Title styles */
+h1 {
+    padding-top: 50px;;
+    font-family: "bricolage-grotesque", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 100px;
+    text-align: center;
+}
+
+h2 {
+
+    font-family: "bricolage-grotesque", sans-serif;
+font-weight: 500;
+font-style: normal;
+font-size: 50px;
+text-align: center;
+}
+h3 {
+    font-family: "bricolage-grotesque", sans-serif;
+font-weight: 400;
+font-style: normal;
+font-size: 24px;
+text-align: center;
+}
+h4 {
+    font-family: "bricolage-grotesque", sans-serif;
+font-weight: 200;
+font-style: normal;
+font-size: 16px;
+}
+h5{
+    font-family: "bricolage-grotesque", sans-serif;
+font-weight: 100;
+font-style: normal;
+font-size: 12px;
+text-align: center;
+}
+
+
+
+
+button:hover {
+    background-color: #ffffff;
+    font-size: 18px;
+    border:#fff;
+    border-width: 2px;
+    color: #000000;
+
+}/* Carousel Styling */
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+.carousel-inner {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+}
+
+.carousel-image {
+    flex: 0 0 auto;
+    max-width: 30%;
+    height: auto;
+    cursor: pointer;
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+}
+
+.carousel-prev {
+    
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
+
+/* Lightbox Styling */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox-image {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+    left: 0px; /* Adjust the left position */
+    right: -50px; /* Adjust the right position */
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px;
+}
+/* Navigation bar styles */
+nav {
+    display: flex;
+    justify-content: flex-end; /* Align links to the right */
+    padding: 10px 50px;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.nav {
+    display: flex; /* Make the list horizontal */
+    list-style: none; /* Remove default bullet points */
+    gap: 50px; /* Space between links */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    justify-content: space-between; /* Ensure even spacing if needed */
+}
+
+.nav-item {
+    display: inline-block; /* Make each item inline */
+}
+
+.nav-link {
+    text-decoration: none; /* Remove underline */
+    font-size: 16px;
+    font-weight: bold;
+    color: black; /* Text color */
+    transition: color 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+.nav-link:hover {
+    color: #373737; /* Change text color on hover */
+    font-size: 18px;
+}
+
+#projectDescription {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 800px;
+   
+}
+
+#legend {
+    text-align: center;
+}
+
+#projectsSection h4 {
+    text-align: center;
+    font-size: 18px;
+    padding-top: 20px;
+    margin-bottom: 0px;
+}
