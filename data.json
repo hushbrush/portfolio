@@ -164,7 +164,7 @@
         "tools": "P5js, Indesign, Pandas",
         "link": "https://indd.adobe.com/view/97b6ec15-2498-4d0a-bb0e-cab7e2f1cbc1",
         "line": "An experimental book about my spending habits and how I see money",
-        "paragraph": "This book was made with the idea of identity at the forefront, and hence, character design became an important part of this process. How the character felt she was perceived at different times dictated the character’s physique, accessories, etc. This has been heavily based on the “North Indian” and “South Indian” stereotypes. The visual style was developed by scanning a page of acrylic paint, creating a photoshop brush of it, and then layering it as a stamp atop the colour and shade of the illustration.",
+        "paragraph": "",
         "displayType": "embed-link",
         "embed-link": "<iframe src=\"https://indd.adobe.com/embed/7adee651-a6be-4862-9a21-9515b6b9aee8?startpage=1&amp;allowFullscreen=true\" width=\"650px\" height=\"460px\" frameborder=\"0\" allowfullscreen=\"\"></iframe>"
     },
@@ -177,7 +177,20 @@
         "tools": "Illustrator, Photoshop",
         "link": "https://www.syu.co.in/portfolio-item/go-go-guru/",
         "line": "Posters created for the Murugappa Group while working for SYU Design (as a part of a team)",
-        "paragraph": "This book was made with the idea of identity at the forefront, and hence, character design became an important part of this process. How the character felt she was perceived at different times dictated the character’s physique, accessories, etc. This has been heavily based on the “North Indian” and “South Indian” stereotypes. The visual style was developed by scanning a page of acrylic paint, creating a photoshop brush of it, and then layering it as a stamp atop the colour and shade of the illustration.",
+        "paragraph": "",
+        "displayType": "embed-link",
+        "embed-link": ""
+    },
+    {
+        "projectName": "Website Design for VitaraCharts",
+        "dateCompleted": "2023-12",
+        "clientOrInstitute": "VitaraCharts",
+        "elaborationOfClient": "",
+        "categories": "Website Design",
+        "tools": "Wix, Illustrator, Figma",
+        "link": "https://www.vitaracharts.com/",
+        "line": "Designed and maintained the website using wix, focussing on the variety of charts they added to Microstrategy and Thoughtspot using their Plug-in. Worked on the visual language, branding, marketing colatteral, and the chart-picker here on the website.",
+        "paragraph": "",
         "displayType": "embed-link",
         "embed-link": ""
     }
