@@ -202,8 +202,7 @@
         "categories": "Data, Statistics",
         "tools": "R",
         "link": "https://github.com/hushbrush/schoolPolicy",
-        "line": "A statistical model that explains the correlation of school-level variables with academic performance. The data used contained school outcomes for 400 elementary schools randomly selected across the state of
-California.",
+        "line": "A statistical model that explains the correlation of school-level variables with academic performance. The data used contained school outcomes for 400 elementary schools randomly selected across the state of California.",
         "paragraph": "",
         "displayType": "embed-link",
         "embed-link": ""
