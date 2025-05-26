@@ -23,7 +23,7 @@ fetch('data.json')
 
 // Create a function to determine the size of each project circle
 function generateCircleAttributes(projects) {
-    const maxSize = 50; // Maximum circle radius
+    const maxSize = 55; // Maximum circle radius
     const minSize = 10; // Minimum circle radius
 
     // Determine the date range
@@ -44,7 +44,8 @@ function generateCircleAttributes(projects) {
     });
 }
 
-
+//make the circles more clickable, ui wise. 
+//make the circles 
 
 function getCategoryCounts(projects) {
     let counts = {
@@ -83,7 +84,7 @@ function calculateVennCircleRadius(projectCount, maxProjects) {
     const scalingFactor = maxProjects > 0 ? (projectCount / maxProjects) : 0;
 
     // Adjust the radius based on the category overlap
-    const radiusAdjustmentFactor = scalingFactor * 0.2; // Adjust based on category overlap
+    const radiusAdjustmentFactor = scalingFactor * 0.4; // Adjust based on category overlap
     return minRadius + (scalingFactor + radiusAdjustmentFactor) * (maxRadius - minRadius);
 }
 
@@ -154,14 +155,14 @@ function assignProjectPositions(projects, vennCircles) {
 
 function renderVennDiagram(projects) {
     const svgWidth = window.innerWidth;
-    const svgHeight = window.innerHeight*1.2;
+    const svgHeight = window.innerHeight * 1.2;
 
     // Get project counts by category
     const counts = getCategoryCounts(projects);
 
     // Calculate the maximum count to determine the scaling factor for circle sizes
     const maxProjects = Math.max(counts.data, counts.design, counts.art);
-    const circleRadius = 280; //calculateVennCircleRadius(counts.data, maxProjects);
+    const circleRadius = 280;
 
     // SVG setup
     const svg = d3
@@ -170,14 +171,37 @@ function renderVennDiagram(projects) {
         .attr("width", svgWidth)
         .attr("height", svgHeight);
 
-    // Determine positions and sizes for Venn diagram circles based on project counts
+    //
+    // ─── 1) DEFINE <pattern>s FOR EACH PROJECT THUMBNAIL ──────────────────────
+    //
+    const defs = svg.append("defs");
+    projects.forEach(project => {
+        const safeName = project.projectName
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9\-]/g, "");
+
+        defs.append("pattern")
+            .attr("id", `thumb-${safeName}`)
+            .attr("patternUnits", "objectBoundingBox")
+            .attr("width", 1)
+            .attr("height", 1)
+          .append("image")
+            .attr("href", `assets/thumbnails/${safeName}.png`)
+            .attr("preserveAspectRatio", "xMidYMid slice")
+            .attr("width", project.size * 2)
+            .attr("height", project.size * 2);
+    });
+
+    //
+    // ─── 2) DRAW VENN CIRCLES & LABELS ────────────────────────────────────────
+    //
     const vennCircles = determineVennCirclePositions(svgWidth, svgHeight, circleRadius, counts);
 
-    // Add circles with dynamic positioning
     svg.selectAll(".venn-circle")
         .data(vennCircles)
         .enter()
-        .append("circle")
+      .append("circle")
         .attr("class", "venn-circle")
         .attr("id", d => d.id)
         .attr("cx", d => d.cx)
@@ -186,14 +210,15 @@ function renderVennDiagram(projects) {
         .attr("fill", "none")
         .attr("stroke", "black");
 
-    // Label circles
     svg.selectAll(".venn-circle-text")
         .data(vennCircles)
         .enter()
-        .append("text")
+      .append("text")
         .attr("class", "venn-circle-text")
         .attr("x", d => d.cx)
-        .attr("y", d => d.id === "art" ? d.cy + circleRadius+20 : d.cy - circleRadius - 10)
+        .attr("y", d => d.id === "art"
+            ? d.cy + circleRadius + 20
+            : d.cy - circleRadius - 10)
         .text(d => d.id.charAt(0).toUpperCase() + d.id.slice(1))
         .attr("text-anchor", "middle")
         .style("font-family", "'bricolage-grotesque', sans-serif")
@@ -205,57 +230,51 @@ function renderVennDiagram(projects) {
     // Assign project positions to circles
     assignProjectPositions(projects, vennCircles);
 
-    // Create force simulation for positioning
+    //
+    // ─── 3) FORCE-SIM & PROJECT CIRCLES ──────────────────────────────────────
+    //
     const simulation = d3.forceSimulation(projects)
-        .force("x", d3.forceX(project => project.targetX).strength(0.3))
-        .force("y", d3.forceY(project => project.targetY).strength(0.3))
-        .force("collision", d3.forceCollide(project => project.size+3))
-        .force("radial", d3.forceRadial(
-            200, // Radius for the radial force (distance from the center point)
-            svgWidth / 2, // Center X-coordinate
-            svgHeight / 8 // Center Y-coordinate
-        ).strength(project => (project.categories.includes('data') && project.categories.includes('design')&& project.categories.excludes('illustration') ? 1 : 0)))
+        .force("x", d3.forceX(d => d.targetX).strength(0.3))
+        .force("y", d3.forceY(d => d.targetY).strength(0.3))
+        .force("collision", d3.forceCollide(d => d.size + 3))
+        // (radial force omitted for brevity)
         .on("tick", () => {
             svg.selectAll(".project-circle")
                 .data(projects)
                 .join("circle")
                 .attr("class", "project-circle")
-                .attr("cx", project => project.x)
-                .attr("cy", project => project.y)
-                .attr("r", project => project.size)
-                .attr("fill", "black")
-                .attr("stroke", "white")
-                .attr("stroke-width", 3)
-                .style("cursor", "pointer")
-                
-            
-            
-// Updated D3 Event Handlers
-.on("mouseenter", (event, project) => {
-    showTooltip(event, project.projectName, project.line); // Existing tooltip logic
-    showGifWithAnimation(event, project); // Call the animated GIF function
-})
-.on("mouseleave", (event, project) => {
-    // Remove the GIF container when the mouse leaves the circle
-    d3.select("#gifContainer").remove();
-    d3.select(event.target).transition().duration(50).attr("r", project.size);
-    hideTooltip(); // Hide the tooltip
-})
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .attr("r", d => d.size)
+                .attr("fill", d => {
 
-.on("click", (event, project) => {
-    if (project.projectName) {
-        if(project.link){
-            window.open(project.link, "_blank");}
-        else {
-            const url = urlMaker(project.projectName);
-            
-            window.open(url, "_blank");
-        }
-    }
-     else {
-        console.error("URL for this project is missing");
-    }
-});
+                    const safeName = d.projectName
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")
+                        .replace(/[^a-z0-9\-]/g, "");
+                        console.log(safeName)
+                    return `url(#thumb-${safeName})`;
+                })
+                .attr("stroke", "black")
+                .attr("stroke-width", 0.2)
+                .style("cursor", "pointer")
+              .on("mouseenter", (event, d) => {
+                  showTooltip(event, d.projectName, d.line);
+                  showGifWithAnimation(event, d);
+              })
+              .on("mouseleave", (event, d) => {
+                  d3.select("#gifContainer").remove();
+                  d3.select(event.target)
+                    .transition().duration(50)
+                    .attr("r", d.size);
+                  hideTooltip();
+              })
+              .on("click", (event, d) => {
+                  const url = d.link
+                      ? d.link
+                      : urlMaker(d.projectName);
+                  window.open(url, "_blank");
+              });
         });
 
     simulation.alpha(1).restart();
@@ -270,7 +289,11 @@ function urlMaker(name) {
     return url;
 }
 
-
+function pathMaker(name) {
+    const projectName = name.toLowerCase().replace(/ /g, "-"); // Convert to URL-friendly format
+    const url = `assets/thumbnails/${projectName}.png`; // Pass project name as query param
+    return url;
+}
 
 
 // Tooltip functions
