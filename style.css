@@ -211,7 +211,16 @@ font-style: normal;
 font-size: 12px;
 text-align: center;
 }
-
+#contactSection button{
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
 #videoButtons button {
     transition: background 200ms ease, color 200ms ease, transform 200ms ease;
@@ -230,7 +239,7 @@ button:hover {
     border-width: 2px;
     color: #000000;
 
-}/* Carousel Styling */
+}
 .carousel-wrapper {
     position: relative;
     overflow: hidden;
