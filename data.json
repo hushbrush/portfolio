@@ -188,7 +188,7 @@
         "categories": "Data, Design",
         "tools": "Javascript, HTML, CSS",
         "link": "https://hushbrush.github.io/Feed/",
-        "line": "A real-time data visualisation of the asteroids that are currently orbiting the Earth, and whether they are dangerous or not. The data is pulled from NASA's API.",
+        "line": "A real-time data visualisation of the asteroids that are currently orbiting the Earth, and whether they are potentially dangerous or not. The data is pulled from NASA's API.",
         "paragraph": "",
         "displayType": "yt",
         "youtubeId": "eNjEmO8O1fo"

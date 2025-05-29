@@ -250,7 +250,9 @@ function forceContainInCircle(cx, cy, r, testFn) {
             .on("mouseenter", (e,d) => {
               showTooltip(e, d.projectName, d.line);
               showGifWithAnimation(e, d);
-              changeCircleSize(d3.select(e.target), d.size * 2);
+            //   changeCircleSize(e, d);
+              // Then bind it to your circles:
+
               //make this circle 2 times its current size, with a transition, and an empty circle around it that grows along with the project circle. 
               //should I also make the other circles 50% opacity?
             })
@@ -258,6 +260,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
               d3.select("#gifContainer").remove();
               d3.select(e.target).transition().duration(50).attr("r", d.size);
               hideTooltip();
+            //   changeCircleSize(e, d);
             })
             .on("click", (e,d) => {
                if(d.youtubeId)
@@ -278,6 +281,51 @@ function forceContainInCircle(cx, cy, r, testFn) {
   
       simulation.alpha(1).restart();
   }
+  
+
+  function changeCircleSize(event, project) {
+    const circle = d3.select(event.target);
+  
+    // On hover, enlarge this circle and fade out the others
+    if (event.type === "mouseover") {
+      // store original radius once
+      if (!circle.node().__origR) {
+        circle.node().__origR = +circle.attr("r");
+      }
+      const origR = circle.node().__origR;
+      const newR = origR * 2;
+  
+      // fade other circles
+      d3.selectAll("circle")
+        .filter(function() { return this !== circle.node(); })
+        .transition()
+          .duration(300)
+          .style("opacity", 0.1);
+  
+      // enlarge hovered circle
+      circle.raise()
+        .transition()
+          .duration(300)
+          .attr("r", newR);
+  
+    // On mouseleave, restore sizes and opacities
+    } else if (event.type === "mouseleave") {
+      const origR = circle.node().__origR || +circle.attr("r") / 2;
+  
+      // shrink this circle back
+      circle.transition()
+        .duration(300)
+        .attr("r", origR);
+  
+      // restore all circles' opacity
+      d3.selectAll("circle")
+        .transition()
+          .duration(300)
+          .style("opacity", 1);
+    }
+  }
+  
+  
   
 
 function urlMaker(name) {
@@ -366,7 +414,7 @@ function showVideoOverlay(project) {
     }
   
 
-    //adding context
+//adding context
 //think about it for a bit if I need it or not
 
 // const info = overlay.append("div")
