@@ -9,8 +9,8 @@
         "link": "https://hushbrush.github.io/MajorStudioFinalProject/",
         "line": "A data Story exploring the National Postal Museum's CC0 stamp collections and the factors that makes them valuable.",
         "paragraph": "As a child, I loved stamps. Not having yet discovered the power of google, I would tear them off of the envelopes I found them on, and use gum to stick them onto the pages of an old diary. Obviously, that’s a terrible way to collect stamps. Slowly, as my friends and relatives started bringing me the stamps they found, I learnt of their value, their cultural and historical significance. This project aims open the world of philately to new audiences and encourage a deeper appreciation for these miniature artefacts of human history. To calculate the indices for this project, I started by identifying key factors that influence a stamp’s value, such as condition, rarity, historical context, and printing techniques. Each factor was then quantified based on specific attributes—like the presence of words such as \"unused\" or \"mint\" in the description for condition, or terms like \"proof plate\" for rarity. These individual indices were then weighted and combined to create a composite score that reflects both tangible and cultural aspects of a stamp’s worth. The process aimed to balance objective analysis with the inherent subjectivity of valuing artifacts, making it easier to explore the Smithsonian’s stamp collection through an accessible, data-driven lens.",
-        "displayType": "interactive",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "y3okFCfNZac"
     },
     {
         "projectName": "Framing Gender",
@@ -22,8 +22,8 @@
         "link": "https://hushbrush.github.io/framing-genders/project02/",
         "line": "A data story exploring the sitters of portraits in the National Portrait Gallery through the lens of gender. Portraits are grouped based on realm, and then based on the role within each realm. Portraits are further contextualised by decade.",
         "paragraph": "Since portraits capture the values of society at a point in time, this project aimed to explore the idea of what the sitters are remembered for. It aimed to draw focus on the proportion of the genders interested in particular realms and roles. Further, it compares the trends between men and women throughout time. All the portraits are contextualized by decade, offering insight into the ‘when’ that arises by looking at the tree maps. The audience can also explore portraits through the lens of ‘careers’, or what society at the time deemed important enough to be remembered.",
-        "displayType": "interactive",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "v18qjhr0RvA"
     },
     {
         "projectName": "US SOTU Speeches Visualisation",
@@ -35,11 +35,11 @@
         "link": "https://hushbrush.github.io/sotu-viz/",
         "line": "Data Art that aims to highlight the patterns in all the State of the Union Speeches across time in order to determine if the priorities of the nation have changed since it’s inception.",
         "paragraph": "",
-        "displayType": "interactive",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "2v0n93kbAWs"
     },
     {
-        "projectName": "Vitara retail dashboards",
+        "projectName": "Vitara Retail Dashboards",
         "dateCompleted": "2023-12",
         "clientOrInstitute": "Vitara Charts",
         "elaborationOfClient": "",
@@ -48,8 +48,8 @@
         "link": null,
         "line": "A collection of 4 dashboards created with a focus on retail management",
         "paragraph": "During my time at VitaraCharts, this was one of the first dashboards I made for linkedin, to showcase how the tool can be utilised to enhance the native capabilities of MicroStrategy. ",
-        "displayType": "static",
-        "embed-link": ""
+        "displayType": "static"
+        
     },
     {
         "projectName": "Misc Dashboards",
@@ -61,8 +61,8 @@
         "link": null,
         "line": "A few dashboards I made for VitaraCharts, on ThoughtSpot and MicroStrategy",
         "paragraph": "I made these dashboards to showcase the capabilities of VitaraCharts on ThoughtSpot and MicroStrategy. The dashboards were made by first visualising on Illustrator, and then using the VitaraCharts tool to make them interactive.",
-        "displayType": "static",
-        "embed-link": ""
+        "displayType": "static"
+        
     },
     {
         "projectName": "Gender Equality in the Office",
@@ -74,8 +74,8 @@
         "link": "https://gramener.com/blog/posts?post=07-26-2022-a-kitchen-in-the-office.md&utm_source=Women%27s+equality+day&utm_medium=social+media+&utm_campaign=Others",
         "line": "A visual data story in the form of a blog post made for Gramener\nduring my internship with them.",
         "paragraph": "This is a project I worked on as an intern at the StoryLabs team at Gramener, under the mentorship of Richie Lionel and Anand S. The project involved research, compilation and collation of the data, framing the narrative, visualising it, coding, and illustrating the graphs. The sources for the data in this project are ILO, UNESCO, World Economic Forum and Deloitte.",
-        "displayType": "interactive",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "WGSAxMHSyCE"
     },
     {
         "projectName": "Nakoshi",
@@ -87,21 +87,20 @@
         "link": null,
         "line": "A visual data story about the Gender Pay Gap in the form of a static blog post",
         "paragraph": "In the Satara District of Maharashtra, there is a peculiar practice of naming a child 'Nakoshi' or 'Nakusa,' meaning 'unwanted' in the local Marathi Language. In 2011, several of these women were renamed by the government. At the time, I was 10 and read it in the papers. I decided to create this project now in 2023 because of the memory of reading it then, hoping for change since. This data story dives into this manifestation of patriarchy. It is based on the paper “‘Unwanted’ is My Name: Culture, Patriarchy and Gender Bias Surrounding the Nakusa Girls of Maharashtra\" by V.P. Shijith and T.V. Sekher. The survey in the paper is also the primary source of data for it.",
-        "displayType": "static",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "SGKhauh2oDU"
     },
     {
         "projectName": "Exploded View of the Earth",
         "dateCompleted": "2021-12",
         "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
         "elaborationOfClient": "",
-        "categories": "Visual Design, illustration",
+        "categories": "Visual Design",
         "tools": "Illustrator, Photoshop (digital Painting)",
         "link": null,
         "line": "A double page spread for a satirical piece on global warming",
         "paragraph": "This is an editorial infographic in the form of a double page spread. The prompt was to make an exploded view of any object. I have looked at the Earth as an object of everyday use. Hence, I have likened it’s composition to something that can be factory made, bought and sold. It is satirical, in order to bring out the humour in how lucky we are to have a place such as the Earth to live, but are still unable to take care of it. We do not treat like it is the cause of all life, but rather an object that once used, can be thrown away.",
-        "displayType": "static",
-        "embed-link": "image-1"
+        "displayType": "static"
     },
     {
         "projectName": "Human-First Dataset on Journalists",
@@ -113,47 +112,21 @@
         "link": "https://github.com/hushbrush/journalistsData2024",
         "line": "A dataset connecting government types, press freedom indexes, and cases of journalists who were imprisoned, killed, or went missing, enabling a deeper exploration of the relationship between press freedom and political systems. Made using Python Pandas",
         "paragraph": "This project focuses on creating a detailed dataset that explores the relationship between government types and press freedom by integrating multiple data sources. It consolidates information about journalists who have been imprisoned, killed, or gone missing, alongside press freedom indexes and scores such as those from Reporters Without Borders and UNESCO. Using sources like the Committee to Protect Journalists, Wikipedia (for missing journalists), and global freedom indices, the dataset highlights how different political systems—democracies, dictatorships, and other forms of governance—affect freedom of the press. The hypothesis driving this dataset is that democracies typically provide more freedom of the press, while dictatorships and conflict zones exhibit restricted press freedom, often leading to human rights violations. It examines correlations between press freedom indices and incidents of harm to journalists, exploring how government policies, war, and economic conditions impact these outcomes. The dataset aims to provide a \"human-first\" approach by contextualizing journalists' experiences within their countries' political and social environments. This work lays the foundation for further research into press freedom's critical role in democracy and how its erosion signals broader negative human conditions. The dataset serves as a vital tool for researchers, journalists, and advocates working to protect press freedom and human rights globally.",
-        "displayType": "link",
-        "embed-link": "https://github.com/hushbrush/journalistsData2024"
-    },
-    {
-        "projectName": "Portraits from Data",
-        "dateCompleted": "2023-4",
-        "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
-        "elaborationOfClient": "",
-        "categories": "Illustration, Data Viz",
-        "tools": "P5js, Python",
-        "link": "https://harshitac.pythonanywhere.com/",
-        "line": "Digital visual portraits of people based on their instagram captions. ",
-        "paragraph": "This is a project I worked on for my thesis during the last semester at Srishti Institute of Art, Design and Technology. The project explores the relationship we have with social media websites, and how we carefully curate our personas online, and then forget that other's personas online are just as curated as ours. To illustrate this, there are several portraits of people based on their Instagram data (which had to be downloaded rather than drawn continuously), and juxtaposed with self portraits through data drawn from my own devices(which, at the time of data collection, was not visible to anybody but me.) The question it tries to pose is, how much of our identity do we control? Or, simply, who are we? It was created as a reaction to the book \"Society of the Spectacle\" by Guy Debord.",
-        "displayType": "interactive",
-        "embed-link": ""
-    },
-    {
-        "projectName": "Perceptions-Visual Book",
-        "dateCompleted": "2022-10",
-        "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
-        "elaborationOfClient": "",
-        "categories": "Illustration",
-        "tools": "Indesign, Acrylic paint, digital painting",
-        "link": "https://indd.adobe.com/embed/7b19340b-9379-4a0a-822b-f1dfabf1ad16?startpage=1&allowFullscreen=true",
-        "line": "An illustrated book about the subjectivity of perception when it comes to human beings",
-        "paragraph": "This project started as artistic research on the concept of characters, and how 2 dimensional scratches on a sheet of paper could cause us to feel emotions and empathy. Eventually, it led to questions about representation, and identity. What part of a human being is worth representing, and who decides these things in creating a character? This project is an attempt at answering those questions.",
-        "displayType": "embed-link",
-        "embed-link": "<iframe style=\"border: 1px solid #777;\" src=\"https://indd.adobe.com/embed/7b19340b-9379-4a0a-822b-f1dfabf1ad16?startpage=1&allowFullscreen=true\" width=\"650px\" height=\"460px\" frameborder=\"0\" allowfullscreen=\"\"></iframe>"
-    },
+        "displayType": "yt",
+        "youtubeId": "zYtES21DjLU"
+      },
     {
         "projectName": "Maps of Nothing",
         "dateCompleted": "2021-8",
         "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
         "elaborationOfClient": "",
-        "categories": "Illustration, Book Design",
+        "categories": "Book Design",
         "tools": "Indesign, Acrylic paint, digital painting",
         "link": "https://indd.adobe.com/embed/7adee651-a6be-4862-9a21-9515b6b9aee8?startpage=1&allowFullscreen=true",
         "line": "An illustrated book about having an inter-cultural identity.",
         "paragraph": "This book was made with the idea of identity at the forefront, and hence, character design became an important part of this process. How the character felt she was perceived at different times dictated the character’s physique, accessories, etc. This has been heavily based on the “North Indian” and “South Indian” stereotypes. The visual style was developed by scanning a page of acrylic paint, creating a photoshop brush of it, and then layering it as a stamp atop the colour and shade of the illustration.",
-        "displayType": "embed-link",
-        "embed-link": "<iframe src=\"https://indd.adobe.com/embed/7adee651-a6be-4862-9a21-9515b6b9aee8?startpage=1&amp;allowFullscreen=true\" width=\"650px\" height=\"460px\" frameborder=\"0\" allowfullscreen=\"\"></iframe>"
+        "displayType": "yt",
+        "youtubeId": "RFKr2ksjseU"
     },
     {
         "projectName": "Show Me The Money, Honey",
@@ -165,21 +138,21 @@
         "link": "https://indd.adobe.com/view/97b6ec15-2498-4d0a-bb0e-cab7e2f1cbc1",
         "line": "An experimental book about my spending habits and how I see money",
         "paragraph": "",
-        "displayType": "embed-link",
-        "embed-link": "<iframe src=\"https://indd.adobe.com/embed/7adee651-a6be-4862-9a21-9515b6b9aee8?startpage=1&amp;allowFullscreen=true\" width=\"650px\" height=\"460px\" frameborder=\"0\" allowfullscreen=\"\"></iframe>"
+        "displayType": "yt",
+        "youtubeId": "4RYZwuI1fPo"
     },
     {
         "projectName": "Posters for 10K Run",
         "dateCompleted": "2021-8",
         "clientOrInstitute": "SYU Designs--Murugappa Group",
         "elaborationOfClient": "",
-        "categories": "Poster Design",
+        "categories": "Visual Design",
         "tools": "Illustrator, Photoshop",
         "link": "https://www.syu.co.in/portfolio-item/go-go-guru/",
         "line": "Posters created for the Murugappa Group while working for SYU Design (as a part of a team)",
         "paragraph": "",
-        "displayType": "embed-link",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "uCU-jt2gURU"
     },
     {
         "projectName": "Website Design for VitaraCharts",
@@ -191,8 +164,8 @@
         "link": "https://www.vitaracharts.com/",
         "line": "Designed and maintained a Wix-based website showcasing MicroStrategy and ThoughtSpot chart plugins. Developed the visual language, branding, marketing collateral, and an interactive chart-picker.",
         "paragraph": "",
-        "displayType": "embed-link",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "thu7eF0dM3c"
     },
     {
         "projectName": "Student Academic Performance- Statistical Analysis",
@@ -204,8 +177,46 @@
         "link": "https://github.com/hushbrush/schoolPolicy",
         "line": "A statistical model that explains the correlation of school-level variables with academic performance. The data used contained school outcomes for 400 elementary schools randomly selected across the state of California.",
         "paragraph": "",
-        "displayType": "embed-link",
-        "embed-link": ""
+        "displayType": "yt",
+        "youtubeId": "fKAJkSP61SA"
+    } ,
+    {
+        "projectName": "Real Time Asteroid Explorer",
+        "dateCompleted": "2025-3",
+        "clientOrInstitute": "Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data, Design",
+        "tools": "Javascript, HTML, CSS",
+        "link": "https://hushbrush.github.io/Feed/",
+        "line": "A real-time data visualisation of the asteroids that are currently orbiting the Earth, and whether they are dangerous or not. The data is pulled from NASA's API.",
+        "paragraph": "",
+        "displayType": "yt",
+        "youtubeId": "eNjEmO8O1fo"
+    },
+    {
+        "projectName": "Cookie Cutter Women",
+        "dateCompleted": "2025-5",
+        "clientOrInstitute": "Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data, Design",
+        "tools": "Javascript, HTML, CSS, Vue",
+        "link": "https://hushbrush.github.io/thesis/",
+        "line": "An analysis of female characters in epic literature across time and cultures.",
+        "paragraph": "",
+        "displayType": "yt",
+        "youtubeId": "vu0XHYmMEQk"
+    },
+    {
+        "projectName": "TellyTunes",
+        "dateCompleted": "2025-5",
+        "clientOrInstitute": "Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data, Design",
+        "tools": "Javascript, HTML, CSS",
+        "link": "https://hushbrush.github.io/tellyTunes/",
+        "line": "A data story based on the television tunes archive from archive.org, genres classified using a huggingface spaces model.",
+        "paragraph": "",
+        "displayType": "yt",
+        "youtubeId": "ECpjJ2kZowk"
     }
-    
 ]

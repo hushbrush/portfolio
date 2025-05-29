@@ -23,8 +23,8 @@ fetch('data.json')
 
 // Create a function to determine the size of each project circle
 function generateCircleAttributes(projects) {
-    const maxSize = 55; // Maximum circle radius
-    const minSize = 10; // Minimum circle radius
+    const maxSize = 80; // Maximum circle radius
+    const minSize = 30; // Minimum circle radius
 
     // Determine the date range
     const newestDate = new Date(
@@ -61,16 +61,13 @@ function getCategoryCounts(projects) {
     projects.forEach(project => {
         const isData = project.categories.toLowerCase().includes("data");
         const isDesign = project.categories.toLowerCase().includes("design");
-        const isArt = project.categories.toLowerCase().includes("illustration");
-
+        
         if (isData) counts.data++;
         if (isDesign) counts.design++;
-        if (isArt) counts.art++;
+     
 
-        if (isData && isDesign && isArt) counts.allCategories++;
-        else if (isData && isDesign) counts.dataDesign++;
-        else if (isData && isArt) counts.dataArt++;
-        else if (isDesign && isArt) counts.designArt++;
+        if (isData && isDesign) counts.allCategories++;
+    
     });
 
     return counts;
@@ -91,16 +88,15 @@ function calculateVennCircleRadius(projectCount, maxProjects) {
 
 function determineVennCirclePositions(svgWidth, svgHeight, circleRadius, counts) {
     // Adjust positions based on the calculated circle radius for each category
-    const overlapX = svgWidth / 2;
-    const overlapY = svgHeight / 4-20;
+    const overlapX = svgWidth / 2.05;
+    const overlapY = svgHeight / 4;
 
     // Define circleDistance dynamically depending on the categories' project counts
-    const circleDistance = circleRadius * 1.2;
-
+    const overlapBitweenCircles = 80; 
     return [
-        { id: "data", cx: overlapX - circleDistance / 2, cy: overlapY + circleDistance / 3, radius: circleRadius },
-        { id: "design", cx: overlapX + circleDistance / 2, cy: overlapY + circleDistance / 3, radius: circleRadius },
-        { id: "art", cx: overlapX, cy: overlapY + circleDistance * 1.48, radius: circleRadius }
+        { id: "data", cx: overlapX - circleRadius / 2+overlapBitweenCircles/2, cy: overlapY + circleRadius / 2, radius: circleRadius },
+        { id: "design", cx: overlapX + circleRadius / 2-overlapBitweenCircles/2, cy: overlapY + circleRadius / 2, radius: circleRadius },
+       
     ];
 }
 
@@ -112,175 +108,177 @@ function assignProjectPositions(projects, vennCircles) {
     projects.forEach(project => {
         const isData = project.categories.toLowerCase().includes("data");
         const isDesign = project.categories.toLowerCase().includes("design");
-        const isArt = project.categories.toLowerCase().includes("illustration");
+       
 
-        if (isData && isDesign && isArt) {
-            console.log("all three: " + project.projectName);
-            
-            project.targetX = (vennCircles[0].cx + vennCircles[1].cx + vennCircles[2].cx) / 3;
-            project.targetY = (vennCircles[0].cy + vennCircles[1].cy + vennCircles[2].cy) / 3;
-
-        } else if (isData && isDesign) {
+        if (isData && isDesign) {
             console.log("Midpoint between data and design: " + project.projectName);
             project.targetX = (vennCircles[0].cx + vennCircles[1].cx) / 2;
             project.targetY = (vennCircles[0].cy + vennCircles[1].cy) / 2;
-        } else if (isData && isArt) {
-            console.log("Midpoint between data and art: " + project.projectName);
-            project.targetX = (vennCircles[0].cx + vennCircles[2].cx) / 2;
-            project.targetY = (vennCircles[0].cy + vennCircles[2].cy) / 2;
-        } else if (isDesign && isArt) {
-            console.log("Midpoint between design and art: " + project.projectName);
-            project.targetX = (vennCircles[1].cx + vennCircles[2].cx) / 2;
-            project.targetY = (vennCircles[1].cy + vennCircles[2].cy) / 2;
-        } else if (isData) {
+        } 
+        else if (isData) {
             console.log("data: " + project.projectName);
-            project.targetX = vennCircles[0].cx;
+            project.targetX = vennCircles[0].cx-150;
             project.targetY = vennCircles[0].cy;
         } else if (isDesign) {
             console.log("design: " + project.projectName);
-            project.targetX = vennCircles[1].cx;
+            project.targetX = vennCircles[1].cx+250;
             project.targetY = vennCircles[1].cy;
-        } else if (isArt) {
-            console.log("art: " + project.projectName);
-            project.targetX = vennCircles[2].cx;
-            project.targetY = vennCircles[2].cy;
-        } else {
-            console.log("random placement: " + project.projectName);
-            project.targetX = Math.random() * window.innerWidth;
-            project.targetY = Math.random() * window.innerHeight;
         }
     });
 }
 
 
-function renderVennDiagram(projects) {
-    const svgWidth = window.innerWidth;
-    const svgHeight = window.innerHeight * 1.2;
 
-    // Get project counts by category
-    const counts = getCategoryCounts(projects);
-
-    // Calculate the maximum count to determine the scaling factor for circle sizes
-    const maxProjects = Math.max(counts.data, counts.design, counts.art);
-    const circleRadius = 280;
-
-    // SVG setup
-    const svg = d3
-        .select("#projectsSection")
+// ─── helper force to keep nodes inside a circle “wall” ─────────────────────
+function forceContainInCircle(cx, cy, r, testFn) {
+    let nodes;
+    function force(alpha) {
+      for (const d of nodes) {
+        if (!testFn(d)) continue;
+        const dx = d.x - cx, dy = d.y - cy;
+        const dist = Math.hypot(dx, dy);
+        const overflow = (dist + d.size) - r;
+        if (overflow > 0) {
+          d.x -= dx / dist * overflow * alpha;
+          d.y -= dy / dist * overflow * alpha;
+        }
+      }
+    }
+    force.initialize = _ => nodes = _;
+    return force;
+  }
+  
+  
+  // ─── updated renderVennDiagram with “walls” ───────────────────────────────
+  function renderVennDiagram(projects) {
+      const svgWidth  = window.innerWidth;
+      const svgHeight = window.innerHeight * 1.1;
+      const circleRadius = 430;
+  
+      // SVG setup
+      const svg = d3.select("#projectsSection")
         .append("svg")
-        .attr("width", svgWidth)
-        .attr("height", svgHeight);
-
-    //
-    // ─── 1) DEFINE <pattern>s FOR EACH PROJECT THUMBNAIL ──────────────────────
-    //
-    const defs = svg.append("defs");
-    projects.forEach(project => {
-        const safeName = project.projectName
-            .toLowerCase()
-            .replace(/\s+/g, "-")
-            .replace(/[^a-z0-9\-]/g, "");
-
+          .attr("width",  svgWidth)
+          .attr("height", svgHeight);
+  
+      // 1) defs for thumbnail patterns…
+      const defs = svg.append("defs");
+      projects.forEach(project => {
+        const safe = project.projectName
+          .toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
         defs.append("pattern")
-            .attr("id", `thumb-${safeName}`)
-            .attr("patternUnits", "objectBoundingBox")
-            .attr("width", 1)
-            .attr("height", 1)
+          .attr("id", `thumb-${safe}`)
+          .attr("patternUnits", "objectBoundingBox")
+          .attr("width", 1).attr("height", 1)
           .append("image")
-            .attr("href", `assets/thumbnails/${safeName}.png`)
+            .attr("href", `assets/thumbnails/${safe}.png`)
             .attr("preserveAspectRatio", "xMidYMid slice")
             .attr("width", project.size * 2)
             .attr("height", project.size * 2);
-    });
-
-    //
-    // ─── 2) DRAW VENN CIRCLES & LABELS ────────────────────────────────────────
-    //
-    const vennCircles = determineVennCirclePositions(svgWidth, svgHeight, circleRadius, counts);
-
-    svg.selectAll(".venn-circle")
+      });
+  
+      // 2) draw Venn circles & labels…
+      const counts      = getCategoryCounts(projects);
+      const vennCircles = determineVennCirclePositions(svgWidth, svgHeight, circleRadius, counts);
+      const [cData, cDesign] = vennCircles;
+  
+      svg.selectAll(".venn-circle")
         .data(vennCircles)
-        .enter()
-      .append("circle")
-        .attr("class", "venn-circle")
-        .attr("id", d => d.id)
-        .attr("cx", d => d.cx)
-        .attr("cy", d => d.cy)
-        .attr("r", d => d.radius)
-        .attr("fill", "none")
-        .attr("stroke", "black");
-
-    svg.selectAll(".venn-circle-text")
+        .enter().append("circle")
+          .attr("class", "venn-circle")
+          .attr("id",    d => d.id)
+          .attr("cx",    d => d.cx)
+          .attr("cy",    d => d.cy)
+          .attr("r",     d => d.radius)
+          .attr("fill",  "none")
+          .attr("stroke","black");
+  
+      svg.selectAll(".venn-circle-text")
         .data(vennCircles)
-        .enter()
-      .append("text")
-        .attr("class", "venn-circle-text")
-        .attr("x", d => d.cx)
-        .attr("y", d => d.id === "art"
-            ? d.cy + circleRadius + 20
-            : d.cy - circleRadius - 10)
-        .text(d => d.id.charAt(0).toUpperCase() + d.id.slice(1))
-        .attr("text-anchor", "middle")
-        .style("font-family", "'bricolage-grotesque', sans-serif")
-        .style("font-weight", "300")
-        .style("font-style", "normal")
-        .style("font-size", "16px")
-        .attr("fill", "black");
-
-    // Assign project positions to circles
-    assignProjectPositions(projects, vennCircles);
-
-    //
-    // ─── 3) FORCE-SIM & PROJECT CIRCLES ──────────────────────────────────────
-    //
-    const simulation = d3.forceSimulation(projects)
-        .force("x", d3.forceX(d => d.targetX).strength(0.3))
-        .force("y", d3.forceY(d => d.targetY).strength(0.3))
-        .force("collision", d3.forceCollide(d => d.size + 3))
-        // (radial force omitted for brevity)
+        .enter().append("text")
+          .attr("class", "venn-circle-text")
+          .attr("x", d => d.cx)
+          .attr("y", d => d.cy - circleRadius - 10)
+          .text(d => d.id.charAt(0).toUpperCase() + d.id.slice(1))
+          .attr("text-anchor","middle")
+          .style("font-family","'bricolage-grotesque', sans-serif")
+          .style("font-weight","300")
+          .style("font-size","16px")
+          .attr("fill","black");
+  
+      // 3) assign project target positions…
+      assignProjectPositions(projects, vennCircles);
+  
+      // 4) force simulation with two “wall” forces
+      const simulation = d3.forceSimulation(projects)
+        .force("x",         d3.forceX(d => d.targetX).strength(0.6))
+        .force("y",         d3.forceY(d => d.targetY).strength(0.3))
+        .force("collision", d3.forceCollide(d => d.size + 10))
+  
+        // contain “data” nodes inside the data circle
+        .force("containData",
+          forceContainInCircle(
+            cData.cx, cData.cy, circleRadius,
+            d => d.categories.toLowerCase().includes("data")
+          )
+        )
+  
+        // contain “design” nodes inside the design circle
+        .force("containDesign",
+          forceContainInCircle(
+            cDesign.cx, cDesign.cy, circleRadius,
+            d => d.categories.toLowerCase().includes("design")
+          )
+        )
+  
         .on("tick", () => {
-            svg.selectAll(".project-circle")
-                .data(projects)
-                .join("circle")
-                .attr("class", "project-circle")
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
-                .attr("r", d => d.size)
-                .attr("fill", d => {
+          svg.selectAll(".project-circle")
+            .data(projects)
+            .join("circle")
+              .attr("class","project-circle")
+              .attr("cx",  d => d.x - 20)
+              .attr("cy",  d => d.y - 20)
+              .attr("r",   d => d.size)
+              .attr("fill",d => {
+                const safe = d.projectName
+                  .toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
+                return `url(#thumb-${safe})`;
+              })
+              .attr("stroke","black")
+              .attr("stroke-width",0.2)
+              .style("cursor","pointer")
+            .on("mouseenter", (e,d) => {
+              showTooltip(e, d.projectName, d.line);
+              showGifWithAnimation(e, d);
+              changeCircleSize(d3.select(e.target), d.size * 2);
+              //make this circle 2 times its current size, with a transition, and an empty circle around it that grows along with the project circle. 
+              //should I also make the other circles 50% opacity?
+            })
+            .on("mouseleave", (e,d) => {
+              d3.select("#gifContainer").remove();
+              d3.select(e.target).transition().duration(50).attr("r", d.size);
+              hideTooltip();
+            })
+            .on("click", (e,d) => {
+               if(d.youtubeId)
+                {
+                showVideoOverlay(d);
 
-                    const safeName = d.projectName
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")
-                        .replace(/[^a-z0-9\-]/g, "");
-                        console.log(safeName)
-                    return `url(#thumb-${safeName})`;
-                })
-                .attr("stroke", "black")
-                .attr("stroke-width", 0.2)
-                .style("cursor", "pointer")
-              .on("mouseenter", (event, d) => {
-                  showTooltip(event, d.projectName, d.line);
-                  showGifWithAnimation(event, d);
-              })
-              .on("mouseleave", (event, d) => {
-                  d3.select("#gifContainer").remove();
-                  d3.select(event.target)
-                    .transition().duration(50)
-                    .attr("r", d.size);
-                  hideTooltip();
-              })
-              .on("click", (event, d) => {
-                  const url = d.link
-                      ? d.link
-                      : urlMaker(d.projectName);
-                  window.open(url, "_blank");
-              });
+               }
+              else
+                {
+                window.open(urlMaker(d.projectName), "_blank");
+                }
+              
+               
+              
+            });
+            
         });
-
-    simulation.alpha(1).restart();
-}
-
-
+  
+      simulation.alpha(1).restart();
+  }
+  
 
 function urlMaker(name) {
     const projectName = name.toLowerCase().replace(/ /g, "-"); // Convert to URL-friendly format
@@ -296,6 +294,7 @@ function pathMaker(name) {
 }
 
 
+  
 // Tooltip functions
 function showTooltip(event, name, content) {
     const tooltip = d3
@@ -321,6 +320,121 @@ function showTooltip(event, name, content) {
 function hideTooltip() {
     d3.select("#tooltip").remove();
 }
+
+function showVideoOverlay(project) {
+    // 1) Create the full-screen overlay
+    const overlay = d3.select("body")
+      .append("div")
+      .attr("id", "videoOverlay")
+      .style("position", "fixed")
+      .style("top", "0")
+      .style("left", "0")
+      .style("width", "100vw")
+      .style("height", "100vh")
+      .style("background-color", "rgba(0, 0, 0, 1)")
+      .style("display", "flex")
+      .style("justify-content", "center")
+      .style("align-items", "center")
+      .style("z-index", "9999");
+  
+    // 2) Insert the video (or iframe) to cover the background
+    const useYouTube = !!project.youtubeId;  // toggle based on your source
+    if (useYouTube) {
+      // Embed an unlisted YouTube video (autoplay + loop + mute)
+      overlay.append("iframe")
+        .attr("src",
+          `https://www.youtube.com/embed/${project.youtubeId}`
+          + `?autoplay=1&loop=1&playlist=${project.youtubeId}`
+          + `&mute=1&controls=0&modestbranding=1`)
+        .attr("frameborder", "0")
+        .attr("allow", "autoplay; encrypted-media")
+        .style("width", "100%")
+        .style("height", "100%")
+        .style("pointer-events", "none");  // clicks pass through
+    } else {
+      // Fallback to MP4
+      overlay.append("video")
+        .attr("src", project.videoUrl)   // e.g. S3, Cloudflare, etc.
+        .attr("autoplay", true)
+        .attr("loop", true)
+        .attr("muted", true)
+        .attr("playsinline", true)
+        .style("width", "100%")
+        .style("height", "100%")
+        .style("object-fit", "cover")
+        .style("pointer-events", "none");
+    }
+  
+
+    //adding context
+//think about it for a bit if I need it or not
+
+// const info = overlay.append("div")
+// .style("position", "absolute")
+// .style("bottom", "100px")
+// .style("left", "20px")
+// .style("color", "white")
+// .style("font-family", "'bricolage-grotesque', sans-serif")
+// .style("font-weight", "300")
+// .style("max-width", "300px");
+
+// info.append("h2")
+// .text(project.projectName)
+// .style("margin", "0 0 5px 0")
+// .style("font-size", "1.2rem");
+
+// info.append("p")
+// .text(project.line)   // make sure this is a 1–2 sentence summary
+// .style("margin", "0")
+// .style("font-size", "0.9rem")
+// .style("line-height", "1.3");
+
+    // 3) Buttons container in bottom-left
+    const btns = overlay.append("div")
+      .attr("id", "videoButtons")
+      .style("position", "absolute")
+      .style("bottom", "20px")
+      .style("left", "20px")
+      .style("display", "flex")
+      .style("flex-direction", "column")
+      .style("gap", "10px");
+  
+    // 4) Helper to close overlay
+    function closeOverlay() {
+      overlay.remove();
+      d3.select(window).on("keydown.videoOverlay", null);
+    }
+  
+    // 5) Add the three buttons
+  
+    const actions = [
+      { text: "Launch Project",    onClick: () => window.open(project.link, "_blank") },
+      { text: "Back to Projects",   onClick: closeOverlay },
+    //   { text: "Process",            onClick: () => processProject(project) }
+    ];
+  
+    actions.forEach(({ text, onClick }) => {
+      btns.append("button")
+        .text(text)
+        .style("padding", "10px 20px")
+        .style("background", "black")
+        .style("border", "0.5px solid white")
+        .style("border-radius", "5px")
+        .style("color", "white")
+        .style("font-family", "'bricolage-grotesque', sans-serif")
+        .style("font-weight", "300")
+        .style("cursor", "pointer")
+        .on("click", onClick);
+    });
+  
+    // 6) Optional: close on Escape
+    d3.select(window)
+      .on("keydown.videoOverlay", (e) => {
+        if (e.key === "Escape") closeOverlay();
+      });
+  }
+  
+
 
 function showGifWithAnimation(event, project) {
     // Ensure the GIF source is dynamically set based on the provided path
@@ -355,7 +469,7 @@ function showGifWithAnimation(event, project) {
     .style("opacity", 1); // Adjust opacity if needed
 
 
-  
+
 
     // Calculate initial position based on the hovered circle
     const initialX = event.pageX;
