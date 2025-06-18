@@ -76,7 +76,7 @@ function getCategoryCounts(projects) {
 
 function calculateVennCircleRadius(projectCount, maxProjects) {
     // Calculate the circle radius based on project count, assuming max size for the most populated category
-    const maxRadius = 260;  // The fixed maximum radius of a circle when fully occupied
+    const maxRadius = 360;  // The fixed maximum radius of a circle when fully occupied
     const minRadius = 50;  // Minimum radius for small categories
     const scalingFactor = maxProjects > 0 ? (projectCount / maxProjects) : 0;
 
@@ -92,7 +92,7 @@ function determineVennCirclePositions(svgWidth, svgHeight, circleRadius, counts)
     const overlapY = svgHeight / 4;
 
     // Define circleDistance dynamically depending on the categories' project counts
-    const overlapBitweenCircles = 80; 
+    const overlapBitweenCircles = 100; 
     return [
         { id: "data", cx: overlapX - circleRadius / 2+overlapBitweenCircles/2, cy: overlapY + circleRadius / 2, radius: circleRadius },
         { id: "design", cx: overlapX + circleRadius / 2-overlapBitweenCircles/2, cy: overlapY + circleRadius / 2, radius: circleRadius },
@@ -112,8 +112,8 @@ function assignProjectPositions(projects, vennCircles) {
 
         if (isData && isDesign) {
             console.log("Midpoint between data and design: " + project.projectName);
-            project.targetX = (vennCircles[0].cx + vennCircles[1].cx) / 2;
-            project.targetY = (vennCircles[0].cy + vennCircles[1].cy) / 2;
+            project.targetX = (vennCircles[0].cx+10 + vennCircles[1].cx) / 2;
+            project.targetY = (vennCircles[0].cy+20 + vennCircles[1].cy) / 2;
         } 
         else if (isData) {
             console.log("data: " + project.projectName);
@@ -293,7 +293,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
         circle.node().__origR = +circle.attr("r");
       }
       const origR = circle.node().__origR;
-      const newR = origR * 2;
+      const newR = origR * 10;
   
       // fade other circles
       d3.selectAll("circle")
@@ -350,13 +350,13 @@ function showTooltip(event, name, content) {
         .append("div")
         .attr("id", "tooltip")
         .style("position", "absolute")
-        .style("left", `${event.pageX + 45}px`)
+        .style("left", `${event.pageX + 110}px`)
         .style("top", `${event.pageY+70}px`)
-        .style("width", "300px")
-        .style("padding", "5px")
+        .style("width", "450px")
+        .style("padding", "15px")
         .style("background", "rgba(0,0,0,0.9)")
         .style("color", "white")
-        .style("border-radius", "4px")
+        .style("border-radius", "6px")
         .style("pointer-events", "none")
         .style("font-family", "bricolage-grotesque, sans-serif")
         .style("font-weight", "100")
@@ -494,7 +494,7 @@ function showGifWithAnimation(event, project) {
         .attr("id", "gifContainer")
         .style("width", "0px") // Start with 0 size
         .style("height", "0px") // Start with 0 size
-        .style("border-radius", "50%")
+        .style("border-radius", "9%")
         .style("position", "absolute")
         .style("overflow", "hidden")
         .style("z-index", "1000")
@@ -531,9 +531,9 @@ function showGifWithAnimation(event, project) {
     // Animate the circle to grow and move to the top-right of the cursor
     circleContainer.transition()
         .duration(500) // Animation duration
-        .style("width", "300px")
+        .style("width", "480px")
         .style("height", "300px")
-        .style("left", `${initialX + 50}px`) // Move slightly to the top-right of the cursor
+        .style("left", `${initialX + 100}px`) // Move slightly to the top-right of the cursor
         .style("top", `${initialY - 250}px`) // Move slightly upward from the cursor
         .on("end", () => {
             // Reveal the GIF and tooltip after animation ends
