@@ -494,7 +494,7 @@ function showGifWithAnimation(event, project) {
         .attr("id", "gifContainer")
         .style("width", "0px") // Start with 0 size
         .style("height", "0px") // Start with 0 size
-        .style("border-radius", "9%")
+        .style("border-radius", "50px")
         .style("position", "absolute")
         .style("overflow", "hidden")
         .style("z-index", "1000")
