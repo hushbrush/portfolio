@@ -483,7 +483,7 @@ function showVideoOverlay(project) {
   }
   
 
-
+//if only design, make it on the left instead of the right.
 function showGifWithAnimation(event, project) {
     // Ensure the GIF source is dynamically set based on the provided path
     const gifSource = `assets/${project.projectName.toLowerCase().replaceAll(" ", "-")}/loop.mp4`;
