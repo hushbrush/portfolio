@@ -222,22 +222,21 @@ text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#videoButtons button {
-    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
-  }
+
   
-#videoButtons button:hover {
+#videoButtons button {
     background: white;
     color: black;
-    transform: scale(1.05);
+    font-size: 1.1em; /* adjust as needed */
+    transition: font-size 0.2s ease, background 0.2s ease, color 0.2s ease;
   }
+  
 
 button:hover {
-    background-color: #ffffff;
-    font-size: 18px;
-    border:#fff;
-    border-width: 2px;
-    color: #000000;
+    background: white;
+    color: black;
+    font-size: 1.1em; /* adjust as needed */
+    transition: font-size 0.2s ease;
 
 }
 .carousel-wrapper {

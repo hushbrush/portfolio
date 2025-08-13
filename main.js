@@ -1,7 +1,10 @@
-// Fetch the data from data.json
+// add an if that checks if it's only design and then the hover video plays on the left instead of the right.
 
 const colors ={ projectCircles: "#000000"}; 
-// Call the function
+
+let projects = [];                           // <— add this
+const slugify = s => s.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+const bySlug  = slug => projects.find(p => slugify(p.projectName) === slug);
 
 
 
@@ -14,6 +17,8 @@ fetch('data.json')
         return response.json();
     })
     .then(data => {
+        console.log(data);
+        projects = data;  
         generateCircleAttributes(data);
         renderVennDiagram(data);
     })
@@ -111,16 +116,16 @@ function assignProjectPositions(projects, vennCircles) {
        
 
         if (isData && isDesign) {
-            console.log("Midpoint between data and design: " + project.projectName);
+           
             project.targetX = (vennCircles[0].cx+10 + vennCircles[1].cx) / 2;
             project.targetY = (vennCircles[0].cy+20 + vennCircles[1].cy) / 2;
         } 
         else if (isData) {
-            console.log("data: " + project.projectName);
+           
             project.targetX = vennCircles[0].cx-150;
             project.targetY = vennCircles[0].cy;
         } else if (isDesign) {
-            console.log("design: " + project.projectName);
+           
             project.targetX = vennCircles[1].cx+250;
             project.targetY = vennCircles[1].cy;
         }
@@ -248,7 +253,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
               .attr("stroke-width",0.2)
               .style("cursor","pointer")
             .on("mouseenter", (e,d) => {
-              showTooltip(e, d.projectName, d.line);
+              showTooltip(e, d.projectName, d.line, d.categories);
               showGifWithAnimation(e, d);
             //   changeCircleSize(e, d);
               // Then bind it to your circles:
@@ -263,26 +268,18 @@ function forceContainInCircle(cx, cy, r, testFn) {
             //   changeCircleSize(e, d);
             })
             .on("click", (e,d) => {
-               if(d.youtubeId)
-                {
-                showVideoOverlay(d);
-
-               }
-              else
-                {
-                window.open(urlMaker(d.projectName), "_blank");
-                }
-              
-               
-              
+              showProjectModal(d);
+              const slug = slugify(d.projectName);
+              if (location.hash !== `#${slug}`) history.pushState({ project: slug }, '', `#${slug}`);
             });
+            
             
         });
   
       simulation.alpha(1).restart();
   }
   
-
+ 
   function changeCircleSize(event, project) {
     const circle = d3.select(event.target);
   
@@ -344,150 +341,220 @@ function pathMaker(name) {
 
   
 // Tooltip functions
-function showTooltip(event, name, content) {
-    const tooltip = d3
-        .select("body")
-        .append("div")
-        .attr("id", "tooltip")
-        .style("position", "absolute")
-        .style("left", `${event.pageX + 100}px`)
-        .style("top", `${event.pageY+70}px`)
-        .style("width", "480px")
-        .style("padding", "15px")
-        .style("background", "rgba(0,0,0,0.9)")
-        .style("color", "white")
-        .style("border-radius", "20px")
-        .style("pointer-events", "none")
-        .style("font-family", "bricolage-grotesque, sans-serif")
-        .style("font-weight", "100")
-        .style("font-style", "normal")
-        .html(`<strong>${name}</strong>: ${content}`);
-    tooltip.transition().duration(200).style("opacity", 1);
+function showTooltip(event, name, content, categories) {
+  const offsetX = 100;
+const tooltipWidth = 480;
+
+  if(categories.includes("Data"))
+    tooltipLeft = event.pageX + offsetX;
+ else 
+  tooltipLeft = event.pageX - offsetX - tooltipWidth;
+
+const tooltip = d3
+.select("body")
+.append("div")
+.attr("id", "tooltip")
+.style("position", "absolute")
+.style("left", `${tooltipLeft}px`)
+.style("top", `${event.pageY + 70}px`)
+.style("width", tooltipWidth + "px")
+.style("padding", "15px")
+.style("background", "rgba(0,0,0,0.9)")
+.style("color", "white")
+.style("border-radius", "20px")
+.style("pointer-events", "none")
+.style("font-family", "bricolage-grotesque, sans-serif")
+.style("font-weight", "100")
+.style("font-style", "normal")
+.html(`<strong>${name}</strong>: ${content}`);
+
+tooltip.transition().duration(200).style("opacity", 1);
 }
 
 function hideTooltip() {
     d3.select("#tooltip").remove();
 }
 
-function showVideoOverlay(project) {
-    // 1) Create the full-screen overlay
-    const overlay = d3.select("body")
-      .append("div")
-      .attr("id", "videoOverlay")
-      .style("position", "fixed")
+function showProjectModal(project) {
+  // Remove existing overlay if any
+  d3.select("#videoOverlay").remove();
+  const slug = slugify(project.projectName);
+
+  // Create the full-screen dark background
+  const overlay = d3.select("body")
+    .append("div")
+    .attr("id", "videoOverlay")
+    .attr("data-slug", slug)
+    .style("position", "fixed")
+    .style("top", "0")
+    .style("left", "0")
+    .style("width", "100vw")
+    .style("height", "100vh")
+    .style("background-color", "rgba(0,0,0,0.8)")
+    .style("display", "flex")
+    .style("justify-content", "center")
+    .style("align-items", "center")
+    .style("z-index", "9999");
+
+  // Main modal container
+  const modal = overlay.append("div")
+    .style("background", "#fadedc")
+    .style("color", "white")
+    .style("width", "90vw")
+    .style("height", "80vh")
+    .style("display", "flex")
+    .style("border-radius", "10px")
+    .style("overflow", "hidden")
+    .style("position", "relative");
+
+  // Close button
+  modal.append("div")
+    .text("×")
+    .style("position", "absolute")
+    .style("top", "10px")
+    .style("right", "20px")
+    .style("font-size", "2rem")
+    .style("cursor", "pointer")
+    .on("click", closeOverlay);
+
+  // LEFT SIDE: media (images/videos)
+const left = modal.append("div")
+.style("flex", "5")
+.style("background", "#f8f7fc")
+.style("display", "flex")
+.style("flex-direction", "column")
+.style("align-items", "center")
+.style("overflow-y", "auto")
+.style("gap", "10px")
+.style("padding", "10px");
+console.log(project);
+
+ 
+  (project.mediaLinks || []).forEach(link => {
+    if (link.includes("youtube.com/embed") || link.includes("youtu.be")) {
+      let wrapper = left.append("div")
+      .style("position", "relative")
+      .style("width", "100%")
+      .style("padding-bottom", "56.25%") // 16:9 ratio
+      .style("height", "0")
+      .style("margin-bottom", "10px");
+
+    wrapper.append("iframe")
+      .attr("src", link)
+      .attr("frameborder", "0")
+      .attr("allow", "autoplay; encrypted-media; picture-in-picture")
+      .attr("allowfullscreen", true)
+      .style("position", "absolute")
       .style("top", "0")
       .style("left", "0")
-      .style("width", "100vw")
-      .style("height", "100vh")
-      .style("background-color", "rgba(0, 0, 0, 1)")
-      .style("display", "flex")
-      .style("justify-content", "center")
-      .style("align-items", "center")
-      .style("z-index", "9999");
-  
-    // 2) Insert the video (or iframe) to cover the background
-    const useYouTube = !!project.youtubeId;  // toggle based on your source
-    if (useYouTube) {
-      // Embed an unlisted YouTube video (autoplay + loop + mute)
-      overlay.append("iframe")
-        .attr("src",
-          `https://www.youtube.com/embed/${project.youtubeId}`
-          + `?autoplay=1&loop=1&playlist=${project.youtubeId}`
-          + `&mute=1&controls=0&modestbranding=1`)
-        .attr("frameborder", "0")
-        .attr("allow", "autoplay; encrypted-media")
-        .style("width", "100%")
-        .style("height", "100%")
-        .style("pointer-events", "none");  // clicks pass through
+      .style("width", "100%")
+      .style("height", "100%");
     } else {
-      // Fallback to MP4
-      overlay.append("video")
-        .attr("src", project.videoUrl)   // e.g. S3, Cloudflare, etc.
-        .attr("autoplay", true)
-        .attr("loop", true)
-        .attr("muted", true)
-        .attr("playsinline", true)
+      left.append("img")
+        .attr("src", link)
         .style("width", "100%")
-        .style("height", "100%")
+        .style("height", "auto")
         .style("object-fit", "cover")
-        .style("pointer-events", "none");
+        .style("margin-bottom", "10px");
     }
-  
+  });
 
-//adding context
-//think about it for a bit if I need it or not
+  // RIGHT SIDE: project info
+  const right = modal.append("div")
+    .style("flex", "1")
+    .style("background", "#1a1a1a")
+    .style("padding", "20px")
+    .style("display", "flex")
+    .style("flex-direction", "column")
+    .style("justify-content", "flex-start")
+    .style("gap", "15px")
+    .style("overflow-y", "auto");
 
-// const info = overlay.append("div")
-// .style("position", "absolute")
-// .style("bottom", "100px")
-// .style("left", "20px")
-// .style("color", "white")
-// .style("font-family", "'bricolage-grotesque', sans-serif")
-// .style("font-weight", "300")
-// .style("max-width", "300px");
+  right.append("p")
+    .text(project.projectName || "Untitled Project")
+    .style("font-weight", "semibold 600")
+    .style("padding", "30px,  15px,  15px, 15px") 
+    .style("margin", "0")
+    .style("font-size", "2rem")
+    .style("line-height", "1.1");
 
-// info.append("h2")
-// .text(project.projectName)
-// .style("margin", "0 0 5px 0")
-// .style("font-size", "1.2rem");
+  //add a horizontal line here
+  right.append("hr")
+  .style("border", "0")
+  .style("height", "1px")
+  .style("background", "#555")
+  .style("margin", "10px 0");
 
-// info.append("p")
-// .text(project.line)   // make sure this is a 1–2 sentence summary
-// .style("margin", "0")
-// .style("font-size", "0.9rem")
-// .style("line-height", "1.3");
-
-    // 3) Buttons container in bottom-left
-    const btns = overlay.append("div")
-      .attr("id", "videoButtons")
-      .style("position", "absolute")
-      .style("bottom", "20px")
-      .style("left", "20px")
-      .style("display", "flex")
-      .style("flex-direction", "column")
-      .style("gap", "10px");
-  
-    // 4) Helper to close overlay
-    function closeOverlay() {
-      overlay.remove();
-      d3.select(window).on("keydown.videoOverlay", null);
+  if(project.link!=null)
+    {
+      right.append("button")
+      .text("Launch Project")
+      .style("padding", "8px 15px")
+      .style("background", "#000")
+      .style("color", "white")
+      .style("border", "1px solid white")
+      .style("cursor", "pointer")
+      .style("margin", "10px 0")
+      .on("click", () => window.open(project.link, "_blank"));
     }
-  
-    // 5) Add the three buttons
-  
-    const actions = [
-      { text: "Launch Project",    onClick: () => window.open(project.link, "_blank") },
-      { text: "Back to Projects",   onClick: closeOverlay },
-    //   { text: "Process",            onClick: () => processProject(project) }
-    ];
-  
-    actions.forEach(({ text, onClick }) => {
-      btns.append("button")
-        .text(text)
-        .style("padding", "10px 20px")
-        .style("background", "black")
-        .style("border", "0.5px solid white")
-        .style("border-radius", "5px")
-        .style("color", "white")
-        .style("font-family", "'bricolage-grotesque', sans-serif")
-        .style("font-weight", "300")
-        .style("cursor", "pointer")
-        .on("click", onClick);
-    });
-  
-    // 6) Optional: close on Escape
-    d3.select(window)
-      .on("keydown.videoOverlay", (e) => {
-        if (e.key === "Escape") closeOverlay();
-      });
+
+  right.append("p")
+    .text(`${project.dateCompleted.replace("-", "•") || ""} || ${project.tools.replaceAll(",", "•") || ""}`)
+    .style("font-size", "0.7rem")
+    .style("alighn", "center")
+    .style("color", "#aaa")
+    .style("margin", "0");
+
+
+
+ 
+   
+  //add a horizontal line here
+  right.append("hr")
+  .style("border", "0")
+  .style("height", "1px")
+  .style("background", "#555")
+  .style("margin", "10px 0");
+
+  right.append("p")
+    .text(project.line || "No description provided.")
+    .style("font-size", "0.95rem")
+    .style("line-height", "1.4");
+
+  if (project.insights && project.insights.length > 0) {
+    const insightsDiv = right.append("div");
+    insightsDiv.append("p")
+      .text(project.insights)
+      .style("font-size", "0.95rem")
+      .style("margin-bottom", "5px");
+
   }
+
+  // Close overlay helper
+  // function closeOverlay() {
+  //   overlay.remove();
+  //   d3.select(window).on("keydown.videoOverlay", null);
+  // }
+  function closeOverlay() {
+    overlay.remove();
+    if (location.hash) history.back(); // let back button clear the hash/state
+  }
+  
+
+  // Close on Escape
+  d3.select(window)
+    .on("keydown.videoOverlay", (e) => {
+      if (e.key === "Escape") closeOverlay();
+    });
+}
+
   
 
 //if only design, make it on the left instead of the right.
 function showGifWithAnimation(event, project) {
     // Ensure the GIF source is dynamically set based on the provided path
     const gifSource = `assets/${project.projectName.toLowerCase().replaceAll(" ", "-")}/loop.mp4`;
-    console.log(gifSource);
+   
     // Create the container for the GIF (circle with radius animation)
     const circleContainer = d3.select("body")
         .append("div")
@@ -528,17 +595,25 @@ function showGifWithAnimation(event, project) {
         .style("left", `${initialX}px`) // Start at the cursor's x position
         .style("top", `${initialY}px`);
 
-    // Animate the circle to grow and move to the top-right of the cursor
-    circleContainer.transition()
-        .duration(500) // Animation duration
+      // Animate the circle to grow and move to the top-right of the cursor
+      let targetLeft, targetTop = initialY - 250;
+
+      if (project.categories.includes("Data")) {
+        // show on right
+        targetLeft = initialX + 100;
+      } else {
+        // show on left
+        targetLeft = initialX - 100 - 480; // subtract gif width
+      }
+      
+      circleContainer.transition()
+        .duration(500)
         .style("width", "480px")
         .style("height", "300px")
-        .style("left", `${initialX + 100}px`) // Move slightly to the top-right of the cursor
-        .style("top", `${initialY - 250}px`) // Move slightly upward from the cursor
+        .style("left", `${targetLeft}px`)
+        .style("top", `${targetTop}px`)
         .on("end", () => {
-            // Reveal the GIF and tooltip after animation ends
-            gifElement.transition().duration(200).style("opacity", 1);
-            
+          gifElement.transition().duration(200).style("opacity", 1);
         });
 
     // Remove the GIF bubble on mouseleave
@@ -621,3 +696,30 @@ function landingPage() {
     section.select(".container").style("position", "relative").style("z-index", "2");
    
 }
+
+
+function openFromHash() {
+  const slug = location.hash.replace(/^#/, '');
+  if (!slug) return;
+  const p = bySlug(slug);
+  if (p) showProjectModal(p);
+}
+
+window.addEventListener('DOMContentLoaded', openFromHash);
+window.addEventListener('popstate', () => {
+  const slug = location.hash.replace(/^#/, '');
+  const overlay = d3.select("#videoOverlay").node();
+  if (!slug && overlay) {
+    // hash cleared → close
+    d3.select("#videoOverlay").remove();
+    return;
+  }
+  if (slug) {
+    const current = d3.select("#videoOverlay").attr("data-slug");
+    if (current !== slug) {
+      d3.select("#videoOverlay").remove();
+      const p = bySlug(slug);
+      if (p) showProjectModal(p);
+    }
+  }
+});
