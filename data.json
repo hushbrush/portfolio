@@ -240,5 +240,21 @@
         "displayType": "yt",
         "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/gil-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/gil-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/gil-0.png"  ],
         "youtubeId": "4RYZwuI1fPo"
+    },
+
+    {
+        "projectName": "TwinMind Information Architecture",
+        "dateCompleted": "2025-7",
+        "clientOrInstitute": "TwinMind AI",
+        "elaborationOfClient": "",
+        "categories": "Design, UX",
+        "tools": "Figma",
+        "link": "https://www.figma.com/proto/9EKKRAEXekQ3JR9NAEjEmt/Portfolio-Projects?node-id=2-2014&t=PZgR9lCmSm9aSao3-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A659&show-proto-sidebar=1",
+        "line": "Information Architecture for an AI app that helps users capture their memories by transcripting conversations and calls, and manage their personal knowledge bases.",
+        "insights": "",
+        "displayType": "static",
+        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-3.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-4.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-5.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-6.png"]
+        
     }
+
 ]

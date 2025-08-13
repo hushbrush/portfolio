@@ -82,7 +82,7 @@ function getCategoryCounts(projects) {
 function calculateVennCircleRadius(projectCount, maxProjects) {
     // Calculate the circle radius based on project count, assuming max size for the most populated category
     const maxRadius = 360;  // The fixed maximum radius of a circle when fully occupied
-    const minRadius = 50;  // Minimum radius for small categories
+    const minRadius = 30;  // Minimum radius for small categories
     const scalingFactor = maxProjects > 0 ? (projectCount / maxProjects) : 0;
 
     // Adjust the radius based on the category overlap
@@ -530,11 +530,7 @@ console.log(project);
 
   }
 
-  // Close overlay helper
-  // function closeOverlay() {
-  //   overlay.remove();
-  //   d3.select(window).on("keydown.videoOverlay", null);
-  // }
+ 
   function closeOverlay() {
     overlay.remove();
     if (location.hash) history.back(); // let back button clear the hash/state
