@@ -21,10 +21,15 @@ fetch('data.json')
         projects = data;  
         generateCircleAttributes(data);
         renderVennDiagram(data);
+
+        // 🔑 Now that projects exist, try opening modal from hash
+        openFromHash();
     })
     .catch(error => {
         console.error('Error fetching or parsing data.json:', error);
     });
+
+
 
 // Create a function to determine the size of each project circle
 function generateCircleAttributes(projects) {
@@ -701,7 +706,7 @@ function openFromHash() {
   if (p) showProjectModal(p);
 }
 
-window.addEventListener('DOMContentLoaded', openFromHash);
+
 window.addEventListener('popstate', () => {
   const slug = location.hash.replace(/^#/, '');
   const overlay = d3.select("#videoOverlay").node();
