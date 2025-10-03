@@ -214,20 +214,6 @@
         
     },
     {
-        "projectName": "The Tellytune Chronicles",
-        "dateCompleted": "2025-5",
-        "clientOrInstitute": "Parsons",
-        "elaborationOfClient": "",
-        "categories": "Data, Design",
-        "tools": "Vue.js/HTML/CSS, Figma, Python",
-        "link": "https://hushbrush.github.io/tellyTunes/",
-        "line": "A data story based on the television tunes archive from archive.org, genres classified using a huggingface spaces model.",
-        "insights": "",
-        "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/tellyTune-0.png", "https://www.youtube.com/embed/ZOYrwsXGDsc?si=SI2ixr0HioLTqEzp"  ],
-        "youtubeId": "ZOYrwsXGDsc"
-    },
-    {
         "projectName": "Confronting Harm-Safety Report for Women in US Legislation",
         "dateCompleted": "2025-7",
         "clientOrInstitute": "Ghosh Innovation Labs",
