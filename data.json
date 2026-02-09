@@ -11,7 +11,7 @@
         "insights": "As a child, I loved stamps. Not having yet discovered the power of google, I would tear them off of the envelopes I found them on, and use gum to stick them onto the pages of an old diary. Obviously, that’s a terrible way to collect stamps. Slowly, as my friends and relatives started bringing me the stamps they found, I learnt of their value, their cultural and historical significance. This project aims open the world of philately to new audiences and encourage a deeper appreciation for these miniature artefacts of human history. To calculate the indices for this project, I started by identifying key factors that influence a stamp’s value, such as condition, rarity, historical context, and printing techniques. Each factor was then quantified based on specific attributes—like the presence of words such as \"unused\" or \"mint\" in the description for condition, or terms like \"proof plate\" for rarity. These individual indices were then weighted and combined to create a composite score that reflects both tangible and cultural aspects of a stamp’s worth. The process aimed to balance objective analysis with the inherent subjectivity of valuing artifacts, making it easier to explore the Smithsonian’s stamp collection through an accessible, data-driven lens.",
         "displayType": "yt",
         
-        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev//mintMatters-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev//mintMatters-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-6.png", "https://www.youtube.com/embed/y3okFCfNZac?si=9pyHDU7hc5Qkd7u_"  ]
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-6.png", "https://www.youtube.com/embed/y3okFCfNZac?si=9pyHDU7hc5Qkd7u_"  ]
         
     },
     {
@@ -25,7 +25,7 @@
         "line": "A data story exploring the sitters of portraits in the National Portrait Gallery through the lens of gender. Portraits are grouped based on realm, and then based on the role within each realm. Portraits are further contextualised by decade.",
         "insights": "Since portraits capture the values of society at a point in time, this project aimed to explore the idea of what the sitters are remembered for. It aimed to draw focus on the proportion of the genders interested in particular realms and roles. Further, it compares the trends between men and women throughout time. All the portraits are contextualized by decade, offering insight into the ‘when’ that arises by looking at the tree maps. The audience can also explore portraits through the lens of ‘careers’, or what society at the time deemed important enough to be remembered.",
         "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/framingGenders-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/framingGenders-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/framingGenders-3.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/framingGenders-4.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/framingGenders-5.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/framingGenders-6.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/framingGenders-7.png","https://www.youtube.com/embed/v18qjhr0RvA?si=gj9tU1kW8lUyTfpl"],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-7.png","https://www.youtube.com/embed/v18qjhr0RvA?si=gj9tU1kW8lUyTfpl"],
         "youtubeId": "v18qjhr0RvA"
     },
     {
@@ -52,7 +52,7 @@
         "link": null,
         "line": "A collection of 4 dashboards created with a focus on retail management",
         "insights": "During my time at VitaraCharts, this was one of the first dashboards I made for linkedin, to showcase how the tool can be utilised to enhance the native capabilities of MicroStrategy. ",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/retail-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/retail-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/retail-3.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/retail-4.png" ],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-4.png" ],
         "displayType": "static"
         
     },
@@ -66,7 +66,7 @@
         "link": null,
         "line": "A few dashboards I made for VitaraCharts, on ThoughtSpot and MicroStrategy",
         "insights": "I made these dashboards to showcase the capabilities of VitaraCharts on ThoughtSpot and MicroStrategy. The dashboards were made by first visualising on Illustrator, and then using the VitaraCharts tool to make them interactive.",
-       "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/misc-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/misc-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/misc-3.png"],
+       "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/misc-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/misc-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/misc-3.png"],
         "displayType": "static"
         
     },
@@ -81,7 +81,7 @@
         "line": "A visual data story in the form of a blog post made for Gramener\nduring my internship with them.",
         "insights": "This is a project I worked on as an intern at the StoryLabs team at Gramener, under the mentorship of Richie Lionel and Anand S. The project involved research, compilation and collation of the data, framing the narrative, visualising it, coding, and illustrating the graphs. The sources for the data in this project are ILO, UNESCO, World Economic Forum and Deloitte.",
         "displayType": "external",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/a-kitchen-in-the-office-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/a-kitchen-in-the-office-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/a-kitchen-in-the-office-3.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/a-kitchen-in-the-office-4.png","https://www.youtube.com/embed/WGSAxMHSyCE?si=_4WFuWhNSLgQxOlV"  ],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-4.png","https://www.youtube.com/embed/WGSAxMHSyCE?si=_4WFuWhNSLgQxOlV"  ],
         "youtubeId": "WGSAxMHSyCE"
     },
   
@@ -95,7 +95,7 @@
         "link": "https://www.behance.net/gallery/141430881/How-to-make-an-Earth-Double-Page-Spread",
         "line": "A double page spread for a satirical piece on global warming",
         "insights": "This is an editorial infographic in the form of a double page spread. The prompt was to make an exploded view of any object. I have looked at the Earth as an object of everyday use. Hence, I have likened it’s composition to something that can be factory made, bought and sold. It is satirical, in order to bring out the humour in how lucky we are to have a place such as the Earth to live, but are still unable to take care of it. We do not treat like it is the cause of all life, but rather an object that once used, can be thrown away.",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/howToMakeAnEarth-1.png" ],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/howToMakeAnEarth-1.png" ],
         "displayType": "static"
         
     },
@@ -138,7 +138,7 @@
         "line": "An experimental book about my spending habits and how I see money",
         "insights": "",
         "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/showMeTheMoney-0.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/showMeTheMoney-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/showMeTheMoney-5.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/showMeTheMoney-4.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/showMeTheMoney-6.png"  , "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/showMeTheMoney-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/showMeTheMoney-3.png"],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-4.png"  , "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-6.png"],
         "youtubeId": "4RYZwuI1fPo"
     },
     {
@@ -152,7 +152,7 @@
         "line": "Posters created for the Murugappa Group while working for SYU Design (as a part of a team)",
         "insights": "",
         "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/syu-5.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/syu-1.jpg", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/syu-2.jpg", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/syu-3.jpg", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/syu-4.jpg"],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-1.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-2.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-3.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-4.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-5.jpg"],
         "youtubeId": "uCU-jt2gURU"
         
     },
@@ -167,7 +167,7 @@
         "line": "Designed and maintained a Wix-based Web and Mobile pwebsite showcasing MicroStrategy and ThoughtSpot chart plugins. Developed the visual language, branding, marketing collateral, and an interactive chart-picker.",
         "insights": "",
         "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-0.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-3.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-4.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-5.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-6.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-7.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-8.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/websiteVTR-9.png", "https://www.youtube.com/embed/thu7eF0dM3c?si=FcXxlmaQD0TqqQtF"],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-8.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-9.png", "https://www.youtube.com/embed/thu7eF0dM3c?si=FcXxlmaQD0TqqQtF"],
         "youtubeId": "thu7eF0dM3c"
     },
     {
@@ -224,7 +224,7 @@
         "line": "Data Visualizations and Layout Design for a research report. The report talks about the experiences and strategies of U.S. Women State Legislators on the frontlines of political violence.",
         "insights": "",
         "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/gil-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/gil-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/gil-0.png"  ],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/gil-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/gil-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/gil-3.png"  ],
         "youtubeId": "4RYZwuI1fPo"
     },
 
