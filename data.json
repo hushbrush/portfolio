@@ -39,7 +39,7 @@
         "line": "Data Art that aims to highlight the patterns in all the State of the Union Speeches across time in order to determine if the priorities of the nation have changed since it’s inception.",
         "insights": "",
         "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/sotu-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/sotu-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/sotu-3.png", "https://www.youtube.com/embed/2v0n93kbAWs?si=bj4SC_vWpyOC9-ix"  ],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/sotu-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/sotu-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/sotu-3.png", "https://www.youtube.com/embed/2v0n93kbAWs?si=bj4SC_vWpyOC9-ix"  ],
         "youtubeId": "2v0n93kbAWs"
     },
     {
