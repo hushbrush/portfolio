@@ -6,7 +6,7 @@ export default function ProjectModal({ project, onClose }) {
     const previousBodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e) => {
-      if (e.key === "Escape") onClose?.();
+      if (e.key === "Escape" && onClose) onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => {
@@ -22,7 +22,7 @@ export default function ProjectModal({ project, onClose }) {
       id="videoOverlay"
       className="project-modal-overlay"
       onClick={(e) => {
-        if (e.target.id === "videoOverlay") onClose?.(); // click outside closes
+        if (e.target.id === "videoOverlay" && onClose) onClose(); // click outside closes
       }}
     >
       <div className="project-modal">
@@ -65,7 +65,7 @@ export default function ProjectModal({ project, onClose }) {
 
           <p className="project-modal-meta">
             {(project.dateCompleted || "").replace("-", "•")} {"  "}||{"  "}
-            {(project.tools || "").replaceAll(",", "•")}
+            {(project.tools || "").replace(/,/g, "•")}
           </p>
 
           {project.link ? (

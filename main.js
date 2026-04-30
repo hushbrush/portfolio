@@ -8,6 +8,13 @@ let currentVennSimulation = null;
 let vennResizeTimer = null;
 const slugify = s => s.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
 const bySlug  = slug => projects.find(p => slugify(p.projectName) === slug);
+const dottedList = value => String(value || "").replace(/,/g, "•");
+const parseProjectMonth = value => {
+    const match = String(value || "").match(/^(\d{4})-(\d{1,2})$/);
+    if (match) return new Date(Number(match[1]), Number(match[2]) - 1, 1);
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? new Date(0) : parsed;
+};
 
 
 
@@ -72,16 +79,17 @@ function generateCircleAttributes(projects) {
 
     // Determine the date range
     const newestDate = new Date(
-        Math.max(...projects.map(project => new Date(project.dateCompleted)))
+        Math.max(...projects.map(project => parseProjectMonth(project.dateCompleted)))
     );
     const oldestDate = new Date(
-        Math.min(...projects.map(project => new Date(project.dateCompleted)))
+        Math.min(...projects.map(project => parseProjectMonth(project.dateCompleted)))
     );
+    const dateRange = newestDate - oldestDate || 1;
 
     projects.forEach(project => {
-        const projectDate = new Date(project.dateCompleted);
+        const projectDate = parseProjectMonth(project.dateCompleted);
         const size =
-            ((projectDate - oldestDate) / (newestDate - oldestDate)) * (maxSize - minSize) +
+            ((projectDate - oldestDate) / dateRange) * (maxSize - minSize) +
             minSize;
         project.size = size;
         
@@ -145,7 +153,7 @@ function determineVennCirclePositions(svgWidth, svgHeight, circleRadius, counts)
 }
 
 
-function assignProjectPositions(projects, vennCircles) {
+function assignProjectPositions(projects, vennCircles, svgWidth, svgHeight) {
     const overlapX = vennCircles[0].cx;
     const overlapY = vennCircles[0].cy;
     console.log(vennCircles);
@@ -167,6 +175,9 @@ function assignProjectPositions(projects, vennCircles) {
            
             project.targetX = vennCircles[1].cx+250;
             project.targetY = vennCircles[1].cy;
+        } else {
+            project.targetX = svgWidth / 2;
+            project.targetY = svgHeight / 2;
         }
     });
 }
@@ -180,7 +191,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
       for (const d of nodes) {
         if (!testFn(d)) continue;
         const dx = d.x - cx, dy = d.y - cy;
-        const dist = Math.hypot(dx, dy);
+        const dist = Math.hypot(dx, dy) || 0.0001;
         const overflow = (dist + d.size) - r;
         if (overflow > 0) {
           d.x -= dx / dist * overflow * alpha;
@@ -201,7 +212,8 @@ function forceContainInCircle(cx, cy, r, testFn) {
 
       if (window.matchMedia("(max-width: 900px)").matches) return;
 
-      const svgWidth  = container.node()?.clientWidth || window.innerWidth;
+      const containerNode = container.node();
+      const svgWidth  = (containerNode && containerNode.clientWidth) || window.innerWidth;
       const circleRadius = Math.max(260, Math.min(430, (svgWidth - 140) / 3));
       const svgHeight = Math.max(window.innerHeight * 1.1, circleRadius * 2 + 180);
   
@@ -222,6 +234,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
           .attr("width", 1).attr("height", 1)
           .append("image")
             .attr("href", `assets/thumbnails/${safe}.png`)
+            .attr("xlink:href", `assets/thumbnails/${safe}.png`)
             .attr("preserveAspectRatio", "xMidYMid slice")
             .attr("width", project.size * 2)
             .attr("height", project.size * 2);
@@ -257,7 +270,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
           .attr("fill","black");
   
       // 3) assign project target positions…
-      assignProjectPositions(projects, vennCircles);
+      assignProjectPositions(projects, vennCircles, svgWidth, svgHeight);
   
       // 4) force simulation with two “wall” forces
       const simulation = d3.forceSimulation(projects)
@@ -292,10 +305,10 @@ function forceContainInCircle(cx, cy, r, testFn) {
               .attr("fill",d => {
                 const safe = d.projectName
                   .toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
-                return `url(#thumb-${safe})`;
+                return `url(#thumb-${safe}) #f8f7fc`;
               })
               .attr("stroke","black")
-              .attr("stroke-width",0.2)
+              .attr("stroke-width",1)
               .style("cursor","pointer")
             .on("mouseenter", (e,d) => {
               showTooltip(e, d.projectName, d.line, d.categories);
@@ -332,7 +345,7 @@ function renderMobileProjectCards(projects) {
   cards.selectAll("*").remove();
 
   const sortedProjects = [...projects]
-    .sort((a, b) => new Date(b.dateCompleted) - new Date(a.dateCompleted));
+    .sort((a, b) => parseProjectMonth(b.dateCompleted) - parseProjectMonth(a.dateCompleted));
   const visibleProjects = sortedProjects.slice(0, mobileProjectVisibleCount);
 
   const card = cards
@@ -437,6 +450,7 @@ function showTooltip(event, name, content, categories) {
 const tooltipWidth = 480;
 const viewportPadding = 16;
 
+  let tooltipLeft;
   if(categories.includes("Data"))
     tooltipLeft = event.pageX + offsetX;
  else 
@@ -534,7 +548,7 @@ console.log(project);
 
   right.append("p")
     .attr("class", "project-modal-meta")
-    .text(`${project.dateCompleted.replace("-", "•") || ""} || ${project.tools.replaceAll(",", "•") || ""}`)
+    .text(`${String(project.dateCompleted || "").replace("-", "•")} || ${dottedList(project.tools)}`)
 
   if(project.link!=null)
     {
@@ -601,7 +615,7 @@ console.log(project);
 //if only design, make it on the left instead of the right.
 function showGifWithAnimation(event, project) {
     // Ensure the GIF source is dynamically set based on the provided path
-    const gifSource = `assets/${project.projectName.toLowerCase().replaceAll(" ", "-")}/loop.mp4`;
+    const gifSource = `assets/${slugify(project.projectName)}/loop.mp4`;
    
     // Create the container for the GIF (circle with radius animation)
     const circleContainer = d3.select("body")

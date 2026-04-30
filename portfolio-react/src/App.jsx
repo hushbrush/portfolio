@@ -10,6 +10,13 @@ const slugify = (s) =>
     .replace(/\s+/g, "-")
     .replace(/[^a-z0-9\-]/g, "");
 
+const parseProjectMonth = (value) => {
+  const match = String(value || "").match(/^(\d{4})-(\d{1,2})$/);
+  if (match) return new Date(Number(match[1]), Number(match[2]) - 1, 1);
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? new Date(0) : parsed;
+};
+
 export default function App() {
   const [projects, setProjects] = useState([]);
   const [activeProject, setActiveProject] = useState(null);
@@ -25,7 +32,7 @@ export default function App() {
   const recentProjects = useMemo(
     () =>
       [...projects]
-        .sort((a, b) => new Date(b.dateCompleted) - new Date(a.dateCompleted))
+        .sort((a, b) => parseProjectMonth(b.dateCompleted) - parseProjectMonth(a.dateCompleted))
         .slice(0, visibleMobileProjects),
     [projects, visibleMobileProjects]
   );

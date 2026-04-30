@@ -4,21 +4,29 @@ import * as d3 from "d3";
 const safeId = (name) =>
   name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
 
+const parseProjectMonth = (value) => {
+  const match = String(value || "").match(/^(\d{4})-(\d{1,2})$/);
+  if (match) return new Date(Number(match[1]), Number(match[2]) - 1, 1);
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? new Date(0) : parsed;
+};
+
 function generateCircleAttributes(projects) {
   const maxSize = 80;
   const minSize = 30;
 
   const newestDate = new Date(
-    Math.max(...projects.map((p) => new Date(p.dateCompleted)))
+    Math.max(...projects.map((p) => parseProjectMonth(p.dateCompleted)))
   );
   const oldestDate = new Date(
-    Math.min(...projects.map((p) => new Date(p.dateCompleted)))
+    Math.min(...projects.map((p) => parseProjectMonth(p.dateCompleted)))
   );
+  const dateRange = newestDate - oldestDate || 1;
 
   projects.forEach((p) => {
-    const d = new Date(p.dateCompleted);
+    const d = parseProjectMonth(p.dateCompleted);
     const size =
-      ((d - oldestDate) / (newestDate - oldestDate)) * (maxSize - minSize) + minSize;
+      ((d - oldestDate) / dateRange) * (maxSize - minSize) + minSize;
     p.size = size;
   });
 }
@@ -26,8 +34,9 @@ function generateCircleAttributes(projects) {
 function getCategoryCounts(projects) {
   const counts = { data: 0, design: 0, allCategories: 0 };
   projects.forEach((p) => {
-    const isData = p.categories?.toLowerCase().includes("data");
-    const isDesign = p.categories?.toLowerCase().includes("design");
+    const categories = (p.categories || "").toLowerCase();
+    const isData = categories.includes("data");
+    const isDesign = categories.includes("design");
     if (isData) counts.data++;
     if (isDesign) counts.design++;
     if (isData && isDesign) counts.allCategories++;
@@ -56,12 +65,13 @@ function determineVennCirclePositions(svgWidth, svgHeight, circleRadius) {
   ];
 }
 
-function assignProjectPositions(projects, vennCircles) {
+function assignProjectPositions(projects, vennCircles, svgWidth, svgHeight) {
   const [cData, cDesign] = vennCircles;
 
   projects.forEach((p) => {
-    const isData = p.categories?.toLowerCase().includes("data");
-    const isDesign = p.categories?.toLowerCase().includes("design");
+    const categories = (p.categories || "").toLowerCase();
+    const isData = categories.includes("data");
+    const isDesign = categories.includes("design");
 
     if (isData && isDesign) {
       p.targetX = (cData.cx + 10 + cDesign.cx) / 2;
@@ -103,7 +113,8 @@ function showTooltip(event, name, content, categories) {
   const offsetX = 100;
   const tooltipWidth = 480;
   const viewportPadding = 16;
-  const isData = categories?.includes("Data") || categories?.includes("data");
+  const categoryText = categories || "";
+  const isData = categoryText.includes("Data") || categoryText.includes("data");
 
   const rawTooltipLeft = isData
     ? event.pageX + offsetX
@@ -180,7 +191,8 @@ function showGifWithAnimation(event, project) {
   circleContainer.style("left", `${initialX}px`).style("top", `${initialY}px`);
 
   const targetTop = initialY - 250;
-  const isData = project.categories?.includes("Data") || project.categories?.includes("data");
+  const categoryText = project.categories || "";
+  const isData = categoryText.includes("Data") || categoryText.includes("data");
 
   const rawTargetLeft = isData ? initialX + 100 : initialX - 100 - 480;
   const targetLeft = Math.max(
@@ -252,6 +264,7 @@ export default function VennDiagram({ projects, onProjectClick }) {
         .attr("height", 1)
         .append("image")
         .attr("href", `/assets/thumbnails/${safe}.png`)
+        .attr("xlink:href", `/assets/thumbnails/${safe}.png`)
         .attr("preserveAspectRatio", "xMidYMid slice")
         .attr("width", p.size * 2)
         .attr("height", p.size * 2);
@@ -302,7 +315,7 @@ export default function VennDiagram({ projects, onProjectClick }) {
       .attr("fill", "black");
 
     // targets
-    assignProjectPositions(data, vennCircles);
+    assignProjectPositions(data, vennCircles, svgWidth, svgHeight);
 
     // draw nodes once
     const nodes = svg
@@ -312,9 +325,9 @@ export default function VennDiagram({ projects, onProjectClick }) {
       .append("circle")
       .attr("class", "project-circle")
       .attr("r", (d) => d.size)
-      .attr("fill", (d) => `url(#thumb-${safeId(d.projectName)})`)
+      .attr("fill", (d) => `url(#thumb-${safeId(d.projectName)}) #f8f7fc`)
       .attr("stroke", "black")
-      .attr("stroke-width", 0.2)
+      .attr("stroke-width", 1)
       .style("cursor", "pointer")
       .on("mouseenter", (e, d) => {
         showTooltip(e, d.projectName, d.line, d.categories);
@@ -324,7 +337,9 @@ export default function VennDiagram({ projects, onProjectClick }) {
         d3.select("#gifContainer").remove();
         hideTooltip();
       })
-      .on("click", (_, d) => onProjectClick?.(d));
+      .on("click", (_, d) => {
+        if (onProjectClick) onProjectClick(d);
+      });
 
     // simulation
     const simulation = d3
@@ -335,13 +350,13 @@ export default function VennDiagram({ projects, onProjectClick }) {
       .force(
         "containData",
         forceContainInCircle(cData.cx, cData.cy, circleRadius, (d) =>
-          d.categories?.toLowerCase().includes("data")
+          (d.categories || "").toLowerCase().includes("data")
         )
       )
       .force(
         "containDesign",
         forceContainInCircle(cDesign.cx, cDesign.cy, circleRadius, (d) =>
-          d.categories?.toLowerCase().includes("design")
+          (d.categories || "").toLowerCase().includes("design")
         )
       )
       .on("tick", () => {
