@@ -1,0 +1,246 @@
+[
+    {
+        "projectName": "Mint Matters",
+        "dateCompleted": "2024-12",
+        "clientOrInstitute": "Smithsonian-MSDV Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data Viz, Visual Design",
+        "tools": "D3.js, Javascript/HTML/CSS, Figma",
+        "link": "https://hushbrush.github.io/MajorStudioFinalProject/",
+        "line": "A data Story exploring the National Postal Museum's CC0 stamp collections and the factors that makes them valuable.",
+        "insights": "As a child, I loved stamps. Not having yet discovered the power of google, I would tear them off of the envelopes I found them on, and use gum to stick them onto the pages of an old diary. Obviously, that’s a terrible way to collect stamps. Slowly, as my friends and relatives started bringing me the stamps they found, I learnt of their value, their cultural and historical significance. This project aims open the world of philately to new audiences and encourage a deeper appreciation for these miniature artefacts of human history. To calculate the indices for this project, I started by identifying key factors that influence a stamp’s value, such as condition, rarity, historical context, and printing techniques. Each factor was then quantified based on specific attributes—like the presence of words such as \"unused\" or \"mint\" in the description for condition, or terms like \"proof plate\" for rarity. These individual indices were then weighted and combined to create a composite score that reflects both tangible and cultural aspects of a stamp’s worth. The process aimed to balance objective analysis with the inherent subjectivity of valuing artifacts, making it easier to explore the Smithsonian’s stamp collection through an accessible, data-driven lens.",
+        "displayType": "yt",
+        
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-6.png", "https://www.youtube.com/embed/y3okFCfNZac?si=9pyHDU7hc5Qkd7u_"  ]
+        
+    },
+    {
+        "projectName": "Framing Gender",
+        "dateCompleted": "2024-10",
+        "clientOrInstitute": "Smithsonian-MSDV Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data Viz, Visual Design",
+        "tools":"D3.js, Javascript/HTML/CSS, Figma",
+        "link": "https://hushbrush.github.io/framing-genders/project02/",
+        "line": "A data story exploring the sitters of portraits in the National Portrait Gallery through the lens of gender. Portraits are grouped based on realm, and then based on the role within each realm. Portraits are further contextualised by decade.",
+        "insights": "Since portraits capture the values of society at a point in time, this project aimed to explore the idea of what the sitters are remembered for. It aimed to draw focus on the proportion of the genders interested in particular realms and roles. Further, it compares the trends between men and women throughout time. All the portraits are contextualized by decade, offering insight into the ‘when’ that arises by looking at the tree maps. The audience can also explore portraits through the lens of ‘careers’, or what society at the time deemed important enough to be remembered.",
+        "displayType": "yt",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/framingGenders-7.png","https://www.youtube.com/embed/v18qjhr0RvA?si=gj9tU1kW8lUyTfpl"],
+        "youtubeId": "v18qjhr0RvA"
+    },
+    {
+        "projectName": "US SOTU Speeches Visualisation",
+        "dateCompleted": "2024-10",
+        "clientOrInstitute": "MSDV Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data Viz, Visual Design, illustration, data art",
+        "tools":"D3.js, Javascript/HTML/CSS, Figma",
+        "link": "https://hushbrush.github.io/sotu-viz/",
+        "line": "Data Art that aims to highlight the patterns in all the State of the Union Speeches across time in order to determine if the priorities of the nation have changed since it’s inception.",
+        "insights": "",
+        "displayType": "yt",
+        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/sotu-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/sotu-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/sotu-3.png", "https://www.youtube.com/embed/2v0n93kbAWs?si=bj4SC_vWpyOC9-ix"  ],
+        "youtubeId": "2v0n93kbAWs"
+    },
+    {
+        "projectName": "Vitara Retail Dashboards",
+        "dateCompleted": "2023-12",
+        "clientOrInstitute": "Vitara Charts",
+        "elaborationOfClient": "",
+        "categories": "Data Viz, Visual Design",
+        "tools": "Illustrator, Microstrategy, Excel",
+        "link": null,
+        "line": "A collection of 4 dashboards created with a focus on retail management",
+        "insights": "During my time at VitaraCharts, this was one of the first dashboards I made for linkedin, to showcase how the tool can be utilised to enhance the native capabilities of MicroStrategy. ",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-4.png" ],
+        "displayType": "static"
+        
+    },
+    {
+        "projectName": "Misc Dashboards",
+        "dateCompleted": "2024-2",
+        "clientOrInstitute": "Vitara Charts",
+        "elaborationOfClient": "",
+        "categories": "Data Viz, Visual Design",
+        "tools": "Illustrator, Microstrategy, Excel",
+        "link": null,
+        "line": "A few dashboards I made for VitaraCharts, on ThoughtSpot and MicroStrategy",
+        "insights": "I made these dashboards to showcase the capabilities of VitaraCharts on ThoughtSpot and MicroStrategy. The dashboards were made by first visualising on Illustrator, and then using the VitaraCharts tool to make them interactive.",
+       "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/misc-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/misc-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/misc-3.png"],
+        "displayType": "static"
+        
+    },
+    {
+        "projectName": "Gender Equality in the Office",
+        "dateCompleted": "2022-7",
+        "clientOrInstitute": "Gramener (Internship)",
+        "elaborationOfClient": "",
+        "categories": "Data Viz, Visual Design",
+        "tools": "P5js, Illustrator, DataWrapper",
+        "link": "https://gramener.com/blog/posts?post=07-26-2022-a-kitchen-in-the-office.md&utm_source=Women%27s+equality+day&utm_medium=social+media+&utm_campaign=Others",
+        "line": "A visual data story in the form of a blog post made for Gramener\nduring my internship with them.",
+        "insights": "This is a project I worked on as an intern at the StoryLabs team at Gramener, under the mentorship of Richie Lionel and Anand S. The project involved research, compilation and collation of the data, framing the narrative, visualising it, coding, and illustrating the graphs. The sources for the data in this project are ILO, UNESCO, World Economic Forum and Deloitte.",
+        "displayType": "external",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/a-kitchen-in-the-office-4.png","https://www.youtube.com/embed/WGSAxMHSyCE?si=_4WFuWhNSLgQxOlV"  ],
+        "youtubeId": "WGSAxMHSyCE"
+    },
+  
+    {
+        "projectName": "Exploded View of the Earth",
+        "dateCompleted": "2021-12",
+        "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
+        "elaborationOfClient": "",
+        "categories": "Visual Design",
+        "tools": "Illustrator, Photoshop (digital Painting)",
+        "link": "https://www.behance.net/gallery/141430881/How-to-make-an-Earth-Double-Page-Spread",
+        "line": "A double page spread for a satirical piece on global warming",
+        "insights": "This is an editorial infographic in the form of a double page spread. The prompt was to make an exploded view of any object. I have looked at the Earth as an object of everyday use. Hence, I have likened it’s composition to something that can be factory made, bought and sold. It is satirical, in order to bring out the humour in how lucky we are to have a place such as the Earth to live, but are still unable to take care of it. We do not treat like it is the cause of all life, but rather an object that once used, can be thrown away.",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/howToMakeAnEarth-1.png" ],
+        "displayType": "static"
+        
+    },
+    {
+        "projectName": "Human-First Dataset on Journalists",
+        "dateCompleted": "2024-12",
+        "clientOrInstitute": "MSDV Parsons",
+        "elaborationOfClient": "",
+        "categories": "Database Building",
+        "tools": "Pandas",
+        "link": "https://github.com/hushbrush/journalistsData2024",
+        "line": "A dataset connecting government types, press freedom indexes, and cases of journalists who were imprisoned, killed, or went missing, enabling a deeper exploration of the relationship between press freedom and political systems. Made using Python Pandas",
+        "insights": "This project focuses on creating a detailed dataset that explores the relationship between government types and press freedom by integrating multiple data sources. It consolidates information about journalists who have been imprisoned, killed, or gone missing, alongside press freedom indexes and scores such as those from Reporters Without Borders and UNESCO. Using sources like the Committee to Protect Journalists, Wikipedia (for missing journalists), and global freedom indices, the dataset highlights how different political systems—democracies, dictatorships, and other forms of governance—affect freedom of the press. The hypothesis driving this dataset is that democracies typically provide more freedom of the press, while dictatorships and conflict zones exhibit restricted press freedom, often leading to human rights violations. It examines correlations between press freedom indices and incidents of harm to journalists, exploring how government policies, war, and economic conditions impact these outcomes. The dataset aims to provide a \"human-first\" approach by contextualizing journalists' experiences within their countries' political and social environments. This work lays the foundation for further research into press freedom's critical role in democracy and how its erosion signals broader negative human conditions. The dataset serves as a vital tool for researchers, journalists, and advocates working to protect press freedom and human rights globally.",
+        "displayType": "yt",
+        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/humanFirst-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/humanFirst-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/humanFirst-3.png" ],
+        "youtubeId": "zYtES21DjLU"
+      },
+    {
+        "projectName": "Maps of Nothing",
+        "dateCompleted": "2021-8",
+        "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
+        "elaborationOfClient": "",
+        "categories": "Book Design",
+        "tools": "Indesign, Acrylic paint, Photoshop(digital painting)",
+        "link": "https://indd.adobe.com/embed/7adee651-a6be-4862-9a21-9515b6b9aee8?startpage=1&allowFullscreen=true",
+        "line": "An illustrated book about having an inter-cultural identity.",
+        "insights": "This book was made with the idea of identity at the forefront, and hence, character design became an important part of this process. How the character felt she was perceived at different times dictated the character’s physique, accessories, etc. This has been heavily based on the “North Indian” and “South Indian” stereotypes. The visual style was developed by scanning a page of acrylic paint, creating a photoshop brush of it, and then layering it as a stamp atop the colour and shade of the illustration.",
+        "displayType": "yt",
+        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/mon-7.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/mon-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/mon-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/mon-3.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/mon-4.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/mon-5.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/mon-6.png"    ],
+        "youtubeId": "RFKr2ksjseU"
+    },
+    {
+        "projectName": "Show Me The Money, Honey",
+        "dateCompleted": "2024-11",
+        "clientOrInstitute": "Parsons",
+        "elaborationOfClient": "",
+        "categories": "Code, Book Design",
+        "tools": "P5js, Indesign, Python",
+        "link": "https://indd.adobe.com/view/97b6ec15-2498-4d0a-bb0e-cab7e2f1cbc1",
+        "line": "An experimental book about my spending habits and how I see money",
+        "insights": "",
+        "displayType": "yt",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-4.png"  , "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/showMeTheMoney-6.png"],
+        "youtubeId": "4RYZwuI1fPo"
+    },
+    {
+        "projectName": "Posters for 10K Run",
+        "dateCompleted": "2021-8",
+        "clientOrInstitute": "SYU Designs--Murugappa Group",
+        "elaborationOfClient": "",
+        "categories": "Visual Design",
+        "tools": "Illustrator, Photoshop",
+        "link": "https://www.syu.co.in/portfolio-item/go-go-guru/",
+        "line": "Posters created for the Murugappa Group while working for SYU Design (as a part of a team)",
+        "insights": "",
+        "displayType": "yt",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-1.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-2.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-3.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-4.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-5.jpg"],
+        "youtubeId": "uCU-jt2gURU"
+        
+    },
+    {
+        "projectName": "Website Design for VitaraCharts",
+        "dateCompleted": "2023-12",
+        "clientOrInstitute": "VitaraCharts",
+        "elaborationOfClient": "",
+        "categories": "Website Design",
+        "tools": "Wix, Illustrator, Figma",
+        "link": "https://www.vitaracharts.com/",
+        "line": "Designed and maintained a Wix-based Web and Mobile pwebsite showcasing MicroStrategy and ThoughtSpot chart plugins. Developed the visual language, branding, marketing collateral, and an interactive chart-picker.",
+        "insights": "",
+        "displayType": "yt",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-8.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/websiteVTR-9.png", "https://www.youtube.com/embed/thu7eF0dM3c?si=FcXxlmaQD0TqqQtF"],
+        "youtubeId": "thu7eF0dM3c"
+    },
+    {
+        "projectName": "Student Academic Performance- Statistical Analysis",
+        "dateCompleted": "2025-1",
+        "clientOrInstitute": "Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data, Statistics",
+        "tools": "R",
+        "link": "https://github.com/hushbrush/schoolPolicy",
+        "line": "A statistical model that explains the correlation of school-level variables with academic performance. The data used contained school outcomes for 400 elementary schools randomly selected across the state of California.",
+        "insights": "",
+        "displayType": "yt",
+        "mediaLinks": [ " https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/schoolPolicy-1.png", " https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/schoolPolicy-2.png", " https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/schoolPolicy-3.png"]
+       
+    } ,
+    {
+        "projectName": "Real Time Asteroid Explorer",
+        "dateCompleted": "2025-3",
+        "clientOrInstitute": "Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data, Design",
+        "tools": "Javascript/HTML/CSS, Figma",
+        "link": "https://hushbrush.github.io/asteroids/",
+        "line": "A real-time data visualisation of the asteroids that are currently orbiting the Earth, and whether they are potentially dangerous or not. The data is pulled from NASA's API.",
+        "insights": "",
+        "displayType": "yt",
+        "youtubeId": "eNjEmO8O1fo",
+        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/asteroid_1.png", "https://www.youtube.com/embed/eNjEmO8O1fo?si=1HMOfDskqSX-S8al" ]
+    },
+    {
+        "projectName": "Cookie Cutter Women",
+        "dateCompleted": "2025-5",
+        "clientOrInstitute": "Parsons",
+        "elaborationOfClient": "",
+        "categories": "Data, Design",
+        "tools": "Vue.js/HTML/CSS, D3.js, Figma, Illustrator, Python",
+        "link": "https://hushbrush.github.io/thesis/",
+        "line": "An analysis of female characters in epic literature across time and cultures.",
+        "insights": "",
+        "displayType": "yt",
+        "youtubeId": "vu0XHYmMEQk",
+        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/cookieCutter-0.png", "https://www.youtube.com/embed/vu0XHYmMEQk?si=sj64Ck9lb1zZR8EH"  ]
+        
+    },
+    {
+        "projectName": "Confronting Harm-Safety Report for Women in US Legislation",
+        "dateCompleted": "2025-7",
+        "clientOrInstitute": "Ghosh Innovation Labs",
+        "elaborationOfClient": "",
+        "categories": "Data, Code, Book Design",
+        "tools": "Excel, Indesign, DataWrapper, Figma",
+        "link": "http://www.ghoshinnovationlab.org/safetyreport",
+        "line": "Data Visualizations and Layout Design for a research report. The report talks about the experiences and strategies of U.S. Women State Legislators on the frontlines of political violence.",
+        "insights": "",
+        "displayType": "yt",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/gil-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/gil-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/gil-3.png"  ],
+        "youtubeId": "4RYZwuI1fPo"
+    },
+
+    {
+        "projectName": "TwinMind Information Architecture",
+        "dateCompleted": "2025-7",
+        "clientOrInstitute": "TwinMind AI",
+        "elaborationOfClient": "",
+        "categories": "Design, UX",
+        "tools": "Figma",
+        "link": "https://www.figma.com/proto/9EKKRAEXekQ3JR9NAEjEmt/Portfolio-Projects?node-id=2-2014&t=PZgR9lCmSm9aSao3-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A659&show-proto-sidebar=1",
+        "line": "Information Architecture for an AI app that helps users capture their memories by transcripting conversations and calls, and manage their personal knowledge bases.",
+        "insights": "",
+        "displayType": "static",
+        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-3.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-4.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-5.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/twinMind-6.png"]
+        
+    }
+
+]

@@ -19,6 +19,11 @@
     <header>
         <div id="headerSection">
             <nav>
+                <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <ul class="nav">
                     <li class="nav-item"><a class="nav-link" href="#projectsSection">Work</a></li>
                     <li class="nav-item"><a class="nav-link" href="#aboutSection">About</a></li>
@@ -42,7 +47,8 @@
     <section id="projectsSection" class="text-center py-5">
         <div class="container">
             <h2>Work</h2>
-            <h4>Click on the circles to view each project</h4>
+            <h4>Click a project to view details</h4>
+            <div id="mobileProjectCards" aria-label="Recent projects"></div>
             <div id="vennDiagram">
             <div id="legend"></div>
             </div>
@@ -74,7 +80,7 @@
                 <ul>
                     <li>Data (D3.js, MicroStrategy, R, Python)</li>
                     <li>Visual/UI Design (Adobe Suite, Figma, Wix)</li>
-                    <li>Front-End Development (HTML, CSS, JavaScript, Vue.js)</li>
+                    <li>Front-End Development (HTML, CSS, JavaScript, TypeScript, React, Vue.js)</li>
                     <li>Problem-Solving through Conceptual & Analytical Thinking</li>
                 </ul>
               

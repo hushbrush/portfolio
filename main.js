@@ -3,12 +3,16 @@
 const colors ={ projectCircles: "#000000"}; 
 
 let projects = [];                           // <— add this
+let mobileProjectVisibleCount = 3;
+let currentVennSimulation = null;
+let vennResizeTimer = null;
 const slugify = s => s.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
 const bySlug  = slug => projects.find(p => slugify(p.projectName) === slug);
 
 
 
 landingPage();
+setupMobileNav();
 fetch('data.json')
     .then(response => {
         if (!response.ok) {
@@ -21,6 +25,8 @@ fetch('data.json')
         projects = data;  
         generateCircleAttributes(data);
         renderVennDiagram(data);
+        renderMobileProjectCards(data);
+        setupResponsiveRendering(data);
 
         // 🔑 Now that projects exist, try opening modal from hash
         openFromHash();
@@ -28,6 +34,34 @@ fetch('data.json')
     .catch(error => {
         console.error('Error fetching or parsing data.json:', error);
     });
+
+function setupResponsiveRendering(data) {
+  window.addEventListener("resize", () => {
+    window.clearTimeout(vennResizeTimer);
+    vennResizeTimer = window.setTimeout(() => {
+      renderVennDiagram(data);
+      landingPage();
+    }, 180);
+  });
+}
+
+function setupMobileNav() {
+  const toggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector("#headerSection nav");
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
 
 
 
@@ -161,12 +195,18 @@ function forceContainInCircle(cx, cy, r, testFn) {
   
   // ─── updated renderVennDiagram with “walls” ───────────────────────────────
   function renderVennDiagram(projects) {
-      const svgWidth  = window.innerWidth;
-      const svgHeight = window.innerHeight * 1.1;
-      const circleRadius = 430;
+      const container = d3.select("#vennDiagram");
+      container.selectAll("svg").remove();
+      if (currentVennSimulation) currentVennSimulation.stop();
+
+      if (window.matchMedia("(max-width: 900px)").matches) return;
+
+      const svgWidth  = container.node()?.clientWidth || window.innerWidth;
+      const circleRadius = Math.max(260, Math.min(430, (svgWidth - 140) / 3));
+      const svgHeight = Math.max(window.innerHeight * 1.1, circleRadius * 2 + 180);
   
       // SVG setup
-      const svg = d3.select("#projectsSection")
+      const svg = container
         .append("svg")
           .attr("width",  svgWidth)
           .attr("height", svgHeight);
@@ -282,7 +322,53 @@ function forceContainInCircle(cx, cy, r, testFn) {
         });
   
       simulation.alpha(1).restart();
+      currentVennSimulation = simulation;
   }
+
+function renderMobileProjectCards(projects) {
+  const cards = d3.select("#mobileProjectCards");
+  if (cards.empty()) return;
+
+  cards.selectAll("*").remove();
+
+  const sortedProjects = [...projects]
+    .sort((a, b) => new Date(b.dateCompleted) - new Date(a.dateCompleted));
+  const visibleProjects = sortedProjects.slice(0, mobileProjectVisibleCount);
+
+  const card = cards
+    .selectAll("button")
+    .data(visibleProjects, d => d.projectName)
+    .enter()
+    .append("button")
+    .attr("type", "button")
+    .attr("class", "mobile-project-card")
+    .on("click", (event, d) => {
+      showProjectModal(d);
+      const slug = slugify(d.projectName);
+      if (location.hash !== `#${slug}`) history.pushState({ project: slug }, "", `#${slug}`);
+    });
+
+  card
+    .append("img")
+    .attr("src", d => `assets/thumbnails/${slugify(d.projectName)}.png`)
+    .attr("alt", d => `${d.projectName} thumbnail`);
+
+  card
+    .append("span")
+    .text(d => d.projectName);
+
+  if (mobileProjectVisibleCount < sortedProjects.length) {
+    cards
+      .append("button")
+      .attr("type", "button")
+      .attr("class", "mobile-see-more")
+      .text("See more")
+      .on("click", () => {
+        mobileProjectVisibleCount += 3;
+        renderMobileProjectCards(projects);
+      });
+  }
+}
   
  
   function changeCircleSize(event, project) {
@@ -349,11 +435,16 @@ function pathMaker(name) {
 function showTooltip(event, name, content, categories) {
   const offsetX = 100;
 const tooltipWidth = 480;
+const viewportPadding = 16;
 
   if(categories.includes("Data"))
     tooltipLeft = event.pageX + offsetX;
  else 
   tooltipLeft = event.pageX - offsetX - tooltipWidth;
+tooltipLeft = Math.max(
+  viewportPadding,
+  Math.min(tooltipLeft, window.scrollX + window.innerWidth - tooltipWidth - viewportPadding)
+);
 
 const tooltip = d3
 .select("body")
@@ -384,160 +475,116 @@ function showProjectModal(project) {
   // Remove existing overlay if any
   d3.select("#videoOverlay").remove();
   const slug = slugify(project.projectName);
+  const previousBodyOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
 
   // Create the full-screen dark background
   const overlay = d3.select("body")
     .append("div")
     .attr("id", "videoOverlay")
     .attr("data-slug", slug)
-    .style("position", "fixed")
-    .style("top", "0")
-    .style("left", "0")
-    .style("width", "100vw")
-    .style("height", "100vh")
-    .style("background-color", "rgba(0,0,0,0.8)")
-    .style("display", "flex")
-    .style("justify-content", "center")
-    .style("align-items", "center")
-    .style("z-index", "9999");
+    .attr("class", "project-modal-overlay");
 
   // Main modal container
   const modal = overlay.append("div")
-    .style("background", "#fadedc")
-    .style("color", "white")
-    .style("width", "90vw")
-    .style("height", "80vh")
-    .style("display", "flex")
-    .style("border-radius", "10px")
-    .style("overflow", "hidden")
-    .style("position", "relative");
+    .attr("class", "project-modal");
 
   // Close button
   modal.append("div")
+    .attr("class", "project-modal-close")
+    .attr("role", "button")
+    .attr("aria-label", "Close project")
     .text("×")
-    .style("position", "absolute")
-    .style("top", "10px")
-    .style("right", "20px")
-    .style("font-size", "2rem")
-    .style("cursor", "pointer")
     .on("click", closeOverlay);
 
   // LEFT SIDE: media (images/videos)
 const left = modal.append("div")
-.style("flex", "5")
-.style("background", "#f8f7fc")
-.style("display", "flex")
-.style("flex-direction", "column")
-.style("align-items", "center")
-.style("overflow-y", "auto")
-.style("gap", "10px")
-.style("padding", "10px");
+  .attr("class", "project-modal-media");
 console.log(project);
 
  
   (project.mediaLinks || []).forEach(link => {
     if (link.includes("youtube.com/embed") || link.includes("youtu.be")) {
       let wrapper = left.append("div")
-      .style("position", "relative")
-      .style("width", "100%")
-      .style("padding-bottom", "56.25%") // 16:9 ratio
-      .style("height", "0")
-      .style("margin-bottom", "10px");
+        .attr("class", "project-modal-media-frame");
 
     wrapper.append("iframe")
       .attr("src", link)
       .attr("frameborder", "0")
       .attr("allow", "autoplay; encrypted-media; picture-in-picture")
-      .attr("allowfullscreen", true)
-      .style("position", "absolute")
-      .style("top", "0")
-      .style("left", "0")
-      .style("width", "100%")
-      .style("height", "100%");
+      .attr("allowfullscreen", true);
     } else {
       left.append("img")
         .attr("src", link)
-        .style("width", "100%")
-        .style("height", "auto")
-        .style("object-fit", "cover")
-        .style("margin-bottom", "10px");
+        .attr("alt", project.projectName || "");
     }
   });
 
   // RIGHT SIDE: project info
   const right = modal.append("div")
-    .style("flex", "1")
-    .style("background", "#1a1a1a")
-    .style("padding", "20px")
-    .style("display", "flex")
-    .style("flex-direction", "column")
-    .style("justify-content", "flex-start")
-    .style("gap", "15px")
-    .style("overflow-y", "auto");
+    .attr("class", "project-modal-info");
 
   right.append("p")
+    .attr("class", "project-modal-title")
     .text(project.projectName || "Untitled Project")
-    .style("font-weight", "semibold 600")
-    .style("padding", "30px,  15px,  15px, 15px") 
-    .style("margin", "0")
-    .style("font-size", "2rem")
-    .style("line-height", "1.1");
 
   //add a horizontal line here
   right.append("hr")
-  .style("border", "0")
-  .style("height", "1px")
-  .style("background", "#555")
-  .style("margin", "10px 0");
+    .attr("class", "project-modal-rule");
+
+  right.append("p")
+    .attr("class", "project-modal-meta")
+    .text(`${project.dateCompleted.replace("-", "•") || ""} || ${project.tools.replaceAll(",", "•") || ""}`)
 
   if(project.link!=null)
     {
       right.append("button")
+      .attr("class", "project-modal-launch")
       .text("Launch Project")
-      .style("padding", "8px 15px")
-      .style("background", "#000")
-      .style("color", "white")
-      .style("border", "1px solid white")
-      .style("cursor", "pointer")
-      .style("margin", "10px 0")
       .on("click", () => window.open(project.link, "_blank"));
     }
-
-  right.append("p")
-    .text(`${project.dateCompleted.replace("-", "•") || ""} || ${project.tools.replaceAll(",", "•") || ""}`)
-    .style("font-size", "0.7rem")
-    .style("alighn", "center")
-    .style("color", "#aaa")
-    .style("margin", "0");
-
-
-
  
    
   //add a horizontal line here
   right.append("hr")
-  .style("border", "0")
-  .style("height", "1px")
-  .style("background", "#555")
-  .style("margin", "10px 0");
+    .attr("class", "project-modal-rule");
 
   right.append("p")
+    .attr("class", "project-modal-description project-modal-desktop-copy")
     .text(project.line || "No description provided.")
-    .style("font-size", "0.95rem")
-    .style("line-height", "1.4");
 
   if (project.insights && project.insights.length > 0) {
     const insightsDiv = right.append("div");
     insightsDiv.append("p")
+      .attr("class", "project-modal-insights project-modal-desktop-copy")
       .text(project.insights)
-      .style("font-size", "0.95rem")
-      .style("margin-bottom", "5px");
 
+  }
+
+  const mobileDetails = right.append("div")
+    .attr("class", "project-modal-mobile-details");
+
+  mobileDetails.append("details")
+    .append("summary")
+    .text("Overview");
+
+  mobileDetails.select("details")
+    .append("p")
+    .attr("class", "project-modal-description")
+    .text(project.line || "No description provided.");
+
+  if (project.insights && project.insights.length > 0) {
+    const details = mobileDetails.append("details");
+    details.append("summary").text("Process");
+    details.append("p")
+      .attr("class", "project-modal-insights")
+      .text(project.insights);
   }
 
  
   function closeOverlay() {
     overlay.remove();
+    document.body.style.overflow = previousBodyOverflow;
     if (location.hash) history.back(); // let back button clear the hash/state
   }
   
@@ -606,6 +653,10 @@ function showGifWithAnimation(event, project) {
         // show on left
         targetLeft = initialX - 100 - 480; // subtract gif width
       }
+      targetLeft = Math.max(
+        window.scrollX + 16,
+        Math.min(targetLeft, window.scrollX + window.innerWidth - 480 - 16)
+      );
       
       circleContainer.transition()
         .duration(500)
@@ -713,12 +764,14 @@ window.addEventListener('popstate', () => {
   if (!slug && overlay) {
     // hash cleared → close
     d3.select("#videoOverlay").remove();
+    document.body.style.overflow = "";
     return;
   }
   if (slug) {
     const current = d3.select("#videoOverlay").attr("data-slug");
     if (current !== slug) {
       d3.select("#videoOverlay").remove();
+      document.body.style.overflow = "";
       const p = bySlug(slug);
       if (p) showProjectModal(p);
     }
