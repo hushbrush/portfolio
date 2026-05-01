@@ -65,6 +65,51 @@ function determineVennCirclePositions(svgWidth, svgHeight, circleRadius) {
   ];
 }
 
+function getClientName(project) {
+  return String(project.client || "").trim();
+}
+
+function getClientLabel(project) {
+  return getClientName(project).toUpperCase();
+}
+
+function getMonthsSinceProject(project) {
+  const projectDate = parseProjectMonth(project.dateCompleted);
+  const today = new Date();
+  const months =
+    (today.getFullYear() - projectDate.getFullYear()) * 12 +
+    (today.getMonth() - projectDate.getMonth());
+  return Math.max(0, months);
+}
+
+function getRecentLabel(project) {
+  const months = getMonthsSinceProject(project);
+  return `${months} ${months === 1 ? "MONTH" : "MONTHS"} AGO`;
+}
+
+function getPreviewMedia(project) {
+  if (project.previewVideo || project.hoverVideo) {
+    return { type: "video", src: project.previewVideo || project.hoverVideo };
+  }
+  if (safeId(project.projectName).includes("jurisee") && project.youtubeId) {
+    return {
+      type: "youtube",
+      src: `https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0&playsinline=1&rel=0`,
+    };
+  }
+  return { type: "video", src: `/assets/${safeId(project.projectName)}/loop.mp4` };
+}
+
+function getProjectLabel(project, activeFilter) {
+  if (activeFilter === "client") return getClientLabel(project);
+  if (activeFilter === "recent") return getRecentLabel(project);
+  return "";
+}
+
+function estimateLabelWidth(label) {
+  return Math.min(260, Math.max(72, label.length * 8.2));
+}
+
 function assignProjectPositions(projects, vennCircles, svgWidth, svgHeight) {
   const [cData, cDesign] = vennCircles;
 
@@ -109,107 +154,118 @@ function forceContainInCircle(cx, cy, r, testFn) {
   return force;
 }
 
-function showTooltip(event, name, content, categories) {
+function showHoverCard(event, project) {
   const offsetX = 100;
-  const tooltipWidth = 480;
+  const cardWidth = 480;
+  const cardPadding = 14;
+  const mediaWidth = cardWidth - cardPadding * 2;
   const viewportPadding = 16;
-  const categoryText = categories || "";
-  const isData = categoryText.includes("Data") || categoryText.includes("data");
-
-  const rawTooltipLeft = isData
-    ? event.pageX + offsetX
-    : event.pageX - offsetX - tooltipWidth;
-  const tooltipLeft = Math.max(
-    viewportPadding,
-    Math.min(
-      rawTooltipLeft,
-      window.scrollX + window.innerWidth - tooltipWidth - viewportPadding
-    )
-  );
-
-  d3.select("#tooltip").remove();
-
-  const tooltip = d3
-    .select("body")
-    .append("div")
-    .attr("id", "tooltip")
-    .style("position", "absolute")
-    .style("left", `${tooltipLeft}px`)
-    .style("top", `${event.pageY + 70}px`)
-    .style("width", `${tooltipWidth}px`)
-    .style("padding", "15px")
-    .style("background", "rgba(0,0,0,0.9)")
-    .style("color", "white")
-    .style("border-radius", "20px")
-    .style("pointer-events", "none")
-    .style("font-family", "bricolage-grotesque, sans-serif")
-    .style("font-weight", "100")
-    .html(`<strong>${name}</strong>: ${content}`);
-
-  tooltip.transition().duration(200).style("opacity", 1);
-}
-
-function hideTooltip() {
-  d3.select("#tooltip").remove();
-}
-
-function showGifWithAnimation(event, project) {
-  d3.select("#gifContainer").remove();
-
-  const gifSource = `/assets/${safeId(project.projectName)}/loop.mp4`;
-
-  const circleContainer = d3
-    .select("body")
-    .append("div")
-    .attr("id", "gifContainer")
-    .style("width", "0px")
-    .style("height", "0px")
-    .style("border-radius", "50px")
-    .style("position", "absolute")
-    .style("overflow", "hidden")
-    .style("z-index", "1000")
-    .style("background-color", "rgba(0, 0, 0, 0.8)")
-    .style("display", "flex")
-    .style("align-items", "center")
-    .style("justify-content", "center")
-    .style("pointer-events", "none");
-
-  circleContainer
-    .append("video")
-    .attr("src", gifSource)
-    .attr("autoplay", true)
-    .attr("loop", true)
-    .attr("muted", true)
-    .attr("playsinline", true)
-    .style("width", "auto")
-    .style("height", "300px")
-    .style("opacity", 1);
-
-  const initialX = event.pageX;
-  const initialY = event.pageY;
-
-  circleContainer.style("left", `${initialX}px`).style("top", `${initialY}px`);
-
-  const targetTop = initialY - 250;
   const categoryText = project.categories || "";
   const isData = categoryText.includes("Data") || categoryText.includes("data");
 
-  const rawTargetLeft = isData ? initialX + 100 : initialX - 100 - 480;
-  const targetLeft = Math.max(
-    window.scrollX + 16,
-    Math.min(rawTargetLeft, window.scrollX + window.innerWidth - 480 - 16)
+  const rawCardLeft = isData
+    ? event.pageX + offsetX
+    : event.pageX - offsetX - cardWidth;
+  const cardLeft = Math.max(
+    viewportPadding,
+    Math.min(
+      rawCardLeft,
+      window.scrollX + window.innerWidth - cardWidth - viewportPadding
+    )
   );
+  const cardTop = event.pageY - 250;
+  const media = getPreviewMedia(project);
 
-  circleContainer
+  d3.select("#hoverPreviewCard").remove();
+
+  const card = d3
+    .select("body")
+    .append("div")
+    .attr("id", "hoverPreviewCard")
+    .style("position", "absolute")
+    .style("left", `${event.pageX}px`)
+    .style("top", `${event.pageY}px`)
+    .style("width", `${cardWidth}px`)
+    .style("padding", `${cardPadding}px`)
+    .style("background", "rgba(0,0,0,0.92)")
+    .style("color", "white")
+    .style("border-radius", "18px")
+    .style("pointer-events", "none")
+    .style("font-family", "bricolage-grotesque, sans-serif")
+    .style("overflow", "hidden")
+    .style("z-index", "1000")
+    .style("display", "flex")
+    .style("flex-direction", "column")
+    .style("gap", "10px")
+    .style("opacity", 0)
+    .style("transform", "scale(0.08)")
+    .style("transform-origin", "0 0");
+
+  card
+    .append("div")
+    .style("font-weight", "700")
+    .style("font-size", "18px")
+    .style("line-height", "1.15")
+    .text(project.projectName);
+
+  const mediaWrap = card
+    .append("div")
+    .style("width", "100%")
+    .style("height", `${mediaWidth / (16 / 9)}px`)
+    .style("border-radius", "12px")
+    .style("overflow", "hidden")
+    .style("background", "#111");
+
+  if (media.type === "youtube") {
+    mediaWrap
+      .append("iframe")
+      .attr("src", media.src)
+      .attr("allow", "autoplay; encrypted-media; picture-in-picture")
+      .attr("allowfullscreen", true)
+      .style("border", "0")
+      .style("width", "100%")
+      .style("height", "100%");
+  } else {
+    const video = mediaWrap
+      .append("video")
+      .attr("src", media.src)
+      .attr("autoplay", true)
+      .attr("loop", true)
+      .attr("muted", true)
+      .attr("playsinline", true)
+      .style("width", "100%")
+      .style("height", "100%")
+      .style("object-fit", "cover");
+
+    video.on("loadedmetadata", function () {
+      const aspectRatio = this.videoWidth && this.videoHeight
+        ? this.videoWidth / this.videoHeight
+        : 16 / 9;
+      mediaWrap
+        .transition()
+        .duration(180)
+        .style("height", `${mediaWidth / aspectRatio}px`);
+    });
+  }
+
+  card
+    .append("div")
+    .style("font-size", "13px")
+    .style("font-weight", "300")
+    .style("line-height", "1.35")
+    .text(project.line || "");
+
+  card
     .transition()
-    .duration(500)
-    .style("width", "480px")
-    .style("height", "300px")
-    .style("left", `${targetLeft}px`)
-    .style("top", `${targetTop}px`);
+    .duration(240)
+    .ease(d3.easeCubicOut)
+    .style("left", `${cardLeft}px`)
+    .style("top", `${cardTop}px`)
+    .style("opacity", 1)
+    .style("transform", "scale(1)");
 }
 
-export default function VennDiagram({ projects, onProjectClick }) {
+export default function VennDiagram({ projects, activeFilter, onProjectClick }) {
   const containerRef = useRef(null);
   const simRef = useRef(null);
   const [viewportKey, setViewportKey] = useState(0);
@@ -286,7 +342,8 @@ export default function VennDiagram({ projects, onProjectClick }) {
       .attr("cy", (d) => d.cy)
       .attr("r", (d) => d.radius)
       .attr("fill", "none")
-      .attr("stroke", "black");
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
 
     svg
       .selectAll(".venn-circle-text")
@@ -303,19 +360,21 @@ export default function VennDiagram({ projects, onProjectClick }) {
       .style("font-size", "16px")
       .attr("fill", "black");
 
-    // legend
-    svg
-      .append("text")
-      .attr("x", svgWidth - 260)
-      .attr("y", 40)
-      .text("Size = Time Since Completed")
-      .style("font-family", "'bricolage-grotesque', sans-serif")
-      .style("font-weight", "300")
-      .style("font-size", "14px")
-      .attr("fill", "black");
-
     // targets
     assignProjectPositions(data, vennCircles, svgWidth, svgHeight);
+    data.forEach((d) => {
+      d.x = svgWidth / 2;
+      d.y = svgHeight / 2;
+      d.vx = 0;
+      d.vy = 0;
+    });
+    if (activeFilter === "client" || activeFilter === "recent") {
+      data.forEach((d) => {
+        d.projectLabel = getProjectLabel(d, activeFilter);
+        d.projectLabelWidth = estimateLabelWidth(d.projectLabel);
+        d.collisionSize = Math.max(d.size + 30, d.projectLabelWidth / 2 + 14);
+      });
+    }
 
     // draw nodes once
     const nodes = svg
@@ -328,25 +387,51 @@ export default function VennDiagram({ projects, onProjectClick }) {
       .attr("fill", (d) => `url(#thumb-${safeId(d.projectName)}) #f8f7fc`)
       .attr("stroke", "black")
       .attr("stroke-width", 1)
+      .attr("stroke-dasharray", "5 5")
       .style("cursor", "pointer")
       .on("mouseenter", (e, d) => {
-        showTooltip(e, d.projectName, d.line, d.categories);
-        showGifWithAnimation(e, d);
+        nodes.transition().duration(120).style("opacity", (node) => (node.projectName === d.projectName ? 1 : 0.3));
+        if (projectLabels) {
+          projectLabels.transition().duration(120).style("opacity", (node) => (node.projectName === d.projectName ? 1 : 0.3));
+        }
+        svg.selectAll(".venn-circle,.venn-circle-text").transition().duration(120).style("opacity", 0.3);
+        showHoverCard(e, d);
       })
       .on("mouseleave", () => {
-        d3.select("#gifContainer").remove();
-        hideTooltip();
+        nodes.transition().duration(120).style("opacity", 1);
+        if (projectLabels) projectLabels.transition().duration(120).style("opacity", 1);
+        svg.selectAll(".venn-circle,.venn-circle-text").transition().duration(120).style("opacity", 1);
+        d3.select("#hoverPreviewCard").remove();
       })
       .on("click", (_, d) => {
         if (onProjectClick) onProjectClick(d);
       });
+
+    let projectLabels = null;
+    if (activeFilter === "client" || activeFilter === "recent") {
+      projectLabels = svg
+        .selectAll(".project-label")
+        .data(data, (d) => d.projectName)
+        .enter()
+        .append("text")
+        .attr("class", "project-label")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "hanging")
+        .attr("fill", "#000")
+        .style("font-family", "'bricolage-grotesque', sans-serif")
+        .style("font-size", "14px")
+        .style("font-weight", "700")
+        .style("letter-spacing", "0")
+        .style("pointer-events", "none")
+        .text((d) => d.projectLabel);
+    }
 
     // simulation
     const simulation = d3
       .forceSimulation(data)
       .force("x", d3.forceX((d) => d.targetX).strength(0.6))
       .force("y", d3.forceY((d) => d.targetY).strength(0.3))
-      .force("collision", d3.forceCollide((d) => d.size + 10))
+      .force("collision", d3.forceCollide((d) => d.collisionSize || d.size + 10).iterations(2))
       .force(
         "containData",
         forceContainInCircle(cData.cx, cData.cy, circleRadius, (d) =>
@@ -361,6 +446,11 @@ export default function VennDiagram({ projects, onProjectClick }) {
       )
       .on("tick", () => {
         nodes.attr("cx", (d) => d.x - 20).attr("cy", (d) => d.y - 20);
+        if (projectLabels) {
+          projectLabels
+            .attr("x", (d) => d.x - 20)
+            .attr("y", (d) => d.y - 20 + d.size + 18);
+        }
       });
 
     simRef.current = simulation;
@@ -369,10 +459,9 @@ export default function VennDiagram({ projects, onProjectClick }) {
     // cleanup
     return () => {
       simulation.stop();
-      d3.select("#tooltip").remove();
-      d3.select("#gifContainer").remove();
+      d3.select("#hoverPreviewCard").remove();
     };
-  }, [projects, onProjectClick, viewportKey]);
+  }, [projects, activeFilter, onProjectClick, viewportKey]);
 
   // (optional) on resize: re-render by triggering effect (simple version)
   // You can add a window resize listener later.

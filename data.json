@@ -2,7 +2,7 @@
     {
         "projectName": "Mint Matters",
         "dateCompleted": "2024-12",
-        "clientOrInstitute": "Smithsonian-MSDV Parsons",
+        "client": "Smithsonian-MSDV Parsons",
         "elaborationOfClient": "",
         "categories": "Data Viz, Visual Design",
         "tools": "D3.js, Javascript/HTML/CSS, Figma",
@@ -10,14 +10,13 @@
         "line": "A data Story exploring the National Postal Museum's CC0 stamp collections and the factors that makes them valuable.",
         "insights": "As a child, I loved stamps. Not having yet discovered the power of google, I would tear them off of the envelopes I found them on, and use gum to stick them onto the pages of an old diary. Obviously, that’s a terrible way to collect stamps. Slowly, as my friends and relatives started bringing me the stamps they found, I learnt of their value, their cultural and historical significance. This project aims open the world of philately to new audiences and encourage a deeper appreciation for these miniature artefacts of human history. To calculate the indices for this project, I started by identifying key factors that influence a stamp’s value, such as condition, rarity, historical context, and printing techniques. Each factor was then quantified based on specific attributes—like the presence of words such as \"unused\" or \"mint\" in the description for condition, or terms like \"proof plate\" for rarity. These individual indices were then weighted and combined to create a composite score that reflects both tangible and cultural aspects of a stamp’s worth. The process aimed to balance objective analysis with the inherent subjectivity of valuing artifacts, making it easier to explore the Smithsonian’s stamp collection through an accessible, data-driven lens.",
         "displayType": "yt",
-        
         "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/mintMatters-6.png", "https://www.youtube.com/embed/y3okFCfNZac?si=9pyHDU7hc5Qkd7u_"  ]
         
     },
     {
         "projectName": "Framing Gender",
         "dateCompleted": "2024-10",
-        "clientOrInstitute": "Smithsonian-MSDV Parsons",
+        "client": "Smithsonian-MSDV Parsons",
         "elaborationOfClient": "",
         "categories": "Data Viz, Visual Design",
         "tools":"D3.js, Javascript/HTML/CSS, Figma",
@@ -31,7 +30,7 @@
     {
         "projectName": "US SOTU Speeches Visualisation",
         "dateCompleted": "2024-10",
-        "clientOrInstitute": "MSDV Parsons",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Data Viz, Visual Design, illustration, data art",
         "tools":"D3.js, Javascript/HTML/CSS, Figma",
@@ -45,7 +44,7 @@
     {
         "projectName": "Vitara Retail Dashboards",
         "dateCompleted": "2023-12",
-        "clientOrInstitute": "Vitara Charts",
+        "client": "Vitara Charts",
         "elaborationOfClient": "",
         "categories": "Data Viz, Visual Design",
         "tools": "Illustrator, Microstrategy, Excel",
@@ -59,7 +58,7 @@
     {
         "projectName": "Misc Dashboards",
         "dateCompleted": "2024-2",
-        "clientOrInstitute": "Vitara Charts",
+        "client": "Vitara Charts",
         "elaborationOfClient": "",
         "categories": "Data Viz, Visual Design",
         "tools": "Illustrator, Microstrategy, Excel",
@@ -73,7 +72,7 @@
     {
         "projectName": "Gender Equality in the Office",
         "dateCompleted": "2022-7",
-        "clientOrInstitute": "Gramener (Internship)",
+        "client": "Gramener",
         "elaborationOfClient": "",
         "categories": "Data Viz, Visual Design",
         "tools": "P5js, Illustrator, DataWrapper",
@@ -88,7 +87,7 @@
     {
         "projectName": "Exploded View of the Earth",
         "dateCompleted": "2021-12",
-        "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Visual Design",
         "tools": "Illustrator, Photoshop (digital Painting)",
@@ -102,7 +101,7 @@
     {
         "projectName": "Human-First Dataset on Journalists",
         "dateCompleted": "2024-12",
-        "clientOrInstitute": "MSDV Parsons",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Database Building",
         "tools": "Pandas",
@@ -110,13 +109,13 @@
         "line": "A dataset connecting government types, press freedom indexes, and cases of journalists who were imprisoned, killed, or went missing, enabling a deeper exploration of the relationship between press freedom and political systems. Made using Python Pandas",
         "insights": "This project focuses on creating a detailed dataset that explores the relationship between government types and press freedom by integrating multiple data sources. It consolidates information about journalists who have been imprisoned, killed, or gone missing, alongside press freedom indexes and scores such as those from Reporters Without Borders and UNESCO. Using sources like the Committee to Protect Journalists, Wikipedia (for missing journalists), and global freedom indices, the dataset highlights how different political systems—democracies, dictatorships, and other forms of governance—affect freedom of the press. The hypothesis driving this dataset is that democracies typically provide more freedom of the press, while dictatorships and conflict zones exhibit restricted press freedom, often leading to human rights violations. It examines correlations between press freedom indices and incidents of harm to journalists, exploring how government policies, war, and economic conditions impact these outcomes. The dataset aims to provide a \"human-first\" approach by contextualizing journalists' experiences within their countries' political and social environments. This work lays the foundation for further research into press freedom's critical role in democracy and how its erosion signals broader negative human conditions. The dataset serves as a vital tool for researchers, journalists, and advocates working to protect press freedom and human rights globally.",
         "displayType": "yt",
-        "mediaLinks": [ "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/humanFirst-1.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/humanFirst-2.png", "https://vjwxtwrjhcslxxktoqnx.supabase.co/storage/v1/object/public/portfolioimgs/humanFirst-3.png" ],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/humanfirst-dataset.png"],
         "youtubeId": "zYtES21DjLU"
       },
     {
         "projectName": "Maps of Nothing",
         "dateCompleted": "2021-8",
-        "clientOrInstitute": "Srishti Institute of Art, Design and Technology",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Book Design",
         "tools": "Indesign, Acrylic paint, Photoshop(digital painting)",
@@ -130,7 +129,7 @@
     {
         "projectName": "Show Me The Money, Honey",
         "dateCompleted": "2024-11",
-        "clientOrInstitute": "Parsons",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Code, Book Design",
         "tools": "P5js, Indesign, Python",
@@ -144,7 +143,7 @@
     {
         "projectName": "Posters for 10K Run",
         "dateCompleted": "2021-8",
-        "clientOrInstitute": "SYU Designs--Murugappa Group",
+        "client": "SYU Designs--Murugappa Group",
         "elaborationOfClient": "",
         "categories": "Visual Design",
         "tools": "Illustrator, Photoshop",
@@ -159,7 +158,7 @@
     {
         "projectName": "Website Design for VitaraCharts",
         "dateCompleted": "2023-12",
-        "clientOrInstitute": "VitaraCharts",
+        "client": "VitaraCharts",
         "elaborationOfClient": "",
         "categories": "Website Design",
         "tools": "Wix, Illustrator, Figma",
@@ -173,7 +172,7 @@
     {
         "projectName": "Student Academic Performance- Statistical Analysis",
         "dateCompleted": "2025-1",
-        "clientOrInstitute": "Parsons",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Data, Statistics",
         "tools": "R",
@@ -187,7 +186,7 @@
     {
         "projectName": "Real Time Asteroid Explorer",
         "dateCompleted": "2025-3",
-        "clientOrInstitute": "Parsons",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Data, Design",
         "tools": "Javascript/HTML/CSS, Figma",
@@ -201,7 +200,7 @@
     {
         "projectName": "Cookie Cutter Women",
         "dateCompleted": "2025-5",
-        "clientOrInstitute": "Parsons",
+        "client": "",
         "elaborationOfClient": "",
         "categories": "Data, Design",
         "tools": "Vue.js/HTML/CSS, D3.js, Figma, Illustrator, Python",
@@ -216,7 +215,7 @@
     {
         "projectName": "Confronting Harm-Safety Report for Women in US Legislation",
         "dateCompleted": "2025-7",
-        "clientOrInstitute": "Ghosh Innovation Labs",
+        "client": "Ghosh Innovation Labs",
         "elaborationOfClient": "",
         "categories": "Data, Code, Book Design",
         "tools": "Excel, Indesign, DataWrapper, Figma",
@@ -231,7 +230,7 @@
     {
         "projectName": "TwinMind Information Architecture",
         "dateCompleted": "2025-7",
-        "clientOrInstitute": "TwinMind AI",
+        "client": "TwinMind AI",
         "elaborationOfClient": "",
         "categories": "Design, UX",
         "tools": "Figma",
@@ -241,6 +240,20 @@
         "displayType": "static",
         "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-35.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-4.png"]
         
+    },
+       {
+        "projectName": "JuriSee: Judge Data Web Reports",
+        "dateCompleted": "2026-2",
+        "client": "JuriSee",
+        "elaborationOfClient": "",
+        "categories": "Data, Design, UX",
+        "tools": "Figma, D3, Javascript/HTML/CSS, Vue.js",
+        "line": "Design and development of interactive web reports for a Human Rights Tech startup. The reports provide users, often victims of systemic legal violations, or their lawyers with insights on whether a particular judge has a history of exploiting the legal system",
+        "insights": "This project was enriched by interviews with the target audience, which helped me understand the needs and pain points of the users. The design process involved creating wireframes and prototypes in Figma, which were then developed into interactive web reports using D3.js and Vue.js. The reports are designed to be user-friendly and accessible, providing clear visualizations of the data to help users make informed decisions about their legal cases.",
+        "displayType":  "yt",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-8.png" ],
+        "youtubeId": "TXmyCkpfgIk"
     }
+
 
 ]

@@ -21,6 +21,7 @@ export default function App() {
   const [projects, setProjects] = useState([]);
   const [activeProject, setActiveProject] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeWorkFilter, setActiveWorkFilter] = useState("client");
   const [visibleMobileProjects, setVisibleMobileProjects] = useState(3);
 
   const bySlug = useMemo(() => {
@@ -29,17 +30,29 @@ export default function App() {
     return map;
   }, [projects]);
 
-  const recentProjects = useMemo(
+  const filteredProjects = useMemo(() => {
+    if (activeWorkFilter === "recent") {
+      return projects.filter((project) => {
+        const months =
+          (new Date().getFullYear() - parseProjectMonth(project.dateCompleted).getFullYear()) * 12 +
+          (new Date().getMonth() - parseProjectMonth(project.dateCompleted).getMonth());
+        return months >= 0 && months <= 12;
+      });
+    }
+    if (activeWorkFilter === "client") {
+      return projects.filter((project) =>
+        String(project.client || "").trim()
+      );
+    }
+    return projects;
+  }, [activeWorkFilter, projects]);
+
+  const mobileProjects = useMemo(
     () =>
       [...projects]
         .sort((a, b) => parseProjectMonth(b.dateCompleted) - parseProjectMonth(a.dateCompleted))
         .slice(0, visibleMobileProjects),
     [projects, visibleMobileProjects]
-  );
-
-  const sortedProjectCount = useMemo(
-    () => projects.length,
-    [projects]
   );
 
   // fetch data.json
@@ -130,19 +143,32 @@ export default function App() {
 
       <LandingPage />
 
-      <section id="recentWorks" className="text-center py-5">
-        <div className="container">
-          <h2>Recent works:</h2>
-          {/* You’ll replace these with real project cards later */}
-        </div>
-      </section>
-
       <section id="projectsSection" className="text-center py-5">
         <div className="container">
           <h2>Work</h2>
           <h4>Click a project to view details</h4>
+          <div className="work-filters" aria-label="Project filters">
+            {[
+              ["all", "All"],
+              ["recent", "Recent"],
+              ["client", "Professional"],
+            ].map(([filter, label]) => (
+              <button
+                key={filter}
+                type="button"
+                className={`work-filter${activeWorkFilter === filter ? " is-active" : ""}`}
+                aria-pressed={activeWorkFilter === filter}
+                onClick={() => {
+                  setActiveWorkFilter(filter);
+                  if (filter === "recent") setVisibleMobileProjects(3);
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           <div id="mobileProjectCards" aria-label="Recent projects">
-            {recentProjects.map((project) => {
+            {mobileProjects.map((project) => {
               const slug = slugify(project.projectName);
               return (
                 <button
@@ -159,7 +185,7 @@ export default function App() {
                 </button>
               );
             })}
-            {visibleMobileProjects < sortedProjectCount ? (
+            {visibleMobileProjects < projects.length ? (
               <button
                 type="button"
                 className="mobile-see-more"
@@ -171,7 +197,11 @@ export default function App() {
           </div>
         </div>
 
-        <VennDiagram projects={projects} onProjectClick={openProject} />
+        <VennDiagram
+          projects={filteredProjects}
+          activeFilter={activeWorkFilter}
+          onProjectClick={openProject}
+        />
       </section>
 
       <section id="aboutSection">
@@ -200,7 +230,7 @@ export default function App() {
             </h5>
             <ul>
               <li>Data (D3.js, MicroStrategy, R, Python)</li>
-              <li>Visual/UI Design (Adobe Suite, Figma, Wix)</li>
+              <li>Visual/UI Design (Adobe Suite, Figma, Wix, Squarespace)</li>
               <li>Front-End Development (HTML, CSS, JavaScript, TypeScript, React, Vue.js)</li>
               <li>Problem-Solving through Conceptual & Analytical Thinking</li>
             </ul>

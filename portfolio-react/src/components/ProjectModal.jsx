@@ -71,7 +71,7 @@ export default function ProjectModal({ project, onClose }) {
           {project.link ? (
             <button
               className="project-modal-launch"
-              onClick={() => window.open(project.link, "_blank")}
+              onClick={() => window.open(project.link, "_blank", "noopener,noreferrer")}
             >
               Launch Project
             </button>

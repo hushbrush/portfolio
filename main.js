@@ -4,6 +4,7 @@ const colors ={ projectCircles: "#000000"};
 
 let projects = [];                           // <— add this
 let mobileProjectVisibleCount = 3;
+let activeWorkFilter = "client";
 let currentVennSimulation = null;
 let vennResizeTimer = null;
 const slugify = s => s.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
@@ -14,6 +15,49 @@ const parseProjectMonth = value => {
     if (match) return new Date(Number(match[1]), Number(match[2]) - 1, 1);
     const parsed = new Date(value);
     return Number.isNaN(parsed.getTime()) ? new Date(0) : parsed;
+};
+const hasClient = project => String(project.client || "").trim().length > 0;
+const getFilteredProjects = () => {
+    if (activeWorkFilter === "recent") {
+      const today = new Date();
+      return projects.filter(project => {
+        const projectDate = parseProjectMonth(project.dateCompleted);
+        const months = (today.getFullYear() - projectDate.getFullYear()) * 12 + (today.getMonth() - projectDate.getMonth());
+        return months >= 0 && months <= 12;
+      });
+    }
+    if (activeWorkFilter === "client") return projects.filter(hasClient);
+    return projects;
+};
+const getClientName = project => String(project.client || "").trim();
+const getClientLabel = project => getClientName(project).toUpperCase();
+const getMonthsSinceProject = project => {
+  const projectDate = parseProjectMonth(project.dateCompleted);
+  const today = new Date();
+  const months = (today.getFullYear() - projectDate.getFullYear()) * 12 + (today.getMonth() - projectDate.getMonth());
+  return Math.max(0, months);
+};
+const getRecentLabel = project => {
+  const months = getMonthsSinceProject(project);
+  return `${months} ${months === 1 ? "MONTH" : "MONTHS"} AGO`;
+};
+const getProjectLabel = project => {
+  if (activeWorkFilter === "client") return getClientLabel(project);
+  if (activeWorkFilter === "recent") return getRecentLabel(project);
+  return "";
+};
+const estimateLabelWidth = label => Math.min(260, Math.max(72, label.length * 8.2));
+const getPreviewMedia = project => {
+  if (project.previewVideo || project.hoverVideo) {
+    return { type: "video", src: project.previewVideo || project.hoverVideo };
+  }
+  if (slugify(project.projectName).includes("jurisee") && project.youtubeId) {
+    return {
+      type: "youtube",
+      src: `https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0&playsinline=1&rel=0`
+    };
+  }
+  return { type: "video", src: `assets/${slugify(project.projectName)}/loop.mp4` };
 };
 
 
@@ -31,9 +75,9 @@ fetch('data.json')
         console.log(data);
         projects = data;  
         generateCircleAttributes(data);
-        renderVennDiagram(data);
-        renderMobileProjectCards(data);
-        setupResponsiveRendering(data);
+        setupWorkFilters();
+        renderFilteredWork();
+        setupResponsiveRendering();
 
         // 🔑 Now that projects exist, try opening modal from hash
         openFromHash();
@@ -42,14 +86,40 @@ fetch('data.json')
         console.error('Error fetching or parsing data.json:', error);
     });
 
-function setupResponsiveRendering(data) {
+function setupResponsiveRendering() {
   window.addEventListener("resize", () => {
     window.clearTimeout(vennResizeTimer);
     vennResizeTimer = window.setTimeout(() => {
-      renderVennDiagram(data);
+      renderFilteredWork();
       landingPage();
     }, 180);
   });
+}
+
+function setupWorkFilters() {
+  const buttons = document.querySelectorAll(".work-filter");
+  if (!buttons.length) return;
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      activeWorkFilter = button.dataset.filter || "all";
+      mobileProjectVisibleCount = activeWorkFilter === "recent" ? 3 : mobileProjectVisibleCount;
+      buttons.forEach(btn => {
+        const isActive = btn === button;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-pressed", String(isActive));
+      });
+      renderFilteredWork();
+    });
+    button.setAttribute("aria-pressed", String(button.classList.contains("is-active")));
+  });
+}
+
+function renderFilteredWork() {
+  const filteredProjects = getFilteredProjects().map(project => ({ ...project }));
+  if (filteredProjects.length) generateCircleAttributes(filteredProjects);
+  renderVennDiagram(filteredProjects);
+  renderMobileProjectCards(projects);
 }
 
 function setupMobileNav() {
@@ -209,6 +279,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
       const container = d3.select("#vennDiagram");
       container.selectAll("svg").remove();
       if (currentVennSimulation) currentVennSimulation.stop();
+      if (!projects.length) return;
 
       if (window.matchMedia("(max-width: 900px)").matches) return;
 
@@ -254,7 +325,8 @@ function forceContainInCircle(cx, cy, r, testFn) {
           .attr("cy",    d => d.cy)
           .attr("r",     d => d.radius)
           .attr("fill",  "none")
-          .attr("stroke","black");
+          .attr("stroke","black")
+          .attr("stroke-width", 2);
   
       svg.selectAll(".venn-circle-text")
         .data(vennCircles)
@@ -268,15 +340,45 @@ function forceContainInCircle(cx, cy, r, testFn) {
           .style("font-weight","300")
           .style("font-size","16px")
           .attr("fill","black");
-  
+
       // 3) assign project target positions…
       assignProjectPositions(projects, vennCircles, svgWidth, svgHeight);
+      projects.forEach(project => {
+        project.x = svgWidth / 2;
+        project.y = svgHeight / 2;
+        project.vx = 0;
+        project.vy = 0;
+      });
+      if (activeWorkFilter === "client" || activeWorkFilter === "recent") {
+        projects.forEach(project => {
+          project.projectLabel = getProjectLabel(project);
+          project.projectLabelWidth = estimateLabelWidth(project.projectLabel);
+          project.collisionSize = Math.max(project.size + 30, project.projectLabelWidth / 2 + 14);
+        });
+      }
   
       // 4) force simulation with two “wall” forces
+      let projectLabels = null;
+      if (activeWorkFilter === "client" || activeWorkFilter === "recent") {
+        projectLabels = svg.selectAll(".project-label")
+          .data(projects, d => d.projectName)
+          .enter().append("text")
+          .attr("class", "project-label")
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "hanging")
+          .attr("fill", "#000")
+          .style("font-family", "'bricolage-grotesque', sans-serif")
+          .style("font-size", "14px")
+          .style("font-weight", "700")
+          .style("letter-spacing", "0")
+          .style("pointer-events", "none")
+          .text(d => d.projectLabel);
+      }
+
       const simulation = d3.forceSimulation(projects)
         .force("x",         d3.forceX(d => d.targetX).strength(0.6))
         .force("y",         d3.forceY(d => d.targetY).strength(0.3))
-        .force("collision", d3.forceCollide(d => d.size + 10))
+        .force("collision", d3.forceCollide(d => d.collisionSize || d.size + 10).iterations(2))
   
         // contain “data” nodes inside the data circle
         .force("containData",
@@ -309,10 +411,20 @@ function forceContainInCircle(cx, cy, r, testFn) {
               })
               .attr("stroke","black")
               .attr("stroke-width",1)
+              .attr("stroke-dasharray", "5 5")
               .style("cursor","pointer")
             .on("mouseenter", (e,d) => {
-              showTooltip(e, d.projectName, d.line, d.categories);
-              showGifWithAnimation(e, d);
+              svg.selectAll(".project-circle")
+                .transition().duration(120)
+                .style("opacity", node => node.projectName === d.projectName ? 1 : 0.3);
+              if (projectLabels) {
+                projectLabels.transition().duration(120)
+                  .style("opacity", node => node.projectName === d.projectName ? 1 : 0.3);
+              }
+              svg.selectAll(".venn-circle,.venn-circle-text")
+                .transition().duration(120)
+                .style("opacity", 0.3);
+              showHoverCard(e, d);
             //   changeCircleSize(e, d);
               // Then bind it to your circles:
 
@@ -320,9 +432,12 @@ function forceContainInCircle(cx, cy, r, testFn) {
               //should I also make the other circles 50% opacity?
             })
             .on("mouseleave", (e,d) => {
-              d3.select("#gifContainer").remove();
+              d3.select("#hoverPreviewCard").remove();
+              svg.selectAll(".project-circle,.venn-circle,.venn-circle-text")
+                .transition().duration(120)
+                .style("opacity", 1);
+              if (projectLabels) projectLabels.transition().duration(120).style("opacity", 1);
               d3.select(e.target).transition().duration(50).attr("r", d.size);
-              hideTooltip();
             //   changeCircleSize(e, d);
             })
             .on("click", (e,d) => {
@@ -330,6 +445,13 @@ function forceContainInCircle(cx, cy, r, testFn) {
               const slug = slugify(d.projectName);
               if (location.hash !== `#${slug}`) history.pushState({ project: slug }, '', `#${slug}`);
             });
+
+          if (projectLabels) {
+            projectLabels.raise();
+            projectLabels
+              .attr("x", d => d.x - 20)
+              .attr("y", d => d.y - 20 + d.size + 18);
+          }
             
             
         });
@@ -485,6 +607,103 @@ function hideTooltip() {
     d3.select("#tooltip").remove();
 }
 
+function showHoverCard(event, project) {
+  const offsetX = 100;
+  const cardWidth = 480;
+  const cardPadding = 14;
+  const mediaWidth = cardWidth - cardPadding * 2;
+  const viewportPadding = 16;
+  const categories = project.categories || "";
+  const isData = categories.includes("Data") || categories.includes("data");
+  const rawCardLeft = isData ? event.pageX + offsetX : event.pageX - offsetX - cardWidth;
+  const cardLeft = Math.max(
+    viewportPadding,
+    Math.min(rawCardLeft, window.scrollX + window.innerWidth - cardWidth - viewportPadding)
+  );
+  const cardTop = event.pageY - 250;
+  const media = getPreviewMedia(project);
+
+  d3.select("#hoverPreviewCard").remove();
+
+  const card = d3.select("body")
+    .append("div")
+    .attr("id", "hoverPreviewCard")
+    .style("position", "absolute")
+    .style("left", `${event.pageX}px`)
+    .style("top", `${event.pageY}px`)
+    .style("width", `${cardWidth}px`)
+    .style("padding", `${cardPadding}px`)
+    .style("background", "rgba(0,0,0,0.92)")
+    .style("color", "white")
+    .style("border-radius", "18px")
+    .style("pointer-events", "none")
+    .style("font-family", "bricolage-grotesque, sans-serif")
+    .style("overflow", "hidden")
+    .style("z-index", "1000")
+    .style("display", "flex")
+    .style("flex-direction", "column")
+    .style("gap", "10px")
+    .style("opacity", 0)
+    .style("transform", "scale(0.08)")
+    .style("transform-origin", "0 0");
+
+  card.append("div")
+    .style("font-weight", "700")
+    .style("font-size", "18px")
+    .style("line-height", "1.15")
+    .text(project.projectName);
+
+  const mediaWrap = card.append("div")
+    .style("width", "100%")
+    .style("height", `${mediaWidth / (16 / 9)}px`)
+    .style("border-radius", "12px")
+    .style("overflow", "hidden")
+    .style("background", "#111");
+
+  if (media.type === "youtube") {
+    mediaWrap.append("iframe")
+      .attr("src", media.src)
+      .attr("allow", "autoplay; encrypted-media; picture-in-picture")
+      .attr("allowfullscreen", true)
+      .style("border", "0")
+      .style("width", "100%")
+      .style("height", "100%");
+  } else {
+    const video = mediaWrap.append("video")
+      .attr("src", media.src)
+      .attr("autoplay", true)
+      .attr("loop", true)
+      .attr("muted", true)
+      .attr("playsinline", true)
+      .style("width", "100%")
+      .style("height", "100%")
+      .style("object-fit", "cover");
+
+    video.on("loadedmetadata", function() {
+      const aspectRatio = this.videoWidth && this.videoHeight ? this.videoWidth / this.videoHeight : 16 / 9;
+      mediaWrap
+        .transition()
+        .duration(180)
+        .style("height", `${mediaWidth / aspectRatio}px`);
+    });
+  }
+
+  card.append("div")
+    .style("font-size", "13px")
+    .style("font-weight", "300")
+    .style("line-height", "1.35")
+    .text(project.line || "");
+
+  card
+    .transition()
+    .duration(240)
+    .ease(d3.easeCubicOut)
+    .style("left", `${cardLeft}px`)
+    .style("top", `${cardTop}px`)
+    .style("opacity", 1)
+    .style("transform", "scale(1)");
+}
+
 function showProjectModal(project) {
   // Remove existing overlay if any
   d3.select("#videoOverlay").remove();
@@ -555,7 +774,7 @@ console.log(project);
       right.append("button")
       .attr("class", "project-modal-launch")
       .text("Launch Project")
-      .on("click", () => window.open(project.link, "_blank"));
+      .on("click", () => window.open(project.link, "_blank", "noopener,noreferrer"));
     }
  
    
@@ -688,7 +907,6 @@ function showGifWithAnimation(event, project) {
         document.removeEventListener("mouseleave", onMouseLeave);
     });
 }
-legend();
 function legend()
 {
     // Add a legend on top right that says size=time since completed
