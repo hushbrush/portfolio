@@ -1,6 +1,7 @@
 [
     {
         "projectName": "Mint Matters",
+        "deliverable": "web",
         "dateCompleted": "2024-12",
         "client": "Smithsonian-MSDV Parsons",
         "elaborationOfClient": "",
@@ -15,6 +16,7 @@
     },
     {
         "projectName": "Framing Gender",
+        "deliverable": "web",
         "dateCompleted": "2024-10",
         "client": "Smithsonian-MSDV Parsons",
         "elaborationOfClient": "",
@@ -29,6 +31,7 @@
     },
     {
         "projectName": "US SOTU Speeches Visualisation",
+        "deliverable": "web",
         "dateCompleted": "2024-10",
         "client": "",
         "elaborationOfClient": "",
@@ -43,6 +46,7 @@
     },
     {
         "projectName": "Vitara Retail Dashboards",
+        "deliverable": "web",
         "dateCompleted": "2023-12",
         "client": "Vitara Charts",
         "elaborationOfClient": "",
@@ -57,6 +61,7 @@
     },
     {
         "projectName": "Misc Dashboards",
+        "deliverable": "web",
         "dateCompleted": "2024-2",
         "client": "Vitara Charts",
         "elaborationOfClient": "",
@@ -71,6 +76,7 @@
     },
     {
         "projectName": "Gender Equality in the Office",
+        "deliverable": "web",
         "dateCompleted": "2022-7",
         "client": "Gramener",
         "elaborationOfClient": "",
@@ -86,6 +92,7 @@
   
     {
         "projectName": "Exploded View of the Earth",
+        "deliverable": "web",
         "dateCompleted": "2021-12",
         "client": "",
         "elaborationOfClient": "",
@@ -100,6 +107,7 @@
     },
     {
         "projectName": "Human-First Dataset on Journalists",
+        "deliverable": "web",
         "dateCompleted": "2024-12",
         "client": "",
         "elaborationOfClient": "",
@@ -114,6 +122,7 @@
       },
     {
         "projectName": "Maps of Nothing",
+        "deliverable": "editorial",
         "dateCompleted": "2021-8",
         "client": "",
         "elaborationOfClient": "",
@@ -128,6 +137,7 @@
     },
     {
         "projectName": "Show Me The Money, Honey",
+        "deliverable": "web",
         "dateCompleted": "2024-11",
         "client": "",
         "elaborationOfClient": "",
@@ -142,6 +152,7 @@
     },
     {
         "projectName": "Posters for 10K Run",
+        "deliverable": "web",
         "dateCompleted": "2021-8",
         "client": "SYU Designs--Murugappa Group",
         "elaborationOfClient": "",
@@ -157,6 +168,7 @@
     },
     {
         "projectName": "Website Design for VitaraCharts",
+        "deliverable": "web",
         "dateCompleted": "2023-12",
         "client": "VitaraCharts",
         "elaborationOfClient": "",
@@ -171,6 +183,7 @@
     },
     {
         "projectName": "Student Academic Performance- Statistical Analysis",
+           "deliverable": "editorial",
         "dateCompleted": "2025-1",
         "client": "",
         "elaborationOfClient": "",
@@ -185,6 +198,7 @@
     } ,
     {
         "projectName": "Real Time Asteroid Explorer",
+        "deliverable": "web",
         "dateCompleted": "2025-3",
         "client": "",
         "elaborationOfClient": "",
@@ -199,6 +213,7 @@
     },
     {
         "projectName": "Cookie Cutter Women",
+        "deliverable": "web",
         "dateCompleted": "2025-5",
         "client": "",
         "elaborationOfClient": "",
@@ -214,6 +229,7 @@
     },
     {
         "projectName": "Confronting Harm-Safety Report for Women in US Legislation",
+         "deliverable": "editorial",
         "dateCompleted": "2025-7",
         "client": "Ghosh Innovation Labs",
         "elaborationOfClient": "",
@@ -229,6 +245,7 @@
 
     {
         "projectName": "TwinMind Information Architecture",
+         "deliverable": "mobile",
         "dateCompleted": "2025-7",
         "client": "TwinMind AI",
         "elaborationOfClient": "",
@@ -243,6 +260,7 @@
     },
        {
         "projectName": "JuriSee: Judge Data Web Reports",
+        "deliverable": "web",
         "dateCompleted": "2026-2",
         "client": "JuriSee",
         "elaborationOfClient": "",
@@ -251,7 +269,7 @@
         "line": "Design and development of interactive web reports for a Human Rights Tech startup. The reports provide users, often victims of systemic legal violations, or their lawyers with insights on whether a particular judge has a history of exploiting the legal system",
         "insights": "This project was enriched by interviews with the target audience, which helped me understand the needs and pain points of the users. The design process involved creating wireframes and prototypes in Figma, which were then developed into interactive web reports using D3.js and Vue.js. The reports are designed to be user-friendly and accessible, providing clear visualizations of the data to help users make informed decisions about their legal cases.",
         "displayType":  "yt",
-        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-8.png" ],
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-8.png",  "https://www.youtube.com/embed/vu0XHYmMEQk?si=sj64Ck9lb1zZR8EH"  ],
         "youtubeId": "TXmyCkpfgIk"
     }
 

@@ -203,7 +203,6 @@ body {
 
 #aboutSection h5 {
     padding-top: 5px;
-    font-size: 18px;
     line-height: 1.65;
     max-width: 760px;
     width: 100%;
@@ -360,16 +359,13 @@ text-align: center;
 #videoButtons button {
     background: white;
     color: black;
-    font-size: 1.1em; /* adjust as needed */
-    transition: font-size 0.2s ease, background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
   }
   
 
 button:hover {
     background: white;
     color: black;
-    font-size: 1.1em; /* adjust as needed */
-    transition: font-size 0.2s ease;
 
 }
 .carousel-wrapper {
@@ -501,7 +497,6 @@ nav {
 
 .nav-link:hover {
     color: #373737; /* Change text color on hover */
-    font-size: 18px;
 }
 
 #projectDescription {

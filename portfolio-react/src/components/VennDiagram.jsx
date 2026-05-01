@@ -91,11 +91,8 @@ function getPreviewMedia(project) {
   if (project.previewVideo || project.hoverVideo) {
     return { type: "video", src: project.previewVideo || project.hoverVideo };
   }
-  if (safeId(project.projectName).includes("jurisee") && project.youtubeId) {
-    return {
-      type: "youtube",
-      src: `https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0&playsinline=1&rel=0`,
-    };
+  if (safeId(project.projectName).includes("jurisee")) {
+    return { type: "video", src: "/assets/jurisee/loop.mp4" };
   }
   return { type: "video", src: `/assets/${safeId(project.projectName)}/loop.mp4` };
 }
@@ -108,6 +105,13 @@ function getProjectLabel(project, activeFilter) {
 
 function estimateLabelWidth(label) {
   return Math.min(260, Math.max(72, label.length * 8.2));
+}
+
+function circleOpacityForProjects(circleId, projects) {
+  const hasCategory = projects.some((project) =>
+    (project.categories || "").toLowerCase().includes(circleId)
+  );
+  return hasCategory ? 1 : 0.3;
 }
 
 function assignProjectPositions(projects, vennCircles, svgWidth, svgHeight) {
@@ -343,7 +347,8 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
       .attr("r", (d) => d.radius)
       .attr("fill", "none")
       .attr("stroke", "black")
-      .attr("stroke-width", 2);
+      .attr("stroke-width", 2)
+      .style("opacity", (d) => circleOpacityForProjects(d.id, data));
 
     svg
       .selectAll(".venn-circle-text")
@@ -358,7 +363,8 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
       .style("font-family", "'bricolage-grotesque', sans-serif")
       .style("font-weight", "300")
       .style("font-size", "16px")
-      .attr("fill", "black");
+      .attr("fill", "black")
+      .style("opacity", (d) => circleOpacityForProjects(d.id, data));
 
     // targets
     assignProjectPositions(data, vennCircles, svgWidth, svgHeight);
@@ -390,17 +396,21 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
       .attr("stroke-dasharray", "5 5")
       .style("cursor", "pointer")
       .on("mouseenter", (e, d) => {
-        nodes.transition().duration(120).style("opacity", (node) => (node.projectName === d.projectName ? 1 : 0.3));
+        nodes
+          .transition()
+          .duration(120)
+          .style("opacity", (node) => (node.projectName === d.projectName ? 1 : 0.3));
         if (projectLabels) {
-          projectLabels.transition().duration(120).style("opacity", (node) => (node.projectName === d.projectName ? 1 : 0.3));
+          projectLabels
+            .transition()
+            .duration(120)
+            .style("opacity", (node) => (node.projectName === d.projectName ? 1 : 0.3));
         }
-        svg.selectAll(".venn-circle,.venn-circle-text").transition().duration(120).style("opacity", 0.3);
         showHoverCard(e, d);
       })
       .on("mouseleave", () => {
         nodes.transition().duration(120).style("opacity", 1);
         if (projectLabels) projectLabels.transition().duration(120).style("opacity", 1);
-        svg.selectAll(".venn-circle,.venn-circle-text").transition().duration(120).style("opacity", 1);
         d3.select("#hoverPreviewCard").remove();
       })
       .on("click", (_, d) => {
@@ -413,8 +423,20 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
         .selectAll(".project-label")
         .data(data, (d) => d.projectName)
         .enter()
-        .append("text")
+        .append("g")
         .attr("class", "project-label")
+        .style("pointer-events", "none");
+
+      projectLabels
+        .append("rect")
+        .attr("x", (d) => -d.projectLabelWidth / 2 - 5)
+        .attr("y", -2)
+        .attr("width", (d) => d.projectLabelWidth + 10)
+        .attr("height", 21)
+        .attr("fill", "#fff");
+
+      projectLabels
+        .append("text")
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "hanging")
         .attr("fill", "#000")
@@ -422,7 +444,6 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
         .style("font-size", "14px")
         .style("font-weight", "700")
         .style("letter-spacing", "0")
-        .style("pointer-events", "none")
         .text((d) => d.projectLabel);
     }
 
@@ -448,8 +469,7 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
         nodes.attr("cx", (d) => d.x - 20).attr("cy", (d) => d.y - 20);
         if (projectLabels) {
           projectLabels
-            .attr("x", (d) => d.x - 20)
-            .attr("y", (d) => d.y - 20 + d.size + 18);
+            .attr("transform", (d) => `translate(${d.x - 20}, ${d.y - 20 + d.size + 18})`);
         }
       });
 

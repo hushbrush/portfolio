@@ -85,7 +85,6 @@ body {
 
 #headerSection .nav-link:hover {
   color: #373737;
-  font-size: 18px;
 }
 
 /* sections */
@@ -337,15 +336,12 @@ h5 {
 #videoButtons button {
   background: white;
   color: black;
-  font-size: 1.1em;
-  transition: font-size 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 button:hover {
   background: white;
   color: black;
-  font-size: 1.1em;
-  transition: font-size 0.2s ease;
 }
 
 /* carousel/lightbox (kept as-is) */

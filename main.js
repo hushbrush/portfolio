@@ -51,14 +51,13 @@ const getPreviewMedia = project => {
   if (project.previewVideo || project.hoverVideo) {
     return { type: "video", src: project.previewVideo || project.hoverVideo };
   }
-  if (slugify(project.projectName).includes("jurisee") && project.youtubeId) {
-    return {
-      type: "youtube",
-      src: `https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&controls=0&playsinline=1&rel=0`
-    };
+  if (slugify(project.projectName).includes("jurisee")) {
+    return { type: "video", src: "assets/jurisee/loop.mp4" };
   }
   return { type: "video", src: `assets/${slugify(project.projectName)}/loop.mp4` };
 };
+const circleOpacityForProjects = (circleId, projectList) =>
+  projectList.some(project => (project.categories || "").toLowerCase().includes(circleId)) ? 1 : 0.3;
 
 
 
@@ -326,7 +325,8 @@ function forceContainInCircle(cx, cy, r, testFn) {
           .attr("r",     d => d.radius)
           .attr("fill",  "none")
           .attr("stroke","black")
-          .attr("stroke-width", 2);
+          .attr("stroke-width", 2)
+          .style("opacity", d => circleOpacityForProjects(d.id, projects));
   
       svg.selectAll(".venn-circle-text")
         .data(vennCircles)
@@ -339,7 +339,8 @@ function forceContainInCircle(cx, cy, r, testFn) {
           .style("font-family","'bricolage-grotesque', sans-serif")
           .style("font-weight","300")
           .style("font-size","16px")
-          .attr("fill","black");
+          .attr("fill","black")
+          .style("opacity", d => circleOpacityForProjects(d.id, projects));
 
       // 3) assign project target positions…
       assignProjectPositions(projects, vennCircles, svgWidth, svgHeight);
@@ -362,8 +363,18 @@ function forceContainInCircle(cx, cy, r, testFn) {
       if (activeWorkFilter === "client" || activeWorkFilter === "recent") {
         projectLabels = svg.selectAll(".project-label")
           .data(projects, d => d.projectName)
-          .enter().append("text")
+          .enter().append("g")
           .attr("class", "project-label")
+          .style("pointer-events", "none");
+
+        projectLabels.append("rect")
+          .attr("x", d => -d.projectLabelWidth / 2 - 5)
+          .attr("y", -2)
+          .attr("width", d => d.projectLabelWidth + 10)
+          .attr("height", 21)
+          .attr("fill", "#fff");
+
+        projectLabels.append("text")
           .attr("text-anchor", "middle")
           .attr("dominant-baseline", "hanging")
           .attr("fill", "#000")
@@ -371,7 +382,6 @@ function forceContainInCircle(cx, cy, r, testFn) {
           .style("font-size", "14px")
           .style("font-weight", "700")
           .style("letter-spacing", "0")
-          .style("pointer-events", "none")
           .text(d => d.projectLabel);
       }
 
@@ -418,12 +428,10 @@ function forceContainInCircle(cx, cy, r, testFn) {
                 .transition().duration(120)
                 .style("opacity", node => node.projectName === d.projectName ? 1 : 0.3);
               if (projectLabels) {
-                projectLabels.transition().duration(120)
+                projectLabels
+                  .transition().duration(120)
                   .style("opacity", node => node.projectName === d.projectName ? 1 : 0.3);
               }
-              svg.selectAll(".venn-circle,.venn-circle-text")
-                .transition().duration(120)
-                .style("opacity", 0.3);
               showHoverCard(e, d);
             //   changeCircleSize(e, d);
               // Then bind it to your circles:
@@ -433,7 +441,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
             })
             .on("mouseleave", (e,d) => {
               d3.select("#hoverPreviewCard").remove();
-              svg.selectAll(".project-circle,.venn-circle,.venn-circle-text")
+              svg.selectAll(".project-circle")
                 .transition().duration(120)
                 .style("opacity", 1);
               if (projectLabels) projectLabels.transition().duration(120).style("opacity", 1);
@@ -449,8 +457,7 @@ function forceContainInCircle(cx, cy, r, testFn) {
           if (projectLabels) {
             projectLabels.raise();
             projectLabels
-              .attr("x", d => d.x - 20)
-              .attr("y", d => d.y - 20 + d.size + 18);
+              .attr("transform", d => `translate(${d.x - 20}, ${d.y - 20 + d.size + 18})`);
           }
             
             
