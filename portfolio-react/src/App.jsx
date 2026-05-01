@@ -208,7 +208,12 @@ export default function App() {
         <div className="row align-items-center">
           <div className="col-md-1"></div>
           <div className="col-md-3">
-            <img src="/assets/profile_2026.png" alt="Profile" className="img-fluid rounded-circle" />
+            <div
+              className="about-photo-frame"
+              style={{ "--profile-image": "url('/assets/profile_2026.png')" }}
+            >
+              <img src="/assets/profile_2026.png" alt="Profile" className="img-fluid rounded-circle" />
+            </div>
           </div>
           <div className="col-md-1"></div>
           <div className="col-md-7">
