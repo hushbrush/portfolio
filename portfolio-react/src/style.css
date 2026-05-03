@@ -159,6 +159,10 @@ body {
   padding: 0;
 }
 
+#aboutSection p {
+  margin: 0;
+}
+
 .about-panel {
   align-items: center;
   background: #020202;
@@ -222,7 +226,7 @@ body {
   width: clamp(170px, 18vw, 250px);
 }
 
-#aboutSection img {
+.about-photo-frame img {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   display: block;
@@ -305,20 +309,12 @@ body {
   justify-content: center;
 }
 
-.lately-code-icon {
-  color: #fff;
+.lately-icon-image {
+  border-radius: 0;
   display: block;
-  font-family: "bricolage-grotesque", sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.lately-walking-icon {
-  fill: #fff;
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  object-fit: contain;
+  width: 28px;
 }
 
 .lately-copy {
@@ -377,7 +373,7 @@ body {
   font-size: clamp(14px, 1.2vw, 18px);
   font-weight: 300;
   line-height: 1.35;
-  margin: 0 0 13px;
+  margin: 0;
   max-width: 720px;
 }
 

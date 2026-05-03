@@ -40,16 +40,9 @@ const titleCaseRepo = (name = "") =>
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 
 function LatelyIcon({ type }) {
-  if (type === "building") {
-    return <span className="lately-code-icon" aria-hidden="true">&lt;/&gt;</span>;
-  }
-  return (
-    <svg className="lately-walking-icon" viewBox="0 0 32 32" aria-hidden="true">
-      <circle cx="17.5" cy="5" r="3.5" />
-      <path d="M14.5 9.5c2.6-.3 4.7.9 5.9 3.1l2.1 3.8c.5.9.2 2-.7 2.5-.9.5-2 .2-2.5-.7l-1-1.8-2 4.7 4.5 6.8c.6.9.3 2.1-.6 2.7-.9.6-2.1.3-2.7-.6l-5.1-7.7c-.4-.6-.5-1.4-.2-2.1l1.7-4-2.3 1.6-1.7 4.4c-.4 1-1.5 1.5-2.5 1.1-1-.4-1.5-1.5-1.1-2.5l1.9-5c.1-.4.4-.7.7-.9l5.6-5.5Z" />
-      <path d="M13.1 21.4 8.9 29c-.5 1-1.7 1.3-2.6.8-1-.5-1.3-1.7-.8-2.6l4.1-7.4 3.5 1.6Z" />
-    </svg>
-  );
+  const src = type === "building" ? "/assets/icons/github_icon.png" : "/assets/icons/move_icon.png";
+  const alt = type === "building" ? "Building" : "Moving";
+  return <img className="lately-icon-image" src={src} alt={alt} />;
 }
 
 export default function App() {
@@ -108,7 +101,8 @@ export default function App() {
       const sources = ["/api/about-lately", "/about-lately.json"];
       for (const source of sources) {
         try {
-          const response = await fetch(source);
+          const url = source.startsWith("/api/") ? `${source}?t=${Date.now()}` : source;
+          const response = await fetch(url, { cache: "no-store" });
           if (!response.ok) continue;
           const data = await response.json();
           if (!didCancel) setLately({ ...defaultLately, ...data });

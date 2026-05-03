@@ -15,7 +15,7 @@ const fallback = {
   },
   moving: {
     label: "MOVING",
-    detail: "Run · 2.1 mi",
+    detail: "Long walks around NYC / Hoboken",
   },
 };
 
@@ -36,7 +36,7 @@ async function getWeather() {
   if (!response.ok) return { label: "NEW YORK", detail: `New York · ${newYorkTime()}` };
   const data = await response.json();
   const temp = data.current?.temperature_2m;
-  const time = newYorkTime();
+  const time = data.current?.time ? newYorkTime(new Date(data.current.time)) : newYorkTime();
   const tempText = Number.isFinite(temp) ? `${Math.round(temp)}°F` : "Weather";
   return {
     label: "NEW YORK",
@@ -53,7 +53,6 @@ function stravaStatsDetail(stats) {
     ["Run", stats.recent_run_totals],
     ["Ride", stats.recent_ride_totals],
     ["Swim", stats.recent_swim_totals],
-    ["Hike", stats.recent_hike_totals],
   ]
     .filter(([, total]) => total?.distance > 0)
     .sort(([, a], [, b]) => b.distance - a.distance);
@@ -188,13 +187,7 @@ async function getGitHub() {
   };
 }
 
-export default async function handler(req, res) {
-  res.setHeader("Cache-Control", "no-store, no-cache, max-age=0, must-revalidate");
-  res.setHeader("CDN-Cache-Control", "no-store");
-  res.setHeader("Vercel-CDN-Cache-Control", "no-store");
-  res.setHeader("Pragma", "no-cache");
-  res.setHeader("Expires", "0");
-
+module.exports = async function handler(req, res) {
   const [weather, listening, building, moving] = await Promise.all([
     getWeather().catch(() => fallback.weather),
     getSpotify().catch(() => fallback.listening),
@@ -202,5 +195,6 @@ export default async function handler(req, res) {
     getStrava().catch(() => fallback.moving),
   ]);
 
+  res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=3600");
   res.status(200).json({ weather, listening, building, moving });
-}
+};
