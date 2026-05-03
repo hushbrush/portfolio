@@ -253,6 +253,21 @@ body {
   text-transform: uppercase;
 }
 
+.lately-current-label {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.lately-current-label::before {
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.92), 0 0 16px rgba(255, 255, 255, 0.54);
+  content: "";
+  height: 6px;
+  width: 6px;
+}
+
 .lately-weather {
   color: rgba(255, 255, 255, 0.82);
   font-size: 12px;

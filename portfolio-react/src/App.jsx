@@ -277,7 +277,7 @@ export default function App() {
             </div>
             <aside className="lately-card" aria-label="Lately">
               <div className="lately-card-header">
-                <span>CURRENTLY</span>
+                <span className="lately-current-label">CURRENTLY</span>
                 <span className="lately-weather">{lately.weather?.detail || "New York"}</span>
               </div>
               <div className="lately-list">

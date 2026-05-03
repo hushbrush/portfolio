@@ -36,7 +36,7 @@ async function getWeather() {
   if (!response.ok) return { label: "NEW YORK", detail: `New York · ${newYorkTime()}` };
   const data = await response.json();
   const temp = data.current?.temperature_2m;
-  const time = data.current?.time ? newYorkTime(new Date(data.current.time)) : newYorkTime();
+  const time = newYorkTime();
   const tempText = Number.isFinite(temp) ? `${Math.round(temp)}°F` : "Weather";
   return {
     label: "NEW YORK",
