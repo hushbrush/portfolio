@@ -1,0 +1,16 @@
+{
+  "weather": {
+    "label": "NEW YORK",
+    "detail": "New York · 56°F · 9:15 PM"
+  },
+  "building": {
+    "label": "BUILDING",
+    "repo": "portfolio",
+    "repoUrl": "https://github.com/hushbrush/portfolio",
+    "detail": "meow meow"
+  },
+  "moving": {
+    "label": "MOVING",
+    "detail": "Swim · 0.3 mi"
+  }
+}

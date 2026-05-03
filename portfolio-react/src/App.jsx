@@ -17,12 +17,48 @@ const parseProjectMonth = (value) => {
   return Number.isNaN(parsed.getTime()) ? new Date(0) : parsed;
 };
 
+const defaultLately = {
+  weather: {
+    label: "NEW YORK",
+    detail: "New York",
+  },
+  building: {
+    label: "BUILDING",
+    repo: "portfolio",
+    repoUrl: "https://github.com/hushbrush/portfolio",
+    detail: "meow meow",
+  },
+  moving: {
+    label: "MOVING",
+    detail: "Long walks around NYC / Hoboken",
+  },
+};
+
+const titleCaseRepo = (name = "") =>
+  name
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
+function LatelyIcon({ type }) {
+  if (type === "building") {
+    return <span className="lately-code-icon" aria-hidden="true">&lt;/&gt;</span>;
+  }
+  return (
+    <svg className="lately-walking-icon" viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="17.5" cy="5" r="3.5" />
+      <path d="M14.5 9.5c2.6-.3 4.7.9 5.9 3.1l2.1 3.8c.5.9.2 2-.7 2.5-.9.5-2 .2-2.5-.7l-1-1.8-2 4.7 4.5 6.8c.6.9.3 2.1-.6 2.7-.9.6-2.1.3-2.7-.6l-5.1-7.7c-.4-.6-.5-1.4-.2-2.1l1.7-4-2.3 1.6-1.7 4.4c-.4 1-1.5 1.5-2.5 1.1-1-.4-1.5-1.5-1.1-2.5l1.9-5c.1-.4.4-.7.7-.9l5.6-5.5Z" />
+      <path d="M13.1 21.4 8.9 29c-.5 1-1.7 1.3-2.6.8-1-.5-1.3-1.7-.8-2.6l4.1-7.4 3.5 1.6Z" />
+    </svg>
+  );
+}
+
 export default function App() {
   const [projects, setProjects] = useState([]);
   const [activeProject, setActiveProject] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeWorkFilter, setActiveWorkFilter] = useState("client");
   const [visibleMobileProjects, setVisibleMobileProjects] = useState(3);
+  const [lately, setLately] = useState(defaultLately);
 
   const bySlug = useMemo(() => {
     const map = new Map();
@@ -65,6 +101,33 @@ export default function App() {
       .then((data) => setProjects(data))
       .catch((e) => console.error("Error fetching data.json:", e));
   }, []);
+
+  useEffect(() => {
+    let didCancel = false;
+    const loadLately = async () => {
+      const sources = ["/api/about-lately", "/about-lately.json"];
+      for (const source of sources) {
+        try {
+          const response = await fetch(source);
+          if (!response.ok) continue;
+          const data = await response.json();
+          if (!didCancel) setLately({ ...defaultLately, ...data });
+          return;
+        } catch {
+          // Try the next source.
+        }
+      }
+    };
+    loadLately();
+    return () => {
+      didCancel = true;
+    };
+  }, []);
+
+  const latelyItems = [
+    ["building", lately.building],
+    ["moving", lately.moving],
+  ];
 
   // open modal from hash on load + when projects arrive
   useEffect(() => {
@@ -205,34 +268,61 @@ export default function App() {
       </section>
 
       <section id="aboutSection">
-        <div className="row align-items-center">
-          <div className="col-md-1"></div>
-          <div className="col-md-3">
-            <div
-              className="about-photo-frame"
-              style={{ "--profile-image": "url('/assets/profile_2026.png')" }}
-            >
-              <img src="/assets/profile_2026.png" alt="Profile" className="img-fluid rounded-circle" />
+        <div className="about-panel">
+          <div className="about-dot-field about-dot-field-left" aria-hidden="true"></div>
+          <div className="about-dot-field about-dot-field-right" aria-hidden="true"></div>
+          <div className="about-left">
+            <div className="about-photo-frame">
+              <img src="/assets/profile_2026.png" alt="Profile" />
             </div>
+            <aside className="lately-card" aria-label="Lately">
+              <div className="lately-card-header">
+                <span>CURRENTLY</span>
+                <span className="lately-weather">{lately.weather?.detail || "New York"}</span>
+              </div>
+              <div className="lately-list">
+                {latelyItems.map(([type, item]) => (
+                  <div className="lately-item" key={type}>
+                    <div className="lately-icon">
+                      <LatelyIcon type={type} />
+                    </div>
+                    <div className="lately-copy">
+                      <p className="lately-label">{item.label}</p>
+                      {type === "building" ? (
+                        <p className="lately-detail">
+                          <span>
+                            <a href={item.repoUrl || "https://github.com/hushbrush/portfolio"}>
+                              {titleCaseRepo(item.repo || "portfolio")}
+                            </a>
+                            {" · "}
+                            <span>{item.detail}</span>
+                          </span>
+                        </p>
+                      ) : (
+                        <p className="lately-detail">{item.detail}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </aside>
           </div>
-          <div className="col-md-1"></div>
-          <div className="col-md-7">
-            <h4>
-              <strong>Hi, I'm Harshita!</strong>
-            </h4>
-            <h5>
+          <div className="about-copy">
+            <h4>Hi, I'm Harshita!</h4>
+            <p>
               I'd say I'm a Data Viz Person™, or a Creative Technologist, or a Visual
               Designer, or a Front-end Developer, but really, I'm just someone who loves
               code, data and design. I believe in the power of visualization to make
-              information accessible and engaging. <br /> I have some experience as each
-              of those titles, but most recently, I'm a Data Visualization Engineer at{" "}
-              <a href="https://www.jurisee.com/">JuriSee</a>, and a Design and Data
-              Fellow at <a href="https://crafd.io/">CRAF'd (United Nations)</a> in New
-              York. I'm also a recent graduate of the MS Data Viz Program at Parsons.
-            </h5>
-            <h5>
-              <strong>Skills & Tools</strong>
-            </h5>
+              information accessible and engaging.
+            </p>
+            <p>
+              I have some experience as each of those titles, but most recently, I'm a
+              Data Visualization Engineer at <a href="https://www.jurisee.com/">JuriSee</a>,
+              and a Design and Data Fellow at{" "}
+              <a href="https://crafd.io/">CRAF'd (United Nations)</a> in New York. I'm
+              also a recent graduate of the MS Data Viz Program at Parsons.
+            </p>
+            <h5>Skills & Tools</h5>
             <ul>
               <li>Data (D3.js, MicroStrategy, R, Python)</li>
               <li>Visual/UI Design (Adobe Suite, Figma, Wix, Squarespace)</li>
