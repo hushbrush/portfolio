@@ -39,6 +39,8 @@ const titleCaseRepo = (name = "") =>
     .replace(/[-_]+/g, " ")
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 
+const splitLatelyDetail = (detail = "") => String(detail).split(" · ").filter(Boolean);
+
 function LatelyIcon({ type }) {
   const src = type === "building" ? "/assets/icons/github_icon.png" : "/assets/icons/move_icon.png";
   const alt = type === "building" ? "Building" : "Moving";
@@ -281,19 +283,28 @@ export default function App() {
                       <LatelyIcon type={type} />
                     </div>
                     <div className="lately-copy">
-                      <p className="lately-label">{item.label}</p>
                       {type === "building" ? (
-                        <p className="lately-detail">
-                          <span>
+                        <>
+                          <p className="lately-label">
+                            {item.label}:{" "}
                             <a href={item.repoUrl || "https://github.com/hushbrush/portfolio"}>
                               {titleCaseRepo(item.repo || "portfolio")}
                             </a>
-                            {" · "}
-                            <span>{item.detail}</span>
-                          </span>
-                        </p>
+                          </p>
+                          <p className="lately-detail">
+                            <span>"{item.detail}"</span>
+                            {item.recency ? <span> · {item.recency}</span> : null}
+                          </p>
+                        </>
                       ) : (
-                        <p className="lately-detail">{item.detail}</p>
+                        <>
+                          <p className="lately-label">
+                            {item.label}: {splitLatelyDetail(item.detail)[0] || item.detail}
+                          </p>
+                          <p className="lately-detail">
+                            {splitLatelyDetail(item.detail).slice(1).join(" · ")}
+                          </p>
+                        </>
                       )}
                     </div>
                   </div>

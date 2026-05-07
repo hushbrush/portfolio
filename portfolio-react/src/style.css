@@ -187,8 +187,9 @@ body {
 }
 
 .about-dot-field {
-  background-image: radial-gradient(rgba(255,255,255,0.55) 1.2px, transparent 1.2px);
-  background-size: 18px 18px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 16px 16px;
   height: 120px;
   opacity: 0.5;
   pointer-events: none;
@@ -219,11 +220,11 @@ body {
 .about-photo-frame {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  height: clamp(170px, 18vw, 250px);
+  height: clamp(113px, 12vw, 167px);
   isolation: isolate;
   overflow: hidden;
   position: relative;
-  width: clamp(170px, 18vw, 250px);
+  width: clamp(113px, 12vw, 167px);
 }
 
 .about-photo-frame img {
@@ -248,10 +249,10 @@ body {
   color: rgba(255, 255, 255, 0.62);
   display: flex;
   font-family: "bricolage-grotesque", sans-serif;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 400;
   justify-content: space-between;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   line-height: 1;
   margin-bottom: 18px;
   text-transform: uppercase;
@@ -273,10 +274,10 @@ body {
 }
 
 .lately-weather {
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
   text-align: right;
   text-transform: uppercase;
 }
@@ -331,19 +332,26 @@ body {
 }
 
 .lately-label {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.015em;
   line-height: 1;
 }
 
-.lately-detail {
-  font-size: clamp(14px, 1vw, 17px);
+#aboutSection .lately-detail {
+  font-size: 13px;
   font-weight: 300;
   line-height: 1.15;
 }
 
 .lately-detail a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.lately-label a {
   color: #fff;
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -961,17 +969,33 @@ button:hover {
     font-size: 15px;
     line-height: 1.42;
     margin-bottom: 0px;
+    text-align: center;
   }
 
   #aboutSection li {
     font-size: 15px;
     line-height: 1.35;
     margin-bottom: 4px;
+    text-align: left;
+  }
+
+  #aboutSection h1,
+  #aboutSection h2,
+  #aboutSection h3,
+  #aboutSection h4,
+  #aboutSection h5,
+  #aboutSection h6 {
+    text-align: center;
+  }
+
+  .lately-card,
+  .lately-card p {
+    text-align: left;
   }
 
   .about-photo-frame {
-    height: clamp(130px, 40vw, 170px);
-    width: clamp(130px, 40vw, 170px);
+    height: clamp(87px, 27vw, 113px);
+    width: clamp(87px, 27vw, 113px);
   }
 
   #contactSection .d-flex {

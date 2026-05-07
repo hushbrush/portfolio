@@ -23,6 +23,20 @@ export const fallback = {
 
 const miles = (meters) => `${(meters / 1609.344).toFixed(1)} mi`;
 
+function timeAgo(value) {
+  const then = new Date(value);
+  if (Number.isNaN(then.getTime())) return "";
+  const diffMinutes = Math.max(0, Math.round((Date.now() - then.getTime()) / 60000));
+  if (diffMinutes < 1) return "just now";
+  if (diffMinutes < 60) return `${diffMinutes} min ago`;
+  const diffHours = Math.round(diffMinutes / 60);
+  if (diffHours < 24) return `${diffHours} hr${diffHours === 1 ? "" : "s"} ago`;
+  const diffDays = Math.round(diffHours / 24);
+  if (diffDays < 30) return `${diffDays} day${diffDays === 1 ? "" : "s"} ago`;
+  const diffMonths = Math.round(diffDays / 30);
+  return `${diffMonths} month${diffMonths === 1 ? "" : "s"} ago`;
+}
+
 export function parseEnv(contents) {
   const env = {};
   for (const line of contents.split(/\r?\n/)) {
@@ -163,9 +177,10 @@ async function getStrava(env) {
     if (activity) {
       const type = activity.sport_type || activity.type || "Activity";
       const distance = activity.distance ? ` · ${miles(activity.distance)}` : "";
+      const recency = activity.start_date ? ` · ${timeAgo(activity.start_date)}` : "";
       return {
         label: "MOVING",
-        detail: `${type}${distance}`,
+        detail: `${type}${distance}${recency}`,
       };
     }
   }
@@ -204,11 +219,13 @@ async function getGitHub(env) {
   const repo = push.repo?.name?.split("/").pop() || "a repo";
   const repoUrl = push.repo?.name ? `https://github.com/${push.repo.name}` : "https://github.com/hushbrush/portfolio";
   let message = push.payload?.commits?.[0]?.message;
+  let committedAt = push.created_at;
   if (push.repo?.name) {
     const commitResponse = await fetch(`https://api.github.com/repos/${push.repo.name}/commits?per_page=1`, { headers });
     if (commitResponse.ok) {
       const commits = await commitResponse.json();
       message = commits?.[0]?.commit?.message || message;
+      committedAt = commits?.[0]?.commit?.committer?.date || commits?.[0]?.commit?.author?.date || committedAt;
     }
   }
   return {
@@ -216,6 +233,7 @@ async function getGitHub(env) {
     repo,
     repoUrl,
     detail: (message || "Latest commit").split("\n")[0],
+    recency: committedAt ? timeAgo(committedAt) : "",
   };
 }
 
