@@ -322,10 +322,9 @@ export default function App() {
             </p>
             <p>
               I have some experience as each of those titles, but most recently, I'm a
-              Data Visualization Engineer at <a href="https://www.jurisee.com/">JuriSee</a>,
-              and a Design and Data Fellow at{" "}
-              <a href="https://crafd.io/">CRAF'd (United Nations)</a> in New York. I'm
-              also a recent graduate of the MS Data Viz Program at Parsons.
+              Design and Data Fellow at{" "}
+              <a href="https://crafd.io/">CRAF'd (United Nations)</a> in New York. I'm also
+              a recent graduate of the MS Data Viz Program at Parsons.
             </p>
             <h5>Skills & Tools</h5>
             <ul>

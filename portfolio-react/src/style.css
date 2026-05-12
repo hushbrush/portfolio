@@ -278,8 +278,13 @@ body {
   font-size: inherit;
   font-weight: inherit;
   letter-spacing: inherit;
+  margin-left: 12px;
+  min-width: 0;
+  overflow: hidden;
   text-align: right;
+  text-overflow: ellipsis;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .lately-list {
@@ -292,6 +297,7 @@ body {
   display: grid;
   gap: 18px;
   grid-template-columns: 44px 1fr;
+  min-width: 0;
   padding: 0 0 16px;
 }
 
@@ -322,6 +328,7 @@ body {
   display: grid;
   gap: 2px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .lately-label,
@@ -336,12 +343,26 @@ body {
   font-weight: 700;
   letter-spacing: 0.015em;
   line-height: 1;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #aboutSection .lately-detail {
+  display: -webkit-box;
   font-size: 13px;
   font-weight: 300;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   line-height: 1.15;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 .lately-detail a {
