@@ -55,8 +55,8 @@
         "line": "A collection of 4 dashboards created with a focus on retail management",
         "insights": "During my time at VitaraCharts, this was one of the first dashboards I made for linkedin, to showcase how the tool can be utilised to enhance the native capabilities of MicroStrategy. ",
         "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/retail-4.png" ],
-        "displayType": "static"
-        
+        "displayType": "static",
+        "visible": false
     },
     {
         "projectName": "Misc Dashboards",
@@ -161,7 +161,8 @@
         "insights": "",
         "displayType": "yt",
         "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-1.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-2.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-3.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-4.jpg", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/syu-5.jpg"],
-        "youtubeId": "uCU-jt2gURU"
+        "youtubeId": "uCU-jt2gURU",
+        "visible": false
         
     },
     {
@@ -252,7 +253,8 @@
         "line": "Information Architecture for an AI app that helps users capture their memories by transcripting conversations and calls, and manage their personal knowledge bases.",
         "insights": "",
         "displayType": "static",
-        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-35.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-4.png"]
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-35.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/twinmind-4.png"],
+        "visible": false
         
     },
        {
@@ -261,13 +263,14 @@
         "dateCompleted": "2026-2",
         "client": "JuriSee",
         "elaborationOfClient": "",
-        "categories": "Data, Design, UX",
+        "categories": "Data, UX",
         "tools": "Figma, D3, Javascript/HTML/CSS, Vue.js",
-        "line": "Design and development of interactive web reports for a Human Rights Tech startup. The reports provide users, often victims of systemic legal violations, or their lawyers with insights on whether a particular judge has a history of exploiting the legal system",
+        "line": "interactive web reports for a Human Rights Tech startup. The reports provide users, often victims of systemic legal violations, or their lawyers with insights on whether a particular judge has a history of exploiting the legal system",
         "insights": "This project was enriched by interviews with the target audience, which helped me understand the needs and pain points of the users. The design process involved creating wireframes and prototypes in Figma, which were then developed into interactive web reports using D3.js and Vue.js. The reports are designed to be user-friendly and accessible, providing clear visualizations of the data to help users make informed decisions about their legal cases.",
         "displayType":  "yt",
-        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-8.png",  "https://www.youtube.com/embed/vu0XHYmMEQk?si=TXmyCkpfgIk"  ],
-        "youtubeId": "TXmyCkpfgIk"
+        "previewVideo": "/assets/jurisee/loop.mp4",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/jurisee-8.png" ],
+        "youtubeId": "cbQRZdMUom8"
     },
        {
         "projectName": "Crisis Risk Analytics Fund: Annual Report",
@@ -281,8 +284,9 @@
         "line": "Led the design of data visualizations and infographics, supported the layout and design of the annual report alongside Enerel Enkhsarnai.",
         "insights": "Led the design of data visualizations and infographics, as well as supporting the layout and design of the annual report alongside Enerel Enkhsarnai.",
         "displayType":  "yt",
+        "previewVideo": "/assets/crisis-risk-analytics-fund-annual-report/loop.mp4",
         "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafd-ar-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafd-ar-1.pdf", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafd-ar-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafd-ar-3.pdf" ],
-        "youtubeId": "TXmyCkpfgIk"
+        "youtubeId": "M1hGfQl-cDg"
     },
        {
         "projectName": "Crisis Risk Analytics Fund: Annual Report Website",
@@ -296,8 +300,9 @@
         "line": "Led the design and development of data visualizations, including the interactive design and software development",
         "insights": "Led the design and development of data visualizations, including the interactive design and software development.",
         "displayType":  "yt",
-        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-8.png", "https://www.youtube.com/embed/M1hGfQl-cDg"],
-        "youtubeId": "TXmyCkpfgIk"
+        "previewVideo": "/assets/crisis-risk-analytics-fund-annual-report-website/loop.mp4",
+        "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-2.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-3.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-6.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-7.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/crafdweb-8.png" ],
+        "youtubeId": "M1hGfQl-cDg"
     },
        {
         "projectName": "UN Global Risk Report 2026",
@@ -306,9 +311,10 @@
         "client": "Executive Office of the Secretary General, United Nations",
         "elaborationOfClient": "To better understand and prepare for complex risks, the United Nations has conducted a risk perception survey on 1,300 stakeholders across 155 countries.",
         "displayType":  "yt",
-        "link": "https://www.un.org/en/global-risk-report",  
+        "link": "https://www.un.org/en/global-risk-report",
+        "previewVideo": "/assets/un-global-risk-report-2026/loop.mp4",
         "mediaLinks": [ "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-0.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-1.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-2.png","https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-3.png",  "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-4.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-5.png", "https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-6.png","https://pub-a1d4ce0f35b74135be2f33f818bcfb39.r2.dev/grr-7.png" ],
-        "youtubeId": "TXmyCkpfgIk"
+        "youtubeId": "HROmIo_wjxo"
     }
 
 

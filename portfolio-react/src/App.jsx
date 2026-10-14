@@ -62,8 +62,10 @@ export default function App() {
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
+    const visibleProjects = projects.filter((project) => project.visible !== false);
+
     if (activeWorkFilter === "recent") {
-      return projects.filter((project) => {
+      return visibleProjects.filter((project) => {
         const months =
           (new Date().getFullYear() - parseProjectMonth(project.dateCompleted).getFullYear()) * 12 +
           (new Date().getMonth() - parseProjectMonth(project.dateCompleted).getMonth());
@@ -71,16 +73,17 @@ export default function App() {
       });
     }
     if (activeWorkFilter === "client") {
-      return projects.filter((project) =>
+      return visibleProjects.filter((project) =>
         String(project.client || "").trim()
       );
     }
-    return projects;
+    return visibleProjects;
   }, [activeWorkFilter, projects]);
 
   const mobileProjects = useMemo(
     () =>
       [...projects]
+        .filter((project) => project.visible !== false)
         .sort((a, b) => parseProjectMonth(b.dateCompleted) - parseProjectMonth(a.dateCompleted))
         .slice(0, visibleMobileProjects),
     [projects, visibleMobileProjects]
@@ -93,7 +96,7 @@ export default function App() {
         if (!r.ok) throw new Error(`HTTP error: ${r.status}`);
         return r.json();
       })
-      .then((data) => setProjects(data))
+      .then((data) => setProjects(data.filter((project) => project.visible !== false)))
       .catch((e) => console.error("Error fetching data.json:", e));
   }, []);
 
@@ -322,9 +325,17 @@ export default function App() {
             </p>
             <p>
               I have some experience as each of those titles, but most recently, I'm a
-              Design and Data Fellow at{" "}
-              <a href="https://crafd.io/">CRAF'd (United Nations)</a> in New York. I'm also
-              a recent graduate of the MS Data Viz Program at Parsons.
+              Design Lead at the{" "}
+              <a href="https://www.un.org/sg/en/global-leadership/entity/secretariat-and-regional-commissions/executive-office-of-the-secretary-general">
+                Executive Office of the Secretary General, United Nations 🇺🇳
+              </a>{" "}
+              in New York. I also hold an MS in Data Viz from{" "}
+              <a href="https://www.newschool.edu/parsons/ms-data-visualization/">
+                Parsons
+              </a>, and a B.Des in Visual Communication from{" "}
+              <a href="https://srishtimanipalinstitute.in/academics-overview/programs-courses/4-year-ug-professional-program/vcsb/#">
+                Srishti
+              </a>.
             </p>
             <h5>Skills & Tools</h5>
             <ul>
