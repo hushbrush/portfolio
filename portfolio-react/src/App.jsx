@@ -305,7 +305,12 @@ export default function App() {
                             {item.label}: {splitLatelyDetail(item.detail)[0] || item.detail}
                           </p>
                           <p className="lately-detail">
-                            {splitLatelyDetail(item.detail).slice(1).join(" · ")}
+                            {[
+                              splitLatelyDetail(item.detail).slice(1).join(" · "),
+                              item.recency,
+                            ]
+                              .filter(Boolean)
+                              .join(" · ")}
                           </p>
                         </>
                       )}

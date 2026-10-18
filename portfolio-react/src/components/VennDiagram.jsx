@@ -4,6 +4,10 @@ import * as d3 from "d3";
 const safeId = (name) =>
   name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
 
+const LABEL_MAX_WIDTH = 220;
+const LABEL_LINE_HEIGHT = 16;
+const LABEL_LAYOUT = import.meta.env.VITE_LABEL_LAYOUT || "cap";
+
 const parseProjectMonth = (value) => {
   const match = String(value || "").match(/^(\d{4})-(\d{1,2})$/);
   if (match) return new Date(Number(match[1]), Number(match[2]) - 1, 1);
@@ -103,8 +107,32 @@ function getProjectLabel(project, activeFilter) {
   return "";
 }
 
-function estimateLabelWidth(label) {
-  return Math.min(260, Math.max(72, label.length * 8.2));
+function getLabelLines(label) {
+  const sections = LABEL_LAYOUT === "comma"
+    ? label.split(/,\s*/).map((section, index, all) =>
+        index < all.length - 1 ? `${section},` : section
+      )
+    : [label];
+  const maxCharacters = Math.floor(LABEL_MAX_WIDTH / 8.2);
+
+  return sections.flatMap((section) => {
+    const words = section.split(/\s+/).filter(Boolean);
+    const lines = [];
+    let line = "";
+
+    words.forEach((word) => {
+      const candidate = line ? `${line} ${word}` : word;
+      if (line && candidate.length > maxCharacters) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = candidate;
+      }
+    });
+
+    if (line) lines.push(line);
+    return lines;
+  });
 }
 
 function circleOpacityForProjects(circleId, projects) {
@@ -377,8 +405,14 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
     if (activeFilter === "client" || activeFilter === "recent") {
       data.forEach((d) => {
         d.projectLabel = getProjectLabel(d, activeFilter);
-        d.projectLabelWidth = estimateLabelWidth(d.projectLabel);
-        d.collisionSize = Math.max(d.size + 30, d.projectLabelWidth / 2 + 14);
+        d.projectLabelLines = getLabelLines(d.projectLabel);
+        d.projectLabelWidth = LABEL_MAX_WIDTH;
+        d.projectLabelHeight = d.projectLabelLines.length * LABEL_LINE_HEIGHT + 4;
+        d.collisionSize = Math.max(
+          d.size + 24,
+          d.projectLabelWidth / 2 + 14,
+          d.size + d.projectLabelHeight / 2 + 12
+        );
       });
     }
 
@@ -432,19 +466,36 @@ export default function VennDiagram({ projects, activeFilter, onProjectClick }) 
         .attr("x", (d) => -d.projectLabelWidth / 2 - 5)
         .attr("y", -2)
         .attr("width", (d) => d.projectLabelWidth + 10)
-        .attr("height", 21)
+        .attr("height", (d) => d.projectLabelHeight)
+        .attr("rx", 8)
+        .attr("ry", 8)
         .attr("fill", "#fff");
 
       projectLabels
         .append("text")
         .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "hanging")
+        .attr("dominant-baseline", "middle")
+        .attr(
+          "y",
+          (d) =>
+            (d.projectLabelHeight - 4) / 2 -
+            ((d.projectLabelLines.length - 1) * LABEL_LINE_HEIGHT) / 2
+        )
         .attr("fill", "#000")
         .style("font-family", "'bricolage-grotesque', sans-serif")
         .style("font-size", "14px")
         .style("font-weight", "700")
         .style("letter-spacing", "0")
-        .text((d) => d.projectLabel);
+        .each(function (d) {
+          const text = d3.select(this);
+          d.projectLabelLines.forEach((line, index) => {
+            text
+              .append("tspan")
+              .attr("x", 0)
+              .attr("dy", index === 0 ? 0 : LABEL_LINE_HEIGHT)
+              .text(line);
+          });
+        });
     }
 
     // simulation
